@@ -41,7 +41,9 @@
 			if($nb_datas > 0){
 				echo "<B>",$tab_first_line[$nb_datas], " : </B>",$tab_line[$nb_datas], "<br>";
 			}else{
-				echo "<h3>Nouvelle personne :</h3>";
+				echo "<B>",$tab_line[1], " ",$tab_line[2], "</B><br>";
+				echo "<a href=\"http://cdn.meme.am/instances/400x/53207956.jpg\"> <img src=\"http://cdn.meme.am/instances/400x/53207956.jpg\" width=200 height=200/> </a>";
+				echo "<br>";
 			}
 			$nb_datas = $nb_datas+1;
 		}
