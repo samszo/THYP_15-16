@@ -6,16 +6,17 @@
 	<body>
 	<?php
 	$file_name = "datas_students.csv";
+	$file_extern = "https://docs.google.com/spreadsheets/d/1ED680az81kja4nkUi89PhZldzkdwVrJVF21AwHDf6j8/pub?gid=2078932914&single=true&output=csv";
 	
 	//Recuperation du fichier
-	if (file_exists($file_name)) {
-		$file_read = fopen("$file_name", "r"); 
+	/**if (file_exists($file_extern)) {
+		 
 	}
 	else { 
-		echo "No Files<br />"; 
+		echo "No File<br />"; 
 		exit(); 
-	} 
-	
+	} **/
+	$file_read = fopen("$file_extern", "r");
 	//Recuperation des donnees
 	$nb_line = 1;
 	$tab_datas = array();
@@ -41,9 +42,9 @@
 			if($nb_datas > 0){
 				echo "<B>",$tab_first_line[$nb_datas], " : </B>",$tab_line[$nb_datas], "<br>";
 			}else{
-				echo "<B>",$tab_line[1], " ",$tab_line[2], "</B><br>";
+				echo "<B><h3>",$tab_line[1], " ",$tab_line[2], "</h3></B><br>";
 				echo "<a href=\"http://cdn.meme.am/instances/400x/53207956.jpg\"> <img src=\"http://cdn.meme.am/instances/400x/53207956.jpg\" width=200 height=200/> </a>";
-				echo "<br>";
+				echo "<br><br>";
 			}
 			$nb_datas = $nb_datas+1;
 		}
