@@ -1,10 +1,13 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
+<link rel="stylesheet" type="text/css" href="style.css">
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<title>Trombinoscope des THYP 2015</title>
+<title>Trombinoscope des THYP 2015 by Bachir</title>
 <script src="../js/jquery.min.js" ></script>
 <script src="../js/d3.v3.min.js" ></script>
+<script src="http://d3js.org/d3.v3.min.js"></script>
+<script src="http://labratrevenge.com/d3-tip/javascripts/d3.tip.v0.6.3.js"></script>
 <script>
 	var dataEtu;   
 	$(document).ready(  
@@ -21,19 +24,399 @@
 		                         function()
 		                         {
 		                        	 	//console.log(this.attributes[1].nodeValue);
-		                            $('<div class="items" id="link_' + i + '"></div>').html('<img onclick="voirData(' + i + ')" src="' + this.attributes[1].nodeValue + '" />').appendTo('#Div_XML');
+		                            $('<div class="items" id="link_' + i + '"></div>').html('<img style="width:200px;" onclick="voirData(' + i + ')" src="' + this.attributes[1].nodeValue + '" />').appendTo('#Div_XML');
 			                       i++;
 		                          });
 		                      }
 		        });
 		   d3.csv("data.csv", function(data) {
 			   dataEtu = data;
-			   /*
-			   data.forEach(function(d,i){
-				   console.log(d.idPhoto+" "+d.Nom);
+			   
+			   data.forEach(function(dataE,i){
+				  
+				  
+				  /**/
+				  
+				  
+				  var width = 500,
+						height = 500,
+						radius = Math.min(width, height) / 2,
+						innerRadius = 0.3 * radius;
+
+					var pie = d3.layout.pie()
+						.sort(null)
+						.value(function(d) { return d.width; });
+
+					var tip = d3.tip()
+					  .attr('class', 'd3-tip')
+					  .offset([0, 0])
+					  .html(function(d) {
+						return d.data.label + ": <span style='color:orangered'>" + d.data.score + "</span>";
+					  });
+
+					var arc = d3.svg.arc()
+					  .innerRadius(innerRadius)
+					  .outerRadius(function (d) { 
+						return (radius - innerRadius) * (d.data.score / 100.0) + innerRadius; 
+					  });
+
+					var outlineArc = d3.svg.arc()
+							.innerRadius(innerRadius)
+							.outerRadius(radius);
+
+					var svg = d3.select("body").append("svg")
+						.attr("width", width)
+						.attr("height", height)
+						.append("g")
+						.attr("transform", "translate(" + width / 2 + "," + height / 2 + ")");
+
+					svg.call(tip);
+
+					d3.csv('aster_data.csv', function(error, data) {
+
+					  data.forEach(function(d) {
+				
+					var valeur=0;
+										
+							switch(d.label) {
+								case "JAVA":			
+										
+										switch(dataE.JAVA) {
+											case "null":
+												valeur = 0;
+												break;
+											case "moins null":
+												valeur = 20;
+												break;
+											case "bon":
+												valeur = 40;
+												break;
+											case "trop bon":
+												valeur = 60;
+												break;	
+											case "expert":
+												valeur = 80;
+												break;		
+
+											}
+								break;
+								case "JAVASCRIPT":			
+										
+										switch(dataE.JAVASCRIPT) {
+											case "null":
+												valeur = 0;
+												break;
+											case "moins null":
+												valeur = 20;
+												break;
+											case "bon":
+												valeur = 40;
+												break;
+											case "trop bon":
+												valeur = 60;
+												break;	
+											case "expert":
+												valeur = 80;
+												break;		
+
+											}
+								break;
+								case "CSS":			
+										
+										switch(dataE.CSS) {
+											case "null":
+												valeur = 0;
+												break;
+											case "moins null":
+												valeur = 20;
+												break;
+											case "bon":
+												valeur = 40;
+												break;
+											case "trop bon":
+												valeur = 60;
+												break;	
+											case "expert":
+												valeur = 80;
+												break;		
+
+											}
+								break;
+								case "HTML":			
+										
+										switch(dataE.HTML) {
+											case "null":
+												valeur = 0;
+												break;
+											case "moins null":
+												valeur = 20;
+												break;
+											case "bon":
+												valeur = 40;
+												break;
+											case "trop bon":
+												valeur = 60;
+												break;	
+											case "expert":
+												valeur = 80;
+												break;		
+
+											}
+								break;
+								case "PHP":			
+										
+										switch(dataE.PHP) {
+											case "null":
+												valeur = 0;
+												break;
+											case "moins null":
+												valeur = 20;
+												break;
+											case "bon":
+												valeur = 40;
+												break;
+											case "trop bon":
+												valeur = 60;
+												break;	
+											case "expert":
+												valeur = 80;
+												break;		
+
+											}
+								break;
+								case "SVG":			
+										
+										switch(dataE.SVG) {
+											case "null":
+												valeur = 0;
+												break;
+											case "moins null":
+												valeur = 20;
+												break;
+											case "bon":
+												valeur = 40;
+												break;
+											case "trop bon":
+												valeur = 60;
+												break;	
+											case "expert":
+												valeur = 80;
+												break;		
+
+											}
+								break;
+								case "OWL":			
+										
+										switch(dataE.OWL) {
+											case "null":
+												valeur = 0;
+												break;
+											case "moins null":
+												valeur = 20;
+												break;
+											case "bon":
+												valeur = 40;
+												break;
+											case "trop bon":
+												valeur = 60;
+												break;	
+											case "expert":
+												valeur = 80;
+												break;		
+
+											}
+								break;
+								case "XML":			
+										
+										switch(dataE.XML) {
+											case "null":
+												valeur = 0;
+												break;
+											case "moins null":
+												valeur = 20;
+												break;
+											case "bon":
+												valeur = 40;
+												break;
+											case "trop bon":
+												valeur = 60;
+												break;	
+											case "expert":
+												valeur = 80;
+												break;		
+
+											}
+								break;
+								case "SCALA":			
+										
+										switch(dataE.SCALA) {
+											case "null":
+												valeur = 0;
+												break;
+											case "moins null":
+												valeur = 20;
+												break;
+											case "bon":
+												valeur = 40;
+												break;
+											case "trop bon":
+												valeur = 60;
+												break;	
+											case "expert":
+												valeur = 80;
+												break;		
+
+											}
+								break;
+								case ".NET":			
+										
+										switch(dataE.NET) {
+											case "null":
+												valeur = 0;
+												break;
+											case "moins null":
+												valeur = 20;
+												break;
+											case "bon":
+												valeur = 40;
+												break;
+											case "trop bon":
+												valeur = 60;
+												break;	
+											case "expert":
+												valeur = 80;
+												break;		
+
+											}
+								break;
+								case "JSON":			
+										
+										switch(dataE.JSON) {
+											case "null":
+												valeur = 0;
+												break;
+											case "moins null":
+												valeur = 20;
+												break;
+											case "bon":
+												valeur = 40;
+												break;
+											case "trop bon":
+												valeur = 60;
+												break;	
+											case "expert":
+												valeur = 80;
+												break;		
+
+											}
+								break;
+								
+								case "OBJECTIF-C":			
+										
+										switch(dataE.ObjectiveC) {
+											case "null":
+												valeur = 0;
+												break;
+											case "moins null":
+												valeur = 20;
+												break;
+											case "bon":
+												valeur = 40;
+												break;
+											case "trop bon":
+												valeur = 60;
+												break;	
+											case "expert":
+												valeur = 80;
+												break;		
+
+											}
+								break;
+								
+								case "ANDROID":			
+										
+										switch(dataE.ANDROID) {
+											case "null":
+												valeur = 0;
+												break;
+											case "moins null":
+												valeur = 20;
+												break;
+											case "bon":
+												valeur = 40;
+												break;
+											case "trop bon":
+												valeur = 60;
+												break;	
+											case "expert":
+												valeur = 80;
+												break;		
+
+											}
+								break;
+								
+								
+								}
+
+						d.id     =  d.id;
+						d.order  = +d.order;
+						d.color  =  d.color;
+						d.weight = +1;
+						d.score  = +valeur;
+						d.width  = +d.weight;
+						d.label  =  d.label;
+					  });
+					  // for (var i = 0; i < data.score; i++) { console.log(data[i].id) }
+					  
+					  var path = svg.selectAll(".solidArc")
+						  .data(pie(data))
+						.enter().append("path")
+						  .attr("fill", function(d) { return d.data.color; })
+						  .attr("class", "solidArc")
+						  .attr("stroke", "gray")
+						  .attr("d", arc)
+						  .on('mouseover', tip.show)
+						  .on('mouseout', tip.hide);
+
+					  var outerPath = svg.selectAll(".outlineArc")
+						  .data(pie(data))
+						.enter().append("path")
+						  .attr("fill", "none")
+						  .attr("stroke", "gray")
+						  .attr("class", "outlineArc")
+						  .attr("d", outlineArc);  
+
+
+					  // calculate the weighted mean score
+					  var score = 
+						data.reduce(function(a, b) {
+						  //console.log('a:' + a + ', b.score: ' + b.score + ', b.weight: ' + b.weight);
+						  return a + (b.score * b.weight); 
+						}, 0) / 
+						data.reduce(function(a, b) { 
+						  return a + b.weight; 
+						}, 0);
+
+					  svg.append("svg:text")
+						.attr("class", "aster-score")
+						.attr("dy", ".35em")
+						.attr("text-anchor", "middle") // text-align: right
+						.text(dataE.Nom);
+
+					});
+									  
+									  
+									  
+				  
+				  
+				  
+				  
+				  /**/
+				  
 			   })
-			   */
-			 });		   		   
+			   
+			 });
+				
 		  }
 		);
 	
@@ -43,14 +426,51 @@
 			if(d.idPhoto==id && d.idPhoto!=""){
                 $('<div class="data" id="data_' + id + '"></div>').html(d.Prénom+" "+d.Nom).appendTo('#link_' + id);
 				
+				
+
+				
 			}
+			
+			
+			
 		})
 		
 	}
 </script>
+
 </head>
-<body  >
+<body>
+<div style="text-align: center;font-size: 25px;"><h1> Trombinoscope </h1></div>
 <div id="Div_XML"></div>
 
+
+
+
 </body>
+
+<style>
+.items
+{
+    display: inline-block;
+    margin: 12px 12px;
+
+}
+
+.popup
+{
+    display: block;
+    z-index: 3;
+    width: 600px;
+    height: 600px;
+    background-color: #d7d7d7;
+    position: absolute;
+    top: 40px;
+    /* margin: 0 auto; */
+    margin: auto;
+    left: 0;
+    right: 0;
+}
+
+</style>
+
 </html>
