@@ -12,7 +12,7 @@
 		 {
 		   $.ajax( {
 		            type: "GET",
-		            url: "photo1516.xml",
+		            url: "pic.xml",
 		            dataType: "xml",
 		            success: function(xml) 
 		                     {
@@ -26,13 +26,16 @@
 		                          });
 		                      }
 		        });
-		   d3.csv("data1516.csv", function(data) {
+		   d3.csv("donnee.csv", function(data) {
 			   dataEtu = data;
-			   /*
+			    console.log(data);
+
+			   
 			   data.forEach(function(d,i){
-				   console.log(d.idPhoto+" "+d.Nom);
+				   //console.log(d.idPhoto+" "+d.Nom);
+				  // console.log(d);
 			   })
-			   */
+			   
 			 });		   		   
 		  }
 		);
@@ -41,8 +44,13 @@
 		//chercher les data
 		dataEtu.forEach(function(d){
 			if(d.idPhoto==id && d.idPhoto!=""){
-                $('<div class="data" id="data_' + id + '"></div>').html(d.Prénom+" "+d.Nom).appendTo('#link_' + id);
+
 				
+				var name = "Langages informatiques [CSS]";
+              // $('<div class="data" id="data_' + id + '"></div>').html(d.mail+" "+d.Nom).appendTo('#link_' + id);
+              $('<div class="data" id="data_' + id + '"></div>').html(""+d.name).appendTo('#link_' + id);
+              
+					
 			}
 		})
 		

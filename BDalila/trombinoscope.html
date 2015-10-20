@@ -12,7 +12,7 @@
 		 {
 		   $.ajax( {
 		            type: "GET",
-		            url: "photo1516.xml",
+		            url: "../php/lecteurFlux.php?url=THYP1516photo",
 		            dataType: "xml",
 		            success: function(xml) 
 		                     {
@@ -26,7 +26,7 @@
 		                          });
 		                      }
 		        });
-		   d3.csv("data1516.csv", function(data) {
+		   d3.csv("../php/lecteurFlux.php?url=THYP1516data", function(data) {
 			   dataEtu = data;
 			   /*
 			   data.forEach(function(d,i){
@@ -41,7 +41,7 @@
 		//chercher les data
 		dataEtu.forEach(function(d){
 			if(d.idPhoto==id && d.idPhoto!=""){
-                $('<div class="data" id="data_' + id + '"></div>').html(d.PrÃ©nom+" "+d.Nom).appendTo('#link_' + id);
+                $('<div class="data" id="data_' + id + '"></div>').html(d.Prénom+" "+d.Nom).appendTo('#link_' + id);
 				
 			}
 		})
