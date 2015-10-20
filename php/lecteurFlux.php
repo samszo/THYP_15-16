@@ -8,10 +8,10 @@ $arrUrl = array("cdnl1516photo"=>"https://picasaweb.google.com/data/feed/base/us
 curl($arrUrl[$_GET['url']]);
 
 function curl($url){
-    
 	$handle = curl_init();
 	curl_setopt($handle, CURLOPT_URL, $url);
     curl_setopt($handle, CURLOPT_RETURNTRANSFER, true);
+    curl_setopt($handle, CURLOPT_SSL_VERIFYPEER, false);
     $response = curl_exec($handle);
     curl_close($handle);
     
