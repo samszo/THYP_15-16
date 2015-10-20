@@ -1,0 +1,180 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <meta charset="utf-8">
+
+  <link rel="stylesheet" type="text/css" href="style.css">
+  <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+  <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
+
+  <script type="text/javascript" src="radialProgress.js"></script>
+  <script src="http://d3js.org/d3.v3.min.js"></script>
+
+  <title>Trombinoscope des THYP 2015</title>
+  <script>
+	var dataEtu; 
+	var dataChart;   
+	$(document).ready(  
+		 function()
+		 {
+		 	d3.csv("data.csv", function(data) {
+			   dataEtu = data;
+			   
+			   data.forEach(function(d,i){
+				 console.log(d.idPhoto+" "+d.Nom);
+			   })
+			   
+			 });
+
+		   $.ajax( {
+		            type: "GET",
+		            url: "info.xml",
+		            dataType: "xml",
+		            success: function(xml) 
+		                     {
+		            		var i=0;
+		                        $(xml).find('enclosure').each(   
+		                        function()
+		                         {
+		                            $('<div class="col-sm-5 col-md-2"></div>').html('<div class="thumbnail"><img  onclick="voirData(' + i + ')" data-toggle="modal" data-target="#myModal"  width=210 height=280 src="' + this.attributes[1].nodeValue + '" /></div>').appendTo('.row');
+			                       i++;
+		                          });
+		                      }
+		        });
+		   		   		   
+		  }
+		);
+
+	function voirData(id){
+		if(dataChart === undefined){
+			createChartData();
+		}
+		//reset modal
+		$('.modal-body').html(' ');
+		$('.skill').html(' ');
+		//chercher les data
+		dataEtu.forEach(function(d){
+			if(d.idPhoto==id && d.idPhoto!=""){
+            		    $('<h3></h3>').html(d.Prénom + " " + d.Nom).appendTo('.modal-body');
+  						$('<ul class="list-unstyled"></ul>').html('</li>' + d.mail + '</li>').appendTo('.modal-body'); 
+  						start(id);        		    	
+			}
+		})
+		
+	}
+
+	
+
+	function createChartData(){
+		dataChart = [];
+		dataEtu.forEach(function(d){
+			var row = [];
+			row.push(["js","1", score(d.javascript),"0.5","#9E0041","javascript"]); 
+			row.push(["HTML","0.5", score(d.HTML),"0.5","#9EFF41","HTML"]); 
+			row.push(["PHP","1", score(d.PHP),"0.5","#9E0041","PHP"]); 
+			row.push(["JAVA","0.5", score(d.JAVA),"0.5","#9EFF41","JAVA"]); 
+			dataChart.push(row);
+			row = [];
+		})	
+	}
+
+	function score(d){
+		if(d === "nul") {
+			return 0;
+		} else if(d === "moins nul") {
+			return 20;
+		} else if(d === "bon"){
+			return 50;
+		} else if(d === "trop bon") {
+			return 80;
+		} else {
+			return 100;
+		}
+	}
+
+	var div1=d3.select(document.getElementById('js_skill'));
+    var div2=d3.select(document.getElementById('html_skill'));
+    var div3=d3.select(document.getElementById('java_skill'));
+    var div4=d3.select(document.getElementById('php_skill'));
+    
+
+    function start(id) {
+    	var etudiant = dataChart[id].valueOf();
+    	console.log(etudiant);
+
+        var rp1 = radialProgress(document.getElementById('js_skill'))
+                .label("JavaScript")
+                .diameter(150)
+                .minValue(0)
+                .maxValue(100)
+                .value(etudiant[0][2])
+                .render();
+
+        var rp2 = radialProgress(document.getElementById('html_skill'))
+                .label("HTML")
+                .minValue(0)
+                .maxValue(100)
+                .diameter(150)
+                .value(etudiant[1][2])
+                .render();
+
+        var rp3 = radialProgress(document.getElementById('java_skill'))
+                .label("JAVA")
+                .diameter(150)
+                .minValue(0)
+                .maxValue(100)
+                .value(etudiant[3][2])
+                .render();
+        var rp4 = radialProgress(document.getElementById('php_skill'))
+                .label("PHP")
+                .diameter(150)
+                .minValue(0)
+                .maxValue(100)
+                .value(etudiant[2][2])
+                .render();
+    }
+
+
+</script>
+</head>
+<body>
+
+
+
+<div class="container">
+	<h1 class="header text-primary">Trombinoscope</h1>
+	<div class="row jumbotron">
+	 
+	</div>
+	 <!-- Modal -->
+  <!-- Modal -->
+  <div class="modal fade" id="myModal" role="dialog">
+	    <div class="modal-dialog">
+	    
+		      <!-- Modal content-->
+		      <div class="modal-content" style="height: 400px">
+		        <div class="modal-header">
+		          <button type="button" class="close" data-dismiss="modal">&times;</button>
+		          <h4 class="modal-title">Infos & Skills</h4>
+		        </div>
+		        
+		        <div class="modal-body" >
+					
+	        	
+		        </div>
+		         <div class="col-sm-12">
+			        <div class="col-sm-3" class="skill" id="js_skill"></div>
+			        <div class="col-sm-3" class="skill" id="html_skill"></div>   
+			        <div class="col-sm-3" class="skill" id="java_skill"></div>
+			        <div class="col-sm-3" class="skill" id="php_skill"></div>
+				</div>
+		       
+	    </div>
+  </div>
+
+</div>
+
+</body>
+</html>
