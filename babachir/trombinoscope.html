@@ -9,36 +9,14 @@
 <script src="http://d3js.org/d3.v3.min.js"></script>
 <script src="http://labratrevenge.com/d3-tip/javascripts/d3.tip.v0.6.3.js"></script>
 <script>
-	var dataEtu;   
-	$(document).ready(  
-		 function()
-		 {
-		   $.ajax( {
-		            type: "GET",
-		            url: "photo.xml",
-		            dataType: "xml",
-		            success: function(xml) 
-		                     {
-		            				var i=0;
-		                       $(xml).find('enclosure').each(   
-		                         function()
-		                         {
-		                        	 	//console.log(this.attributes[1].nodeValue);
-		                            $('<div class="items" id="link_' + i + '"></div>').html('<img style="width:200px;" onclick="voirData(' + i + ')" src="' + this.attributes[1].nodeValue + '" />').appendTo('#Div_XML');
-			                       i++;
-		                          });
-		                      }
-		        });
-		   d3.csv("data.csv", function(data) {
-			   dataEtu = data;
-			   
-			   data.forEach(function(dataE,i){
-				  
-				  
-				  /* code graphe */
-				  
-				  
-				  var width = 500,
+	var dataEtu;
+	var competence = {"nul": 0 , "moins nul": 20, "bon":60, "trop bon":80, "expert":100};
+	
+
+	function draw(dataE,i)
+	{
+
+						  var width = 500,
 						height = 500,
 						radius = Math.min(width, height) / 2,
 						innerRadius = 0.3 * radius;
@@ -64,6 +42,7 @@
 							.innerRadius(innerRadius)
 							.outerRadius(radius);
 
+
 					var svg = d3.select("body").append("svg")
 						.attr("width", width)
 						.attr("height", height)
@@ -80,279 +59,57 @@
 										
 							switch(d.label) {
 								case "JAVA":			
-										
-										switch(dataE.JAVA) {
-											case "null":
-												valeur = 0;
-												break;
-											case "moins null":
-												valeur = 20;
-												break;
-											case "bon":
-												valeur = 40;
-												break;
-											case "trop bon":
-												valeur = 60;
-												break;	
-											case "expert":
-												valeur = 80;
-												break;		
-
-											}
+									valeur = competence[dataE.JAVA]; 
 								break;
 								case "JAVASCRIPT":			
 										
-										switch(dataE.JAVASCRIPT) {
-											case "null":
-												valeur = 0;
-												break;
-											case "moins null":
-												valeur = 20;
-												break;
-											case "bon":
-												valeur = 40;
-												break;
-											case "trop bon":
-												valeur = 60;
-												break;	
-											case "expert":
-												valeur = 80;
-												break;		
-
-											}
+									valeur = competence[dataE.JAVASCRIPT]; 
 								break;
 								case "CSS":			
-										
-										switch(dataE.CSS) {
-											case "null":
-												valeur = 0;
-												break;
-											case "moins null":
-												valeur = 20;
-												break;
-											case "bon":
-												valeur = 40;
-												break;
-											case "trop bon":
-												valeur = 60;
-												break;	
-											case "expert":
-												valeur = 80;
-												break;		
-
-											}
+											
+										valeur = competence[dataE.CSS]; 
 								break;
 								case "HTML":			
 										
-										switch(dataE.HTML) {
-											case "null":
-												valeur = 0;
-												break;
-											case "moins null":
-												valeur = 20;
-												break;
-											case "bon":
-												valeur = 40;
-												break;
-											case "trop bon":
-												valeur = 60;
-												break;	
-											case "expert":
-												valeur = 80;
-												break;		
-
-											}
+										valeur = competence[dataE.HTML]; 
 								break;
 								case "PHP":			
 										
-										switch(dataE.PHP) {
-											case "null":
-												valeur = 0;
-												break;
-											case "moins null":
-												valeur = 20;
-												break;
-											case "bon":
-												valeur = 40;
-												break;
-											case "trop bon":
-												valeur = 60;
-												break;	
-											case "expert":
-												valeur = 80;
-												break;		
-
-											}
+									valeur = competence[dataE.PHP]; 
 								break;
 								case "SVG":			
 										
-										switch(dataE.SVG) {
-											case "null":
-												valeur = 0;
-												break;
-											case "moins null":
-												valeur = 20;
-												break;
-											case "bon":
-												valeur = 40;
-												break;
-											case "trop bon":
-												valeur = 60;
-												break;	
-											case "expert":
-												valeur = 80;
-												break;		
-
-											}
+									valeur = competence[dataE.SVG]; 
 								break;
 								case "OWL":			
 										
-										switch(dataE.OWL) {
-											case "null":
-												valeur = 0;
-												break;
-											case "moins null":
-												valeur = 20;
-												break;
-											case "bon":
-												valeur = 40;
-												break;
-											case "trop bon":
-												valeur = 60;
-												break;	
-											case "expert":
-												valeur = 80;
-												break;		
-
-											}
+									valeur = competence[dataE.OWL]; 
 								break;
 								case "XML":			
 										
-										switch(dataE.XML) {
-											case "null":
-												valeur = 0;
-												break;
-											case "moins null":
-												valeur = 20;
-												break;
-											case "bon":
-												valeur = 40;
-												break;
-											case "trop bon":
-												valeur = 60;
-												break;	
-											case "expert":
-												valeur = 80;
-												break;		
-
-											}
+									valeur = competence[dataE.XML]; 
 								break;
 								case "SCALA":			
 										
-										switch(dataE.SCALA) {
-											case "null":
-												valeur = 0;
-												break;
-											case "moins null":
-												valeur = 20;
-												break;
-											case "bon":
-												valeur = 40;
-												break;
-											case "trop bon":
-												valeur = 60;
-												break;	
-											case "expert":
-												valeur = 80;
-												break;		
-
-											}
+									valeur = competence[dataE.SCALA]; 
 								break;
 								case ".NET":			
 										
-										switch(dataE.NET) {
-											case "null":
-												valeur = 0;
-												break;
-											case "moins null":
-												valeur = 20;
-												break;
-											case "bon":
-												valeur = 40;
-												break;
-											case "trop bon":
-												valeur = 60;
-												break;	
-											case "expert":
-												valeur = 80;
-												break;		
-
-											}
+									valeur = competence[dataE.NET]; 
 								break;
 								case "JSON":			
 										
-										switch(dataE.JSON) {
-											case "null":
-												valeur = 0;
-												break;
-											case "moins null":
-												valeur = 20;
-												break;
-											case "bon":
-												valeur = 40;
-												break;
-											case "trop bon":
-												valeur = 60;
-												break;	
-											case "expert":
-												valeur = 80;
-												break;		
-
-											}
+									valeur = competence[dataE.JSON]; 
 								break;
 								
 								case "OBJECTIF-C":			
 										
-										switch(dataE.ObjectiveC) {
-											case "null":
-												valeur = 0;
-												break;
-											case "moins null":
-												valeur = 20;
-												break;
-											case "bon":
-												valeur = 40;
-												break;
-											case "trop bon":
-												valeur = 60;
-												break;	
-											case "expert":
-												valeur = 80;
-												break;		
-
-											}
+									valeur = competence[dataE.ObjectiveC]; 
 								break;
 								
 								case "ANDROID":			
 										
-										switch(dataE.ANDROID) {
-											case "null":
-												valeur = 0;
-												break;
-											case "moins null":
-												valeur = 20;
-												break;
-											case "bon":
-												valeur = 40;
-												break;
-											case "trop bon":
-												valeur = 60;
-												break;	
-											case "expert":
-												valeur = 80;
-												break;		
-
-											}
+									valeur = competence[dataE.ANDROID]; 
 								break;
 								
 								
@@ -406,8 +163,66 @@
 					});
 									  
 									  
-									  
+								
+	}
+
+
+
+		function voirData(id){
+		//chercher les data
+		dataEtu.forEach(function(d){
+			if(d.idPhoto==id && d.idPhoto!=""){
+				/*d.Prénom+" "+d.Nom*/
+                $('<div class="data" id="data_' + id + '"></div>').html("<p><b> Prenom : "+d.Prénom+" <br/> nom : "+d.Nom+"</b></p>").appendTo('#link_' + id);
+                $('<div class="graph" id="graph_' + id + '"></div>').html(" ").appendTo('#link_' + id);
+
+
+       
+			}
+			
+			
+			
+		})
+		
+	}
+
+	d3.csv("data.csv", function(data) {
+			   dataEtu = data;
+			});
+
+
+	$(document).ready(  
+		 function()
+		 {
+		   $.ajax( {
+		            type: "GET",
+		            url: "photo.xml",
+		            dataType: "xml",
+		            success: function(xml) 
+		                     {
+		            				var i=0;
+		                       $(xml).find('enclosure').each(   
+		                         function()
+		                         {
+		                        	 	//console.log(this.attributes[1].nodeValue);
+		                            $('<div class="items" id="link_' + i + '"></div>').html('<img class="image" style="width:250px;"  src="' + this.attributes[1].nodeValue + '" />').appendTo('#Div_XML');
+		                            voirData(i);
+
+			                       i++;
+		                          });
+		                      }
+		        });
+		   d3.csv("data.csv", function(data) {
+			   dataEtu = data;
+			   
+			   data.forEach(function(dataE,i){
 				  
+				  
+				  /* code graphe */
+				  
+				  
+	  
+				  draw(dataE,i);
 				  
 				  
 				  
@@ -420,22 +235,7 @@
 		  }
 		);
 	
-	function voirData(id){
-		//chercher les data
-		dataEtu.forEach(function(d){
-			if(d.idPhoto==id && d.idPhoto!=""){
-                $('<div class="data" id="data_' + id + '"></div>').html(d.Prénom+" "+d.Nom).appendTo('#link_' + id);
-				
-				
 
-				
-			}
-			
-			
-			
-		})
-		
-	}
 </script>
 
 </head>
@@ -449,10 +249,29 @@
 </body>
 
 <style>
+.data
+{
+	width: 135px;
+    display: block;
+    float: left;
+    padding: 0px 10px;
+    font-size: 14px;
+}
+
+.image
+{
+	width: 250px;
+    display: block;
+    float: left;
+}
+
 .items
 {
-    display: inline-block;
-    margin: 12px 12px;
+display: block;
+    /* margin: 12px 12px; */
+    width: 1070px;
+    margin: 10px auto;
+    height: 476px;
 
 }
 
@@ -469,6 +288,13 @@
     margin: auto;
     left: 0;
     right: 0;
+}
+
+.graph
+{
+	width: 665px;
+    height: 477px;
+    float: left;
 }
 
 </style>
