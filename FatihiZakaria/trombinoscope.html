@@ -52,7 +52,6 @@
 		  }
 		);
 	
-	
 	function voirData(id){
 		//chercher les data
 		dataEtu.forEach(function(d){
@@ -62,14 +61,11 @@
 		})
 	}
 	
-	
-	
 	function voirDataLogin(d){
 		var h = d.Prénom+" "+d.Nom
 			+"<br/>"
 			+"<a href='"+urlDiigo+d["login Diigo"]+"'><img height='32px' src='../img/diigo.jpg' /></a>"
 			+"<a href='"+urlGit+d["login Github"]+"'><img height='32px' src='../img/Octocat.png' /></a>"
-			+"<a href='"+urlGit+d["login Github"]+"'>ici</a>"
               $('<div class="data" id="data_' + d.idPhoto + '"></div>').html(h).appendTo('#link_' + d.idPhoto);
 		
 	}
