@@ -1,3 +1,6 @@
+/* Project : Aster Plot in D3
+Source : http://bl.ocks.org/bbest/2de0e25d4840c68f2db1 */
+
 body {
   font: 10px sans-serif;
 }
@@ -31,7 +34,7 @@ body {
 .aster-score { 
   line-height: 1;
   font-weight: bold;
-  font-size: 24px;
+  font-size: 500%;
 }
 
 .d3-tip {

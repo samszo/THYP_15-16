@@ -3,26 +3,15 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>Trombinoscope des THYP 2015</title>
-<script src="../js/jquery.min.js" ></script>
-<script src="../js/d3.v3.min.js" ></script>
+<script src="../../js/jquery.min.js" ></script>
+<script src="../../js/d3.v3.min.js" ></script>
+<script src="http://d3js.org/d3.v3.min.js"></script>
+<script src="http://labratrevenge.com/d3-tip/javascripts/d3.tip.v0.6.3.js"></script>
 <style>
-.items{
-	display:flex;	
-	padding: 3px;
-}
-.data{
-	float:left;
-	margin: 3px;
-}
-.iTof{
-	float:left;
-}
 </style>
 <script>
+
 	var dataEtu;   
-	var urlGit = "https://github.com/";
-	var urlDiigo = "https://www.diigo.com/user/";
-	
 	$(document).ready(  
 		 function()
 		 {
@@ -37,50 +26,37 @@
 		                         function()
 		                         {
 		                        	 	//console.log(this.attributes[1].nodeValue);
-		                            $('<div class="items" id="link_' + i + '"></div>').html('<img class="iTof" onclick="voirData(' + i + ')" src="' + this.attributes[1].nodeValue + '" />').appendTo('#Div_XML');
+		                            $('<div class="items" id="link_' + i + '"></div>').html('<img onclick="voirData(' + i + ')" src="' + this.attributes[1].nodeValue + '" />').appendTo('#Div_XML');
 			                       i++;
 		                          });
 		                      }
 		        });
 		   d3.csv("../php/lecteurFlux.php?url=THYP1516data", function(data) {
 			   dataEtu = data;
+			   /*
 			   data.forEach(function(d,i){
 				   console.log(d.idPhoto+" "+d.Nom);
-				   voirDataLogin(d);
 			   })
+			   */
 			 });		   		   
 		  }
 		);
-	
 	
 	function voirData(id){
 		//chercher les data
 		dataEtu.forEach(function(d){
 			if(d.idPhoto==id && d.idPhoto!=""){
+                $('<div class="data" id="data_' + id + '"></div>').html(d.Prénom+" "+d.Nom).appendTo('#link_' + id);
 				
 			}
 		})
-	}
-	
-	
-	
-	function voirDataLogin(d){
-		var h = d.Prénom+" "+d.Nom
-			+"<br/>"
-			+"<a href='"+urlDiigo+d["login Diigo"]+"'><img height='32px' src='../img/diigo.jpg' /></a>"
-			+"<a href='"+urlGit+d["login Github"]+"'><img height='32px' src='../img/Octocat.png' /></a>"
-			+"<a href='"+urlGit+d["login Github"]+"'>ici</a>"
-              $('<div class="data" id="data_' + d.idPhoto + '"></div>').html(h).appendTo('#link_' + d.idPhoto);
 		
 	}
-	
 </script>
 </head>
 <body  >
 
 <div id="Div_XML"></div>
-
-
 
 </body>
 </html>

@@ -1,6 +1,7 @@
 /* Project : Aster Plot in D3
 Source : http://bl.ocks.org/bbest/2de0e25d4840c68f2db1 */
 
+var rNiveau ={"nul":10:"moins nul":25,"Bon":20,"expert":100}
 
 var width = 250,
     height = 250,
@@ -18,6 +19,8 @@ var tip = d3.tip()
     return d.data.label + ": <span style='color:orangered'>" + d.data.score + "</span>";
   });
 
+  //svg : langugage xml pour créer des graphiques depuis le HTML5 on peut intégrer du svg directement dans la page
+  //svg yoyo design
 var arc = d3.svg.arc()
   .innerRadius(innerRadius)
   .outerRadius(function (d) { 
@@ -33,7 +36,7 @@ var svg = d3.select("body").append("svg")
     .attr("height", height)
     .append("g")
     .attr("transform", "translate(" + width / 2 + "," + height / 2 + ")");
-
+//lier la fenetre tip au svg
 svg.call(tip);
 
 d3.csv('aster_data.csv', function(error, data) {

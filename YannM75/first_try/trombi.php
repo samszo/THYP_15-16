@@ -46,19 +46,19 @@
 				if(strpos($tab_first_line[$nb_datas],"Langages informatiques")!== FALSE){
 					if(strpos($tab_line[$nb_datas],"expert")!== FALSE){
 						echo $tab_line[$nb_datas].$nb_datas . "," . $nb_datas . "," . "100" . "," . "25" . "," . "#9E0000" . "," . $tab_first_line[$nb_datas];
-						$lines_csv[] = array($tab_line[$nb_datas], $nb_datas, "100", "25", "#9E0000" , $tab_first_line[$nb_datas]);
+						//$lines_csv[] = array($tab_line[$nb_datas], $nb_datas, "100", "25", "#9E0000" , $tab_first_line[$nb_datas]);
 					}elseif(strpos($tab_line[$nb_datas],"trop bon")!== FALSE){
 						echo $tab_line[$nb_datas].$nb_datas . "," . $nb_datas . "," . "75" . "," . "25" . "," . "#9A0041" . "," . $tab_first_line[$nb_datas];
-						$lines_csv[] =  array($tab_line[$nb_datas],$nb_datas,"75","25","#9A0041",$tab_first_line[$nb_datas]);
+						//$lines_csv[] =  array($tab_line[$nb_datas],$nb_datas,"75","25","#9A0041",$tab_first_line[$nb_datas]);
 					}elseif(strpos($tab_line[$nb_datas],"bon")!== FALSE){
 						echo $tab_line[$nb_datas].$nb_datas . "," . $nb_datas . "," . "50" . "," . "25" . "," . "#8E0041" . "," . $tab_first_line[$nb_datas];
-						$lines_csv[] =  array($tab_line[$nb_datas],$nb_datas,"50","25","#8E0041",$tab_first_line[$nb_datas]);
+						//$lines_csv[] =  array($tab_line[$nb_datas],$nb_datas,"50","25","#8E0041",$tab_first_line[$nb_datas]);
 					}elseif(strpos($tab_line[$nb_datas],"moins nul")!== FALSE){
 						echo $tab_line[$nb_datas].$nb_datas . "," . $nb_datas . "," . "25" . "," . "25" . "," . "#5E0041" . "," . $tab_first_line[$nb_datas];
-						$lines_csv[] =  array($tab_line[$nb_datas],$nb_datas,"25","25","#5E0041",$tab_first_line[$nb_datas]);
+						//$lines_csv[] =  array($tab_line[$nb_datas],$nb_datas,"25","25","#5E0041",$tab_first_line[$nb_datas]);
 					}else{
 						echo $tab_line[$nb_datas] . "," . $nb_datas . "," . "0" . "," . "25" . "," . "#4E0041" . "," . $tab_first_line[$nb_datas];
-						$lines_csv[] =  array($tab_line[$nb_datas],$nb_datas,"0","25","#4E0041",$tab_first_line[$nb_datas]);
+						//$lines_csv[] =  array($tab_line[$nb_datas],$nb_datas,"0","25","#4E0041",$tab_first_line[$nb_datas]);
 					}
 					
 				}else{
