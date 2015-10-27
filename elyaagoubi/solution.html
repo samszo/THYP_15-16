@@ -29,9 +29,11 @@
 		                         function()
 		                         {
 		                        	 	//console.log(this.attributes[1].nodeValue);
-		                            $('<div class="items" id="link_' + i + '"></div>').html('<img onclick="voirData(' + i + ')" src="' + this.attributes[1].nodeValue + '" />').appendTo('#Div_XML');
-			                       i++;
-		                          });
+										
+		                            $('<div class="items" id="link_' + i + '"></div>').html('<img onclick="voirData(' +0+ ')" src="' + this.attributes[1].nodeValue + '" />').appendTo('#Div_XML');
+			                       
+								   
+		                          }); 
 		                      }
 		        });
 		   d3.csv("donnee.csv", function(data) {
