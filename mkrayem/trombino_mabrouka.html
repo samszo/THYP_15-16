@@ -2,33 +2,43 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<title>Trombinoscope des THYP 2015</title>
-<script src="../js/jquery.min.js" ></script>
-<script src="../js/d3.v3.min.js" ></script>
+<title>Trombinoscope de Krayem Mabrouka</title>
+<script src="jquery.min.js" ></script>
+<script src="d3.v3.min.js" ></script>
+
 <style>
+#contenue{
+float:center;
+}
+#h1{
+background-color:#jhhgi;
+}
 .items{
 	display:flex;	
 	padding: 3px;
+	border:2px solid black;
 }
 .data{
 	float:left;
 	margin: 3px;
+	color:#CC00FF;
+	
 }
 .iTof{
 	float:left;
 }
+
 </style>
 <script>
-	var dataEtu;   
-	var urlGit = "https://github.com/";
-	var urlDiigo = "https://www.diigo.com/user/";
-	
+	var dataEtu;  
+var urlGit = "https://github.com/";
+var urlDiigo = "https://www.diigo.com/user/";	
 	$(document).ready(  
 		 function()
 		 {
 		   $.ajax( {
 		            type: "GET",
-		            url: "../php/lecteurFlux.php?url=THYP1516photo",
+		            url: "photos.xml",
 		            dataType: "xml",
 		            success: function(xml) 
 		                     {
@@ -37,49 +47,59 @@
 		                         function()
 		                         {
 		                        	 	//console.log(this.attributes[1].nodeValue);
-		                            $('<div class="items" id="link_' + i + '"></div>').html('<img class="iTof" onclick="voirData(' + i + ')" src="' + this.attributes[1].nodeValue + '" />').appendTo('#Div_XML');
+		                            $('<div class="items" id="link_' + i + '"></div>').html('<img onclick="voirData(' + i + ')" src="' + this.attributes[1].nodeValue + '" />').appendTo('#contenue');
 			                       i++;
 		                          });
 		                      }
 		        });
-		   d3.csv("../php/lecteurFlux.php?url=THYP1516data", function(data) {
+		   d3.csv("etudiants.csv", function(data) {
 			   dataEtu = data;
 			   data.forEach(function(d,i){
-				   console.log(d.idPhoto+" "+d.Nom);
+				   console.log(d.idPhoto+" "+d.Nom+" "+d.mail+" "+d.linkedIn);
 				   voirDataLogin(d);
 			   })
+			   
+			   
+			   /*
+			   data.forEach(function(d,i){
+				   console.log(d.idPhoto+" "+d.Nom);
+			   })
+			   */
 			 });		   		   
 		  }
 		);
-	
-	
+	//chercher les data
 	function voirData(id){
-		//chercher les data
+		
 		dataEtu.forEach(function(d){
 			if(d.idPhoto==id && d.idPhoto!=""){
+                
 				
 			}
 		})
-	}
-	
-	
-	
-	function voirDataLogin(d){
-		var h = d.Prénom+" "+d.Nom
-			+"<br/>"
-			+"<a href='"+urlDiigo+d["login Diigo"]+"'><img height='32px' src='../img/diigo.jpg' /></a>"
-			+"<a href='"+urlGit+d["login Github"]+"'><img height='32px' src='../img/Octocat.png' /></a>"
-			+"<a href='"+urlGit+d["login Github"]+"'>ici</a>"
-              $('<div class="data" id="data_' + d.idPhoto + '"></div>').html(h).appendTo('#link_' + d.idPhoto);
 		
 	}
 	
+	
+	//afficher les infos 
+	function voirDataLogin(d){
+		var h = d.Prénom+" "+d.Nom
+		+"</br>"
+		+" "+d.mail
+		+"</br>"
+		+" "+d.linkedIn
+			+"<br/>"
+			+"<a href='"+urlDiigo+d["login Diigo"]+"'><img height='40px' src='diigo.png' /></a>"
+			+"<a href='"+urlGit+d["login Github"]+"'><img height='40px' src='github.png' /></a>"
+              $('<div class="data" id="data_' + d.idPhoto + '"></div>').html(h).appendTo('#link_' + d.idPhoto);
+		
+	}
 </script>
 </head>
 <body  >
-<div id="Div_XML"></div>
-
-
+<h1>Trombinoscope </h1>
+<h2>KRAYEM Mabrouka</h2>
+<div id="contenue"></div>
 
 </body>
 </html>
