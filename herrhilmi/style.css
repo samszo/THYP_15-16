@@ -1,61 +1,64 @@
-/**
- Copyright (c) 2014 BrightPoint Consulting, Inc.
-
- Permission is hereby granted, free of charge, to any person
- obtaining a copy of this software and associated documentation
- files (the "Software"), to deal in the Software without
- restriction, including without limitation the rights to use,
- copy, modify, merge, publish, distribute, sublicense, and/or sell
- copies of the Software, and to permit persons to whom the
- Software is furnished to do so, subject to the following
- conditions:
-
- The above copyright notice and this permission notice shall be
- included in all copies or substantial portions of the Software.
-
- THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND,
- EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES
- OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND
- NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT
- HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY,
- WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING
- FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR
- OTHER DEALINGS IN THE SOFTWARE.
- */
-
-.background {
-    fill: #FFFFFF;
-    fill-opacity: 0.01;
+body {
+  font: 10px sans-serif;
 }
 
-.component {
-    fill: #e1e1e1;
+.axis path,
+.axis line {
+  fill: none;
+  stroke: #000;
+  shape-rendering: crispEdges;
 }
 
-.component .label {
-    font-family: Myriad, "Helvetic Neue", Helvetica, Arial;
-    text-anchor: middle;
-    fill: #0000FF;
+.bar {
+  fill: orange;
 }
 
-.arc {
-    stroke-weight:0.1;
-    fill: #4e8fff;
+.solidArc:hover {
+  fill: orangered ;
 }
 
-
-.arc2 {
-    stroke-weight:0.1;
-    fill: #3660b0;
+.solidArc {
+    -moz-transition: all 0.3s;
+    -o-transition: all 0.3s;
+    -webkit-transition: all 0.3s;
+    transition: all 0.3s;
 }
 
-
-.label {
-    font-family:  Myriad, "Helvetic Neue", Helvetica, Arial;
-    text-anchor: middle;
+.x.axis path {
+  display: none;
 }
 
-.radial-svg {
-    display: block;
-    margin: 0 auto;
+.aster-score { 
+  line-height: 1;
+  font-weight: bold;
+  font-size: 24px;
+}
+
+.d3-tip {
+  line-height: 1;
+  font-weight: bold;
+  padding: 12px;
+  background: rgba(0, 0, 0, 0.8);
+  color: #fff;
+  border-radius: 2px;
+}
+
+/* Creates a small triangle extender for the tooltip */
+.d3-tip:after {
+  box-sizing: border-box;
+  display: inline;
+  font-size: 10px;
+  width: 100%;
+  line-height: 1;
+  color: rgba(0, 0, 0, 0.8);
+  content: "\25BC";
+  position: absolute;
+  text-align: center;
+}
+
+/* Style northward tooltips differently */
+.d3-tip.n:after {
+  margin: -1px 0 0 0;
+  top: 100%;
+  left: 0;
 }
