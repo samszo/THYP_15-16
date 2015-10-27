@@ -42,9 +42,13 @@
 		                            $('<div class="col-sm-6"></div>').html('<div class="col-sm-12"><ul id="etud_'+i+'" class="nav nav-tabs" role="tablist"></ul><div id="etudiant_'+i+'" class="thumbnail tab-content col-sm-12" ></div></div>').appendTo('.row');
 									$('<li role="presentation" class="active"></li>').html(' <a href="#info_etud_'+i+'" aria-controls="home" role="tab" data-toggle="tab">Infos</a>').appendTo('#etud_'+i);
 									$('<li role="presentation"></li>').html('<a href="#skill_etud_'+i+'" aria-controls="profile" role="tab" data-toggle="tab">Skills</a>').appendTo('#etud_'+i);
+									$('<li role="presentation"></li>').html('<a href="#presence_etud_'+i+'" aria-controls="pres" role="tab" data-toggle="tab">Présence</a>').appendTo('#etud_'+i);
+									
 									$('<div role="tabpanel" class="tab-pane active" id="info_etud_'+i+'" ></div>').html('<img class="col-sm-5" vspace=10  src="' + this.attributes[1].nodeValue + '" />').appendTo('#etudiant_'+i);
 									$('<div id="my_info_'+i+'" class="col-sm-7" ></div>').html('').appendTo('#info_etud_'+i);
 									$('<div role="tabpanel" class="tab-pane" id="skill_etud_'+i+'" ></div>').html('').appendTo('#etudiant_'+i);								
+									$('<div role="tabpanel" class="tab-pane" id="presence_etud_'+i+'" ></div>').html(' Nouvel Onglet').appendTo('#etudiant_'+i);								
+									
 									
 									dataEtu.forEach(function(d){
 										if(d.idPhoto!="" && d.idPhoto==i ){
@@ -87,6 +91,9 @@
 										$('<h4 class="text-primary"></h4>').html(d.nom+' didn\'t fill the form.').appendTo('#skill_etud_'+d.idPhoto);
 									}
 								 });
+								 
+								 /* onglet presence 
+								  * la div a l'id : "presence_etud_'+i'+"*/
 		                      }
 		        });
 		   		   		   
