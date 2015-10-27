@@ -17,8 +17,8 @@
 	{	
 		
 
-						  var width = 250,
-						height = 250,
+						  var width = 500,
+						height = 500,
 						radius = Math.min(width, height) / 2,
 						innerRadius = 0.3 * radius;
 
@@ -204,30 +204,24 @@
 		                       $(xml).find('enclosure').each(   
 		                         function()
 		                         {
-		                        	 	//console.log(this.attributes[1].nodeValue);
 		                            $('<div class="items" id="link_' + i + '"></div>').html('<img class="image" style="width:250px;"  src="' + this.attributes[1].nodeValue + '" />').appendTo('#Div_XML');
 		                            voirData(i);
-									
-									d3.csv("data"+ i +".csv", function(data) {
-										dataEtu = data;
-			   
-										data.forEach(function(dataE,i){
-
-										//$('<div class="graph" id="graph_user_' + i + '"></div>').appendTo('#Div_XML');
-										  draw(dataE,i);
-
-										  
-										  /* fin du code pour le graph*/
-										  
-									   })
-			   
-								});
 
 			                       i++;
 		                          });
 		                      }
 		        });
-	
+		   d3.csv("data.csv", function(data) {
+			   dataEtu = data;
+			   
+			   data.forEach(function(dataE,i){
+					//$('<div class="graph" id="graph_user_' + i + '"></div>').appendTo('#Div_XML');
+					draw(dataE,i);
+				  
+			   })
+			   
+			 });
+				
 		  }
 		);
 	
