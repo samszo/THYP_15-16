@@ -14,7 +14,8 @@
 	
 
 	function draw(dataE,i)
-	{
+	{	
+		
 
 						  var width = 500,
 						height = 500,
@@ -60,66 +61,52 @@
 							switch(d.label) {
 								case "JAVA":			
 									valeur = competence[dataE.JAVA]; 
-								break;
+									break;
 								case "JAVASCRIPT":			
 										
 									valeur = competence[dataE.JAVASCRIPT]; 
-								break;
+									break;
 								case "CSS":													
 									valeur = competence[dataE.CSS]; 
-								break;
+									break;
 								case "HTML":			
-										
-										valeur = competence[dataE.HTML]; 
-								break;
+									valeur = competence[dataE.HTML]; 
+									break;
 								case "PHP":			
-										
 									valeur = competence[dataE.PHP]; 
-								break;
+									break;
 								case "SVG":			
-										
 									valeur = competence[dataE.SVG]; 
-								break;
+									break;
 								case "OWL":			
-										
 									valeur = competence[dataE.OWL]; 
-								break;
+									break;
 								case "XML":			
-										
 									valeur = competence[dataE.XML]; 
-								break;
+									break;
 								case "SCALA":			
-										
 									valeur = competence[dataE.SCALA]; 
-								break;
+									break;
 								case ".NET":			
-										
 									valeur = competence[dataE.NET]; 
-								break;
+									break;
 								case "JSON":			
-										
 									valeur = competence[dataE.JSON]; 
-								break;
-								
+									break;
 								case "OBJECTIF-C":			
-										
 									valeur = competence[dataE.ObjectiveC]; 
-								break;
-								
+									break;
 								case "ANDROID":			
-										
 									valeur = competence[dataE.ANDROID]; 
-								break;
-								
-								
-								}
+									break;
+							}
 
-						
+						d.id     =  d.id;
 						d.order  = +d.order;
 						d.color  =  d.color;
 						d.weight = +1;
 						d.score  = +valeur;
-						d.width  = +0.5;
+						d.width  = +d.weight;
 						d.label  =  d.label;
 					  });
 					  // for (var i = 0; i < data.score; i++) { console.log(data[i].id) }
@@ -172,7 +159,7 @@
 		dataEtu.forEach(function(d){
 			if(d.idPhoto==id && d.idPhoto!=""){
 				/*d.Prénom+" "+d.Nom*/
-                $('<div class="data" id="data_' + id + '"></div>').html("<p><b> Prenom : "+d.Prénom+" <br/> nom : "+d.Nom+"</b> <br/> <br/><a target=\"_blank\" href=\" "+d.linkedIn+" \"><img class=\"image\" style=\"width:30px;float:left;\"  src=\"logold.png\" /></a> <a target=\"_blank\" href=\"https://github.com/"+d.Github+"\"><img class=\"image\" style=\"width:35px;float:left;\"  src=\"logogithub.png\" /></a></p>").appendTo('#link_' + id);
+                $('<div class="data" id="data_' + id + '"></div>').html("<p><b> Prenom : "+d.Prénom+" <br/> nom : "+d.Nom+"</b> <br/> <br/><a target=\"_blank\" href=\""+d.linkedIn+"\"><img class=\"image\" style=\"width:30px;float:left;\"  src=\"logold.png\" /></a> <a target=\"_blank\" href=\"https://github.com/"+d.Github+"\"><img class=\"image\" style=\"width:35px;float:left;\"  src=\"logogithub.png\" /></a></p>").appendTo('#link_' + id);
                 $('<div class="graph" id="graph_' + id + '"></div>').html(" ").appendTo('#link_' + id);
 
 
@@ -203,7 +190,6 @@
 		                       $(xml).find('enclosure').each(   
 		                         function()
 		                         {
-		                        	 	//console.log(this.attributes[1].nodeValue);
 		                            $('<div class="items" id="link_' + i + '"></div>').html('<img class="image" style="width:250px;"  src="' + this.attributes[1].nodeValue + '" />').appendTo('#Div_XML');
 		                            voirData(i);
 
@@ -215,18 +201,9 @@
 			   dataEtu = data;
 			   
 			   data.forEach(function(dataE,i){
-				  
-				  
-				  /* code graphe */
-				  
-				  
-	  
-				  draw(dataE,i);
-				  
-				  
-				  
-				  /* fin du code pour le graph*/
-				  
+					//$('<div class="graph" id="graph_user_' + i + '"></div>').appendTo('#Div_XML');
+					draw(dataE,i);
+				
 			   })
 			   
 			 });
