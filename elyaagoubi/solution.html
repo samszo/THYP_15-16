@@ -5,7 +5,9 @@
 <title>Trombinoscope des THYP 2015</title>
 <script src="jquery.min.js" ></script>
 <script src="d3.v3.min.js" ></script>
-
+<script src="d3pie.js"></script>
+<script src="colorbrewer.js"></script>
+<link href="colorbrewer.css" rel="stylesheet" />
 
 <script>
 	var dataEtu;   
@@ -49,12 +51,29 @@
 				
 			}
 		})
+		//afficher les infos 
+	function voirDataLogin(d){
+		var h = d.Prénom+" "+d.Nom
+		+"</br>"
+		+" "+d.mail
+		+"</br>"
+		+" "+d["page linkedIn"]
+			+"<br/>"
+			+"<a href='"+urlDiigo+d["login Diigo"]+"'><img height='40px' src='../img/diigo.jpg' /></a>"
+			+"<a href='"+urlGit+d["login Github"]+"'><img height='40px' src='../img/github.png' /></a>"
+			+"<div id='graph"+d.idPhoto+"' />"
+              $('<div class="data" id="data_' + d.idPhoto + '"></div>').html(h).appendTo('#link_' + d.idPhoto);
+		creaGraphEtu(d);	
+		
+	}
 		
 	}
 </script>
 </head>
 <body  >
-<div id="Div_XML"></div>
+<div id="Div_XML">
+
+</div>
 
 </body>
 </html>
