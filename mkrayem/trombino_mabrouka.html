@@ -10,9 +10,8 @@
 #contenue{
 float:center;
 }
-.h1{
-float:center;
-background-color:#CC00FF;
+#h1{
+background-color:#jhhgi;
 }
 .items{
 	display:flex;	
@@ -39,7 +38,7 @@ var urlDiigo = "https://www.diigo.com/user/";
 		 {
 		   $.ajax( {
 		            type: "GET",
-		            url: "../php/lecteurFlux.php?url=THYP1516photo",
+		            url: "photos.xml",
 		            dataType: "xml",
 		            success: function(xml) 
 		                     {
@@ -56,7 +55,7 @@ var urlDiigo = "https://www.diigo.com/user/";
 		   d3.csv("etudiants.csv", function(data) {
 			   dataEtu = data;
 			   data.forEach(function(d,i){
-				   console.log(d.idPhoto+" "+d.Nom+" "+d.mail);
+				   console.log(d.idPhoto+" "+d.Nom+" "+d.mail+" "+d.linkedIn);
 				   voirDataLogin(d);
 			   })
 			   
@@ -80,25 +79,25 @@ var urlDiigo = "https://www.diigo.com/user/";
 		})
 		
 	}
-		//afficher les infos 
+	
+	
+	//afficher les infos 
 	function voirDataLogin(d){
 		var h = d.Prénom+" "+d.Nom
 		+"</br>"
 		+" "+d.mail
 		+"</br>"
-		+"</br>"
+		+" "+d.linkedIn
 			+"<br/>"
-		
 			+"<a href='"+urlDiigo+d["login Diigo"]+"'><img height='40px' src='diigo.png' /></a>"
 			+"<a href='"+urlGit+d["login Github"]+"'><img height='40px' src='github.png' /></a>"
               $('<div class="data" id="data_' + d.idPhoto + '"></div>').html(h).appendTo('#link_' + d.idPhoto);
-			  +"<br>"
 		
 	}
 </script>
 </head>
 <body  >
-<h1 color="red">Trombinoscope </h1>
+<h1>Trombinoscope </h1>
 <h2>KRAYEM Mabrouka</h2>
 <div id="contenue"></div>
 
