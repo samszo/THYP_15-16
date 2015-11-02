@@ -3,16 +3,8 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>Trombinoscope des THYP 2015</title>
-<script src="jquery.min.js" >
-
-
-</script>
-<script src="d3.v3.min.js" >
-
-
-</script>
-
-
+<script src="../js/jquery.min.js" ></script>
+<script src="../js/d3.v3.min.js" ></script>
 <script>
 	var dataEtu;   
 	$(document).ready(  
@@ -20,7 +12,7 @@
 		 {
 		   $.ajax( {
 		            type: "GET",
-		            url: "pic.xml",
+		            url: "pict.xml",
 		            dataType: "xml",
 		            success: function(xml) 
 		                     {
@@ -29,14 +21,12 @@
 		                         function()
 		                         {
 		                        	 	//console.log(this.attributes[1].nodeValue);
-										
-		                            $('<div class="items" id="link_' + i + '"></div>').html('<img onclick="voirData(' +0+ ')" src="' + this.attributes[1].nodeValue + '" />').appendTo('#Div_XML');
-			                       
-								   
-		                          }); 
+		                            $('<div class="items" id="link_' + i + '"></div>').html('<img onclick="voirData(' + i + ')" src="' + this.attributes[1].nodeValue + '" />').appendTo('#Div_XML');
+			                       i++;
+		                          });
 		                      }
 		        });
-		   d3.csv("donnee.csv", function(data) {
+		   d3.csv("data.csv", function(data) {
 			   dataEtu = data;
 			   /*
 			   data.forEach(function(d,i){
