@@ -41,6 +41,40 @@ background-color:#jhhgi;
 
 </style>
 <script>
+	 var tableau;
+     var login;
+
+function load() {
+      
+      var url = window.location.search;
+      login = url.substring(url.lastIndexOf("=")+1);
+
+		var reg=new RegExp("-");
+
+	  tableau=login.split(reg);
+		//for (var i=0; i<tableau.length; i++) {
+
+		 //document.write("tableau[" + i + "] = " + tableau[i] + "<BR>");
+		//}
+      //alert(login);
+     // alert("jjjjj"+tableau[1]);
+     var chaine=" ";
+    for (var i=0; i<tableau.length-1; i++) {
+
+    	 chaine = chaine + tableau[i].split("+")[0] +"  "  ;
+		 
+
+	}
+	chaine = chaine + tableau[tableau.length-1].split("+")[0] +".";
+	
+     document.getElementById("h1").innerHTML = "Comparaison entre <b>"+chaine+"</b>";
+
+
+
+}
+
+
+
 	var dataEtu;  
 var urlGit = "https://github.com/";
 var urlDiigo = "https://www.diigo.com/user/";	
@@ -57,15 +91,38 @@ var urlDiigo = "https://www.diigo.com/user/";
 		                       $(xml).find('enclosure').each(   
 		                         function()
 		                         {
-		                        	 	//console.log(this.attributes[1].nodeValue);
-		                            $('<div class="items" id="link_' + i + '"></div>').html('<img onclick="voirData(' + i + ')" src="' + this.attributes[1].nodeValue + '" />').appendTo('#contenue');
-			                       i++;
+		                         
+		                         	for (var j=1; j<tableau.length; j++) {
+			                         	var index = tableau[j].substring(tableau[j].lastIndexOf("+")+1);
+
+			 							if(index==i){
+			 								$('<div class="items" id="link_' + i + '"></div>').html('<img onclick="voirData(' + i + ')" src="' + this.attributes[1].nodeValue + '" />').appendTo('#contenue');
+			 							}	
+		                            
+
+			                       
+									}
+  								i++;
+
+		                        	 	
 		                          });
 			           		   	d3.csv("../php/lecteurFlux.php?url=THYP1516data", function(data) {
 			         			   dataEtu = data;
 			         			   data.forEach(function(d,i){
 			         				   //console.log(d.idPhoto+" "+d.Nom+" "+d.mail+" "+d.linkedIn);
-			         				   voirDataLogin(d);
+
+			         				   for (var i=0; i<tableau.length; i++) {
+			         				   		
+			         			   				var logingit = tableau[i].split("+")[0];
+
+											   if(logingit==d["login Github"]){
+											   	    //alert(tableau[i]);
+											   		voirDataLogin(d);
+											   }
+											}
+			         				   
+
+
 			         			   })
 			         			   
 			         			   
@@ -96,8 +153,7 @@ var urlDiigo = "https://www.diigo.com/user/";
 	//afficher les infos 
 	function voirDataLogin(d){
 		var h = 
-		"<input type='checkbox' id='comparer' name='comparer' value='"+d["login Github"]+"'> <font style='color: black;'>Comparer</font>"
-		+"</br></br> "+d.Prénom+" "+d.Nom
+		d.Prénom+" "+d.Nom
 		+"</br>"
 		+" "+d.mail
 		+"</br>"
@@ -115,51 +171,15 @@ var urlDiigo = "https://www.diigo.com/user/";
 		
 	}
 
-function comparer() {
 
- var chaine=""; 
- var cboxes = document.getElementsByName('comparer');
-    var len = cboxes.length;
-    for (var i=0; i<len; i++) {
-
-    	if(cboxes[i].checked){
-
-    		chaine = chaine+'-'+cboxes[i].value+"+"+i;
-
-    	}
-    	
-
-       // alert(i + (cboxes[i].checked?' checked ':' unchecked ') + cboxes[i].value);
-    }
-    if(chaine==""){
-    	alert("Veuillez choisir un étudiant.");
-    }
-    else
-    	window.location.href = 'comparer.html?logingithub='+chaine;
-}
-function decocher() {
-
-  
- var cboxes = document.getElementsByName('comparer');
-    var len = cboxes.length;
-    for (var i=0; i<len; i++) {
-
-    	cboxes[i].checked=false;
-
-    
-    }
-
-
-}
 </script>
 </head>
-<body  >
-<MARQUEE ><img src="bienvenu.png"> </MARQUEE>
+<body onload="load()"  >
 <div style="text-align:center;">
-	<button type="button" class="btn btn-danger" onclick="decocher()">Tout Décocher</button>
-	<button type="button" class="btn btn-info" onclick="comparer()">Comparer</button>
+	<img src="comparaison.jpg">
+		<font style="font-size: 124%;" id="h1"></font>
+	<img src="comparaison.jpg">
 </div>
-
 <br><br>
 <div id="contenue"></div>
 
