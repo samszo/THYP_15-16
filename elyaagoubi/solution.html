@@ -3,11 +3,11 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>Trombinoscope des THYP 2015</title>
-<script src="../js/jquery.min.js" ></script>
-<script src="../js/d3.v3.min.js" ></script>
-<script src="../js/d3pie.js"></script>
+<script src="jquery.min.js" ></script>
+<script src="d3.v3.min.js" ></script>
+<!--<script src="../js/d3pie.js"></script>
 <script src="../js/colorbrewer/colorbrewer.js"></script>
-<link href="../js/colorbrewer/colorbrewer.css" rel="stylesheet" />
+<link href="../js/colorbrewer/colorbrewer.css" rel="stylesheet" />-->
 
 <script>
 var dataEtu;  
@@ -18,7 +18,7 @@ var urlDiigo = "https://www.diigo.com/user/";
 		 {
 		   $.ajax( {
 		            type: "GET",
-		            url: "../php/lecteurFlux.php?url=THYP1516photo",
+		            url: "pic.xml",
 		            dataType: "xml",
 		            success: function(xml) 
 		                     {
@@ -30,7 +30,7 @@ var urlDiigo = "https://www.diigo.com/user/";
 		                            $('<div class="items" id="link_' + i + '"></div>').html('<img onclick="voirData(' + i + ')" src="' + this.attributes[1].nodeValue + '" />').appendTo('#contenue');
 			                       i++;
 		                          });
-			           		   	d3.csv("../php/lecteurFlux.php?url=THYP1516data", function(data) {
+			           		   	d3.csv("donnee.csv", function(data) {
 			         			   dataEtu = data;
 			         			   data.forEach(function(d,i){
 			         				   //console.log(d.idPhoto+" "+d.Nom+" "+d.mail+" "+d.linkedIn);
