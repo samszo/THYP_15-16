@@ -2,7 +2,7 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<title>Trombinoscope El alami</title>
+<title>Trombinoscope de Krayem Mabrouka</title>
 <script src="../js/jquery.min.js" ></script>
 <script src="../js/d3.v3.min.js" ></script>
 <script src="../js/d3pie.js"></script>
@@ -87,7 +87,7 @@ var urlDiigo = "https://www.diigo.com/user/";
 	
 	//afficher les infos 
 	function voirDataLogin(d){
-		var h = d.Prénom+" "+d.Nom
+		var h = d.Pr?m+" "+d.Nom
 		+"</br>"
 		+" "+d.mail
 		+"</br>"
@@ -110,7 +110,7 @@ var urlDiigo = "https://www.diigo.com/user/";
 <div id="pieChart"></div>
 
 <script>
-// merci à  http://d3pie.org/
+// merci ?http://d3pie.org/
 var score = {"nul": 0 , "moins nul": 20, "bon":60, "trop bon":80, "expert":100};
 var cats = ["Javascript","CSS","HTML","PHP","SVG","OWL","JAVA","XML",".NET","JSON","Objective-C","Android"];
 //var fctColor = d3.scale.category20();
@@ -136,12 +136,12 @@ function creaGraphEtu(d){
 	var pie = new d3pie("graph"+d.idPhoto, {
 		"header": {
 			"title": {
-				"text": "Compétences",
+				"text": "Comp?nces",
 				"fontSize": 24,
 				"font": "open sans"
 			},
 			"subtitle": {
-				"text": "Langages informatiques maitrisés ou non",
+				"text": "Langages informatiques maitris?ou non",
 				"color": "#999999",
 				"fontSize": 12,
 				"font": "open sans"
