@@ -5,12 +5,14 @@
 <title>Trombinoscope des THYP 2015</title>
 <script src="jquery.min.js" ></script>
 <script src="d3.v3.min.js" ></script>
-<script src="d3pie.js"></script>
-<script src="colorbrewer.js"></script>
-<link href="colorbrewer.css" rel="stylesheet" />
+<script src="../js/d3pie.js"></script>
+<script src="../js/colorbrewer/colorbrewer.js"></script>
+<link href="../js/colorbrewer/colorbrewer.css" rel="stylesheet" />
 
 <script>
-	var dataEtu;   
+var dataEtu;  
+var urlGit = "https://github.com/";
+var urlDiigo = "https://www.diigo.com/user/";	
 	$(document).ready(  
 		 function()
 		 {
@@ -25,33 +27,42 @@
 		                         function()
 		                         {
 		                        	 	//console.log(this.attributes[1].nodeValue);
-										
-		                            $('<div class="items" id="link_' + i + '"></div>').html('<img onclick="voirData(' +0+ ')" src="' + this.attributes[1].nodeValue + '" />').appendTo('#Div_XML');
-			                       
-								   
-		                          }); 
+		                            $('<div class="items" id="link_' + i + '"></div>').html('<img onclick="voirData(' + i + ')" src="' + this.attributes[1].nodeValue + '" />').appendTo('#contenue');
+			                       i++;
+		                          });
+			           		   	d3.csv("donnee.csv", function(data) {
+			         			   dataEtu = data;
+			         			   data.forEach(function(d,i){
+			         				   //console.log(d.idPhoto+" "+d.Nom+" "+d.mail+" "+d.linkedIn);
+			         				   voirDataLogin(d);
+			         			   })
+			         			   
+			         			   
+			         			   /*
+			         			   data.forEach(function(d,i){
+			         				   console.log(d.idPhoto+" "+d.Nom);
+			         			   })
+			         			   */
+			         			 });		   		   
+		                       
 		                      }
 		        });
-		   d3.csv("donnee.csv", function(data) {
-			   dataEtu = data;
-			   /*
-			   data.forEach(function(d,i){
-				   console.log(d.idPhoto+" "+d.Nom);
-			   })
-			   */
-			 });		   		   
 		  }
 		);
-	
+	//chercher les data
 	function voirData(id){
-		//chercher les data
+		
 		dataEtu.forEach(function(d){
 			if(d.idPhoto==id && d.idPhoto!=""){
-                $('<div class="data" id="data_' + id + '"></div>').html(d.Prénom+" "+d.Nom).appendTo('#link_' + id);
+                
 				
 			}
 		})
-		//afficher les infos 
+		
+	}
+	
+	
+	//afficher les infos 
 	function voirDataLogin(d){
 		var h = d.Prénom+" "+d.Nom
 		+"</br>"
@@ -66,14 +77,10 @@
 		creaGraphEtu(d);	
 		
 	}
-		
-	}
 </script>
 </head>
 <body  >
-<div id="Div_XML">
-
-</div>
+<div id="Div_XML"></div>
 
 </body>
 </html>
