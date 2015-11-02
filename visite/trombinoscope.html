@@ -1,0 +1,311 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+<link rel="stylesheet" type="text/css" href="style.css">
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title>Trombinoscope des THYP 2015</title>
+<script src="../js/jquery.min.js" ></script>
+<script src="../js/d3.v3.min.js" ></script>
+<script src="http://d3js.org/d3.v3.min.js"></script>
+<script src="http://labratrevenge.com/d3-tip/javascripts/d3.tip.v0.6.3.js"></script>
+<script>
+	var dataEtu;
+	var competence = {"nul": 0 , "moins nul": 20, "bon":60, "trop bon":80, "expert":100};
+	
+
+	function draw(dataE,i)
+	{
+
+						  var width = 500,
+						height = 500,
+						radius = Math.min(width, height) / 2,
+						innerRadius = 0.3 * radius;
+
+					var pie = d3.layout.pie()
+						.sort(null)
+						.value(function(d) { return d.width; });
+
+					var tip = d3.tip()
+					  .attr('class', 'd3-tip')
+					  .offset([0, 0])
+					  .html(function(d) {
+						return d.data.label + ": <span style='color:orangered'>" + d.data.score + "</span>";
+					  });
+
+					var arc = d3.svg.arc()
+					  .innerRadius(innerRadius)
+					  .outerRadius(function (d) { 
+						return (radius - innerRadius) * (d.data.score / 100.0) + innerRadius; 
+					  });
+
+					var outlineArc = d3.svg.arc()
+							.innerRadius(innerRadius)
+							.outerRadius(radius);
+
+
+					var svg = d3.select("body").append("svg")
+						.attr("width", width)
+						.attr("height", height)
+						.append("g")
+						.attr("transform", "translate(" + width / 2 + "," + height / 2 + ")");
+
+					svg.call(tip);
+
+					d3.csv('aster_data.csv', function(error, data) {
+
+					  data.forEach(function(d) {
+				 /*récupérer les compétence de chaque étudiant pour  chaque langage*/
+					var valeur=0;
+										
+							switch(d.label) {
+								case "JAVA":			
+									valeur = competence[dataE.JAVA]; 
+								break;
+								case "JAVASCRIPT":			
+										
+									valeur = competence[dataE.JAVASCRIPT]; 
+								break;
+								case "CSS":			
+											
+										valeur = competence[dataE.CSS]; 
+								break;
+								case "HTML":			
+										
+										valeur = competence[dataE.HTML]; 
+								break;
+								case "PHP":			
+										
+									valeur = competence[dataE.PHP]; 
+								break;
+								case "SVG":			
+										
+									valeur = competence[dataE.SVG]; 
+								break;
+								case "OWL":			
+										
+									valeur = competence[dataE.OWL]; 
+								break;
+								case "XML":			
+										
+									valeur = competence[dataE.XML]; 
+								break;
+								case "SCALA":			
+										
+									valeur = competence[dataE.SCALA]; 
+								break;
+								case ".NET":			
+										
+									valeur = competence[dataE.NET]; 
+								break;
+								case "JSON":			
+										
+									valeur = competence[dataE.JSON]; 
+								break;
+								
+								case "OBJECTIF-C":			
+										
+									valeur = competence[dataE.ObjectiveC]; 
+								break;
+								
+								case "ANDROID":			
+										
+									valeur = competence[dataE.ANDROID]; 
+								break;
+								
+								
+								}
+
+						d.id     =  d.id;
+						d.order  = +d.order;
+						d.color  =  d.color;
+						d.weight = +1;
+						d.score  = +valeur;
+						d.width  = +d.weight;
+						d.label  =  d.label;
+					  });
+					  // for (var i = 0; i < data.score; i++) { console.log(data[i].id) }
+					  
+					  var path = svg.selectAll(".solidArc")
+						  .data(pie(data))
+						.enter().append("path")
+						  .attr("fill", function(d) { return d.data.color; })
+						  .attr("class", "solidArc")
+						  .attr("stroke", "gray")
+						  .attr("d", arc)
+						  .on('mouseover', tip.show)
+						  .on('mouseout', tip.hide);
+
+					  var outerPath = svg.selectAll(".outlineArc")
+						  .data(pie(data))
+						.enter().append("path")
+						  .attr("fill", "none")
+						  .attr("stroke", "gray")
+						  .attr("class", "outlineArc")
+						  .attr("d", outlineArc);  
+
+
+					  // calculate the weighted mean score
+					  var score = 
+						data.reduce(function(a, b) {
+						  //console.log('a:' + a + ', b.score: ' + b.score + ', b.weight: ' + b.weight);
+						  return a + (b.score * b.weight); 
+						}, 0) / 
+						data.reduce(function(a, b) { 
+						  return a + b.weight; 
+						}, 0);
+
+					  svg.append("svg:text")
+						.attr("class", "aster-score")
+						.attr("dy", ".35em")
+						.attr("text-anchor", "middle") // text-align: right
+						.text(dataE.Nom);
+
+					});
+									  
+									  
+								
+	}
+
+
+
+		function voirData(id){
+		//chercher les data
+		dataEtu.forEach(function(d){
+			if(d.idPhoto==id && d.idPhoto!=""){
+				/*d.Prénom+" "+d.Nom*/
+                $('<div class="data" id="data_' + id + '"></div>').html("<p><b> Prenom : "+d.Prénom+" <br/> nom : "+d.Nom+"</b></p>"+'<img class="logo" src="../img/diigo.jpg" />   : '+d.Diigo+'<br/><img class="logo" src="../img/Octocat.png" />   : '+d.Github).appendTo('#link_' + id);
+                $('<div class="graph" id="graph_' + id + '"></div>').html(" ").appendTo('#link_' + id);
+
+
+       
+			}
+			
+			
+			
+		})
+		
+	}
+
+	d3.csv("data.csv", function(data) {
+			   dataEtu = data;
+			});
+
+
+	$(document).ready(  
+		 function()
+		 {
+		   $.ajax( {
+		            type: "GET",
+		            url: "photo.xml",
+		            dataType: "xml",
+		            success: function(xml) 
+		                     {
+		            				var i=0;
+		                       $(xml).find('enclosure').each(   
+		                         function()
+		                         {
+		                        	 	//console.log(this.attributes[1].nodeValue);
+		                            $('<div class="items" id="link_' + i + '"></div>').html('<img class="image" style="width:250px;"  src="' + this.attributes[1].nodeValue + '" />').appendTo('#Div_XML');
+		                            voirData(i);
+
+			                       i++;
+		                          });
+		                      }
+		        });
+		   d3.csv("data.csv", function(data) {
+			   dataEtu = data;
+			   
+			   data.forEach(function(dataE,i){
+				  
+				  
+				  /* code graphe */
+				  
+				  
+	  
+				  draw(dataE,i);
+				  
+				  
+				  
+				  /* fin du code pour le graph*/
+				  
+			   })
+			   
+			 });
+				
+		  }
+		);
+	
+
+</script>
+
+</head>
+<body>
+<div style="text-align: center;font-size: 25px;"><h1> Trombinoscope </h1></div>
+<div id="Div_XML"></div>
+
+
+
+
+</body>
+
+<style>
+.data
+{
+	width: 135px;
+    display: block;
+    float: left;
+    padding: 0px 10px;
+    font-size: 14px;
+}
+
+.logo
+{
+
+width: 20px;
+  
+padding: 5px 0px;
+
+}
+
+.image
+{
+	width: 250px;
+    display: block;
+    float: left;
+}
+
+.items
+{
+display: block;
+    /* margin: 12px 12px; */
+    width: 1070px;
+    margin: 10px auto;
+    height: 476px;
+
+}
+
+.popup
+{
+    display: block;
+    z-index: 3;
+    width: 600px;
+    height: 600px;
+    background-color: #d7d7d7;
+    position: absolute;
+    top: 40px;
+    /* margin: 0 auto; */
+    margin: auto;
+    left: 0;
+    right: 0;
+}
+
+.graph
+{
+	width: 665px;
+    height: 477px;
+    float: left;
+}
+
+</style>
+
+</html>

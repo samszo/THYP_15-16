@@ -1,0 +1,205 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <meta charset="utf-8">
+
+  <link rel="stylesheet" type="text/css" href="style.css">
+  <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+  <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
+  
+  <script src="http://d3js.org/d3.v3.min.js"></script>
+  <script src="http://labratrevenge.com/d3-tip/javascripts/d3.tip.v0.6.3.js"></script>
+  <title>Trombinoscope des THYP 2015</title>
+  <script>
+	var dataEtu; 
+	var urlGit = "https://github.com/";
+	var urlDiigo = "https://www.diigo.com/user/";
+	var score = {"nul": 0 , "moins nul": 20, "bon":60, "trop bon":80, "expert":100};
+	$(document).ready(  
+		 function()
+		 {
+		 	d3.csv("../php/lecteurFlux.php?url=THYP1516data", function(data) {
+			   dataEtu = data;
+			   
+			   data.forEach(function(d,i){
+				// console.log(d.idPhoto+" "+d.Nom);
+			   })
+			   
+			 });
+
+		   $.ajax( {
+		            type: "GET",
+		            url: "../php/lecteurFlux.php?url=THYP1516photo",
+		            dataType: "xml",
+		            success: function(xml) 
+		                     {
+		            		var i=0;
+		                        $(xml).find('enclosure').each(   
+		                        function()
+		                         {
+		                            $('<div class="col-sm-6"></div>').html('<div class="col-sm-12"><ul id="etud_'+i+'" class="nav nav-tabs" role="tablist"></ul><div id="etudiant_'+i+'" class="thumbnail tab-content col-sm-12" ></div></div>').appendTo('.row');
+									$('<li role="presentation" class="active"></li>').html(' <a href="#info_etud_'+i+'" aria-controls="home" role="tab" data-toggle="tab">Infos</a>').appendTo('#etud_'+i);
+									$('<li role="presentation"></li>').html('<a href="#skill_etud_'+i+'" aria-controls="profile" role="tab" data-toggle="tab">Skills</a>').appendTo('#etud_'+i);
+									$('<li role="presentation"></li>').html('<a href="#presence_etud_'+i+'" aria-controls="pres" role="tab" data-toggle="tab">Présence</a>').appendTo('#etud_'+i);
+									
+									$('<div role="tabpanel" class="tab-pane active" id="info_etud_'+i+'" ></div>').html('<img class="col-sm-5" vspace=10  src="' + this.attributes[1].nodeValue + '" />').appendTo('#etudiant_'+i);
+									$('<div id="my_info_'+i+'" class="col-sm-7" ></div>').html('').appendTo('#info_etud_'+i);
+									$('<div role="tabpanel" class="tab-pane" id="skill_etud_'+i+'" ></div>').html('').appendTo('#etudiant_'+i);								
+									$('<div role="tabpanel" class="tab-pane" id="presence_etud_'+i+'" ></div>').html(' Nouvel Onglet').appendTo('#etudiant_'+i);								
+									
+									
+									dataEtu.forEach(function(d){
+										if(d.idPhoto!="" && d.idPhoto==i ){
+													$('<h3 class="text-primary"></h3>').html(d.Prénom + " " + d.Nom).appendTo('#my_info_'+i);
+													
+													var list = "<li>" + d.mail + "</li>"
+													+"<li><img style = \" margin-left: -3px;\" class=\"img-circle\" width=24 height=24 hspace=10 vspace=10  src=\"../img/diigo.jpg\" /><a href="+urlDiigo+d['login Diigo']+">/"+d['login Diigo']+"</a></li>"
+													+"<li><img style = \" margin-left: -3px;\" class=\"img-circle\" width=24 height=24 hspace=10  src=\"../img/Octocat.png\"/><a href="+urlGit+d['login Github']+">/"+d['login Github']+"</a></li>";
+													$('<ul class="list-unstyled"></ul>').html(list).appendTo('#my_info_'+i); 
+													       		    	
+										
+										// add varr used to draw the graph
+										d.skills = {
+											"JAVASCRIPT" : score[d['Langages informatiques [Javascript]']],
+											"CSS" : score[d['Langages informatiques [CSS]']],
+											"HTML" : score[d['Langages informatiques [HTML]']],
+											"PHP" : score[d['Langages informatiques [PHP]']],
+											"SVG" : score[d['Langages informatiques [SVG]']],
+											"OWL" : score[d['Langages informatiques [OWL]']],
+											"JAVA" : score[d['Langages informatiques [JAVA]']],
+											"XML" : score[d['Langages informatiques [XML]']],
+											".NET" : score[d['Langages informatiques [.NET]']],
+											"JSON" : score[d['Langages informatiques [JSON]']],
+											"OBJECTIF-C" : score[d['Langages informatiques [Objective-C]']],
+											"ANDROID" : score[d['Langages informatiques [Android]']]};
+										
+										d.drawed = false;
+										
+										}
+									})
+
+								  i++;
+		                          });
+								  
+								 dataEtu.forEach(function(d,i){
+									if(d.hasOwnProperty("skills") && !d.drawed){
+										draw(d,d.idPhoto);
+										d.drawed = true;
+									} else {
+										$('<h4 class="text-primary"></h4>').html(d.nom+' didn\'t fill the form.').appendTo('#skill_etud_'+d.idPhoto);
+									}
+								 });
+								 
+								 /* onglet presence 
+								  * la div a l'id : "presence_etud_'+i'+"*/
+		                      }
+		        });
+		   		   		   
+		  }
+		);
+
+	function draw(dataE,i)
+	{
+
+		var width = 450,
+		height = 450,
+		radius = Math.min(width, height) / 2,
+		innerRadius = 0.3 * radius;
+
+		var pie = d3.layout.pie()
+		.sort(null)
+		.value(function(d) { return d.width; });
+
+		var tip = d3.tip()
+		.attr('class', 'd3-tip')
+		.offset([0, 0])
+		.html(function(d) {
+		return d.data.label + ": <span style='color:orangered'>" + d.data.score + "</span>";
+		});
+
+		var arc = d3.svg.arc()
+		.innerRadius(innerRadius)
+		.outerRadius(function (d) { 
+		return (radius - innerRadius) * (d.data.score / 100.0) + innerRadius; 
+		});
+
+		var outlineArc = d3.svg.arc()
+		.innerRadius(innerRadius)
+		.outerRadius(radius);
+
+
+		var svg = d3.select("#skill_etud_"+i).append("svg")
+		.attr("width", width)
+		.attr("height", height)
+		.append("g")
+		.attr("transform", "translate(" + width / 2 + "," + height / 2 + ")");
+
+		svg.call(tip);
+
+		d3.csv('aster_data.csv', function(error, data) {
+		data.forEach(function(d) {
+			d.id     =  d.id;
+			d.order  = +d.order;
+			d.color  =  d.color;
+			d.weight = +1;
+			d.score  = +dataE.skills[d.label];
+			d.width  = +d.weight;
+			d.label  =  d.label;
+		});
+
+		var path = svg.selectAll(".solidArc")
+		.data(pie(data))
+		.enter().append("path")
+		.attr("fill", function(d) { return d.data.color; })
+		.attr("class", "solidArc")
+		.attr("stroke", "gray")
+		.attr("d", arc)
+		.on('mouseover', tip.show)
+		.on('mouseout', tip.hide);
+
+		var outerPath = svg.selectAll(".outlineArc")
+		.data(pie(data))
+		.enter().append("path")
+		.attr("fill", "none")
+		.attr("stroke", "gray")
+		.attr("class", "outlineArc")
+		.attr("d", outlineArc);  
+
+
+		// calculate the weighted mean score
+		var score = 
+		data.reduce(function(a, b) {
+		//console.log('a:' + a + ', b.score: ' + b.score + ', b.weight: ' + b.weight);
+		return a + (b.score * b.weight); 
+		}, 0) / 
+		data.reduce(function(a, b) { 
+		return a + b.weight; 
+		}, 0);
+
+		svg.append("svg:text")
+		.attr("class", "aster-score")
+		.attr("dy", ".35em")
+		.attr("text-anchor", "middle") // text-align: right
+		.text(dataE.Nom);
+
+		});					
+	}
+
+</script>
+</head>
+<body>
+
+
+
+<div class="container">
+	<h1 class="header text-primary">Trombinoscope</h1>
+	<div class="row  col-sm-12">
+	 
+	</div>
+
+</div>
+
+</body>
+</html>
