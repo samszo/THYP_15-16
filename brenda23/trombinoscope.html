@@ -1,8 +1,7 @@
-@@ -2,27 +2,40 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<title>Trombinoscope des THYP 2015</title>
 <title>Trombinoscope Sabrina</title>
 <script src="../js/jquery.min.js" ></script>
 <script src="../js/d3.v3.min.js" ></script>
@@ -12,17 +11,31 @@
 
 <style>
 #contenue{
+padding-left:20px;
 float:center;
+padding-left:10px;
 }
-#h1{
-background-color:#jhhgi;
+h1{
+
+padding-left:500px;
 }
+h2{
+
+padding-left:500px;
+}
+
 .items{
 	display:flex;	
 	padding: 3px;
 	border:2px solid black;
+	background-color:#EDF7F2;
+	padding-left:10px;
+	padding-right:20px;
+	margin-left:80px;
+	margin-right:50px;
 }
 .data{
+padding-left:10px;
 	float:left;
 	margin: 3px;
 	color:#CC00FF;
@@ -34,21 +47,24 @@ background-color:#jhhgi;
 
 </style>
 <script>
-	var dataEtu;   
-	var urlGit = "https://github.com/";
-	var urlDiigo = "https://www.diigo.com/user/";
-	
 	var dataEtu;  
 var urlGit = "https://github.com/";
 var urlDiigo = "https://www.diigo.com/user/";	
+var urlLinkedIn = "https://fr.linkedin.com/"
 	$(document).ready(  
 		 function()
 		 {
-@@ -37,50 +50,159 @@
+		   $.ajax( {
+		            type: "GET",
+		            url: "../php/lecteurFlux.php?url=THYP1516photo",
+		            dataType: "xml",
+		            success: function(xml) 
+		                     {
+		            				var i=0;
+		                       $(xml).find('enclosure').each(   
 		                         function()
 		                         {
 		                        	 	//console.log(this.attributes[1].nodeValue);
-		                            $('<div class="items" id="link_' + i + '"></div>').html('<img class="iTof" onclick="voirData(' + i + ')" src="' + this.attributes[1].nodeValue + '" />').appendTo('#Div_XML');
 		                            $('<div class="items" id="link_' + i + '"></div>').html('<img onclick="voirData(' + i + ')" src="' + this.attributes[1].nodeValue + '" />').appendTo('#contenue');
 			                       i++;
 		                          });
@@ -69,20 +85,11 @@ var urlDiigo = "https://www.diigo.com/user/";
 		                       
 		                      }
 		        });
-		   d3.csv("../php/lecteurFlux.php?url=THYP1516data", function(data) {
-			   dataEtu = data;
-			   data.forEach(function(d,i){
-				   console.log(d.idPhoto+" "+d.Nom);
-				   voirDataLogin(d);
-			   })
-			 });		   		   
 		  }
 		);
-	
-	
+		
 	//chercher les data
 	function voirData(id){
-		//chercher les data
 		
 		dataEtu.forEach(function(d){
 			if(d.idPhoto==id && d.idPhoto!=""){
@@ -94,7 +101,6 @@ var urlDiigo = "https://www.diigo.com/user/";
 	}
 	
 	
-	
 	//afficher les infos 
 	function voirDataLogin(d){
 		var h = d.Prénom+" "+d.Nom
@@ -103,25 +109,20 @@ var urlDiigo = "https://www.diigo.com/user/";
 		+"</br>"
 		+" "+d["page linkedIn"]
 			+"<br/>"
-			+"<a href='"+urlDiigo+d["login Diigo"]+"'><img height='32px' src='../img/diigo.jpg' /></a>"
-			+"<a href='"+urlGit+d["login Github"]+"'><img height='32px' src='../img/Octocat.png' /></a>"
-			+"<a href='"+urlGit+d["login Github"]+"'>ici</a>"
 			+"<a href='"+urlDiigo+d["login Diigo"]+"'><img height='40px' src='../img/diigo.jpg' /></a>"
 			+"<a href='"+urlGit+d["login Github"]+"'><img height='40px' src='../img/github.png' /></a>"
+			+"<a href='"+urlLinkedIn+d["login LinkedIn"]+"'><img height='40px' src='../img/linkedin.png' /></a>"
 			+"<div id='graph"+d.idPhoto+"' />"
               $('<div class="data" id="data_' + d.idPhoto + '"></div>').html(h).appendTo('#link_' + d.idPhoto);
 		creaGraphEtu(d);	
 		
 	}
-	
 </script>
 </head>
 <body  >
 <h1>Trombinoscope </h1>
 <h2>Sabrina</h2>
 <div id="contenue"></div>
-
-<div id="Div_XML"></div>
 
 <div id="pieChart"></div>
 
@@ -131,7 +132,7 @@ var score = {"nul": 0 , "moins nul": 20, "bon":60, "trop bon":80, "expert":100};
 var cats = ["Javascript","CSS","HTML","PHP","SVG","OWL","JAVA","XML",".NET","JSON","Objective-C","Android"];
 //var fctColor = d3.scale.category20();
 //var fctColor = d3.scale.ordinal().domain(cats).range(colorbrewer.RdBu[14]);
-var fctColor = d3.scale.linear().domain([0, 100]).range(["#ff3400", "#3c9a2e"]);
+var fctColor = d3.scale.linear().domain([0, 100]).range(["#01B0F0", "#FF358B"]);
 
 function creaGraphEtu(d){
 	
@@ -153,7 +154,7 @@ function creaGraphEtu(d){
 		"header": {
 			"title": {
 				"text": "Compétences",
-				"fontSize": 24,
+				"fontSize": 35,
 				"font": "open sans"
 			},
 			"subtitle": {
@@ -222,4 +223,3 @@ function creaGraphEtu(d){
 </script>
 </body>
 </html>
-\ No newline at end of file
