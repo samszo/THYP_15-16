@@ -1,0 +1,28 @@
+#contenue{
+			float:center;
+			}
+			#h1{
+			background-color:#jhhgi;
+			}
+			.items{
+				display:flex;	
+				padding: 3px;
+				
+			}
+			.paire{
+				margin-top: 10px;
+				margin-bottom: 10px;
+				border:5px solid black;
+			}
+			.impaire{
+				border:5px solid red;
+			}
+			.data{
+				float:left;
+				margin: 3px;
+				color:#CC00FF;
+				
+			}
+			.iTof{
+				float:left;
+			}
