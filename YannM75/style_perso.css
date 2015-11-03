@@ -1,4 +1,4 @@
-#contenue{
+	#contenue{
 			float:center;
 			}
 			#h1{
@@ -26,3 +26,7 @@
 			.iTof{
 				float:left;
 			}
+	body{
+		background-image: url(http://localhost/THYP-1516/YannM75/img/background/grisTaupe1.jpg);
+		background-color: #d0e4fe;
+	}
