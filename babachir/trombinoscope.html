@@ -12,7 +12,7 @@
 	var dataEtu;
 	var competence = {"nul": 0 , "moins nul": 20, "bon":60, "trop bon":80, "expert":100};
 	
-
+	var urlDiigo = "https://www.diigo.com/user/";
 	function draw(dataE,i)
 	{
 
@@ -42,7 +42,6 @@
 							.innerRadius(innerRadius)
 							.outerRadius(radius);
 
-						alert(dataE.idPhoto);	
 					var svg = d3.select("#graph_"+dataE.idPhoto).append("svg")
 						.attr("width", width)
 						.attr("height", height)
@@ -174,7 +173,7 @@
 
 
 				/*d.Prénom+" "+d.Nom*/
-                $('<div class="data" id="data_' + id + '"></div>').html("<p><b> Prenom : "+d.Prénom+" <br/> nom : "+d.Nom+"</b> <br/> <br/><a target=\"_blank\" href=\" "+d.linkedIn+" \"><img class=\"image\" style=\"width:30px;float:left;\"  src=\"logold.png\" /></a> <a target=\"_blank\" href=\"https://github.com/"+d.Github+"\"><img class=\"image\" style=\"width:35px;float:left;\"  src=\"logogithub.png\" /></a></p>").appendTo('#link_' + id);
+                $('<div class="data" id="data_' + id + '"></div>').html("<p><b> Prenom : "+d.Prénom+" <br/> nom : "+d.Nom+"</b> <br/> <br/><a target=\"_blank\" href=\" "+d.linkedIn+" \"><img class=\"image\" style=\"width:30px;float:left;\"  src=\"logold.png\" /></a> <a target=\"_blank\" href=\"https://github.com/"+d.Github+"\"><img class=\"image\" style=\"width:35px;float:left;\"  src=\"logogithub.png\" /></a> <a target=\"_blank\" href=\""+urlDiigo+d['login Diigo']+"\"> <img class=\"image\" style=\"width:35px;float:left;\"  src=\"Diigo.png\" /></a> </p>").appendTo('#link_' + id);
                 $('<div class="graph" id="graph_' + id + '"></div>').html(" ").appendTo('#link_' + id);
 
 
