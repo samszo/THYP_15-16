@@ -14,7 +14,8 @@
 		<script>
 			var dataEtu;  
 			var urlGit = "https://github.com/";
-			var urlDiigo = "https://www.diigo.com/user/";	
+			var urlDiigo = "https://www.diigo.com/user/";
+			var urlLinkedIn = "https://fr.linkedin.com/";
 			
 			$(document).ready(  
 				 function()
@@ -30,9 +31,9 @@
 										 function()
 										 {
 											 if(i%2==0){
-												$('<div class="items paire" id="link_' + i + '"></div>').html('<img onclick="voirData(' + i + ')" src="' + this.attributes[1].nodeValue + '" />').appendTo('#contenue');
+												$('<div class="items paire" id="link_' + i + '"></div>').html('<img onclick="voirData(' + i + ')" width="300" height="500" src="' + this.attributes[1].nodeValue + '" />').appendTo('#contenue');
 											 }else{
-												$('<div class="items impaire" id="link_' + i + '"></div>').html('<img onclick="voirData(' + i + ')" src="' + this.attributes[1].nodeValue + '" />').appendTo('#contenue');
+												$('<div class="items impaire" id="link_' + i + '"></div>').html('<img onclick="voirData(' + i + ')" width="300" height="500" src="' + this.attributes[1].nodeValue + '" />').appendTo('#contenue');
 											 }
 											
 										   i++;
@@ -63,15 +64,18 @@
 			
 			//afficher les infos 
 			function voirDataLogin(d){
+			var linkLinkedIn = "";
+			if(d["page linkedIn"]==""){
+				linkLinkedIn = urlLinkedIn;
+			}else{
+				linkLinkedIn = d["page linkedIn"];
+			}
 				var h = "<h3>"+d.Prénom+" "+d.Nom+"</h3>"
-				+"</br>"
+				+"<br>"
 				+"<a href='mailto:mailto:"+ d.mail +"'>Contacter : " + d.Prénom + "</a> "
-				+"</br>"
-				+" "
-				+"<a href='"+ d["page linkedIn"] +"'>linkedIn</a> "
-				+"<br/>"
-				+"<div id='diigo'><a href='"+urlDiigo+d["login Diigo"]+"'><img height='40px' src='../img/diigo.jpg' /></a></div>"
-				+"<div id='git'><a href='"+urlGit+d["login Github"]+"'><img height='40px' src='../img/github.png' /></a></div>"
+				+"<div id='links'><a href='"+linkLinkedIn+"'><img height='40px' src='../img/Linkedin.png' /></a></div>"
+				+"<div id='links'><a href='"+urlDiigo+d["login Diigo"]+"'><img height='40px' src='../img/diigo.jpg' /></a></div>"
+				+"<div id='links'><a href='"+urlGit+d["login Github"]+"'><img height='40px' src='../img/github.png' /></a></div>"
 				+"<div id='graph"+d.idPhoto+"' />"
 					$('<div class="data" id="data_' + d.idPhoto + '"></div>').html(h).appendTo('#link_' + d.idPhoto);
 				
