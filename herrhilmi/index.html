@@ -28,7 +28,6 @@
 			   })
 			   
 			 });
-
 		   $.ajax( {
 		            type: "GET",
 		            url: "../php/lecteurFlux.php?url=THYP1516photo",
@@ -42,21 +41,21 @@
 		                            $('<div class="col-sm-6"></div>').html('<div class="col-sm-12"><ul id="etud_'+i+'" class="nav nav-tabs" role="tablist"></ul><div id="etudiant_'+i+'" class="thumbnail tab-content col-sm-12" ></div></div>').appendTo('.row');
 									$('<li role="presentation" class="active"></li>').html(' <a href="#info_etud_'+i+'" aria-controls="home" role="tab" data-toggle="tab">Infos</a>').appendTo('#etud_'+i);
 									$('<li role="presentation"></li>').html('<a href="#skill_etud_'+i+'" aria-controls="profile" role="tab" data-toggle="tab">Skills</a>').appendTo('#etud_'+i);
-									$('<li role="presentation"></li>').html('<a href="#presence_etud_'+i+'" aria-controls="pres" role="tab" data-toggle="tab">Présence</a>').appendTo('#etud_'+i);
 									
 									$('<div role="tabpanel" class="tab-pane active" id="info_etud_'+i+'" ></div>').html('<img class="col-sm-5" vspace=10  src="' + this.attributes[1].nodeValue + '" />').appendTo('#etudiant_'+i);
 									$('<div id="my_info_'+i+'" class="col-sm-7" ></div>').html('').appendTo('#info_etud_'+i);
 									$('<div role="tabpanel" class="tab-pane" id="skill_etud_'+i+'" ></div>').html('').appendTo('#etudiant_'+i);								
-									$('<div role="tabpanel" class="tab-pane" id="presence_etud_'+i+'" ></div>').html(' Nouvel Onglet').appendTo('#etudiant_'+i);								
 									
 									
 									dataEtu.forEach(function(d){
 										if(d.idPhoto!="" && d.idPhoto==i ){
 													$('<h3 class="text-primary"></h3>').html(d.Prénom + " " + d.Nom).appendTo('#my_info_'+i);
 													
-													var list = "<li>" + d.mail + "</li>"
+													var list = ""
+													+"<li><img style = \" margin-left: -3px;\" class=\"img-circle\" width=24 height=24 hspace=10  src=\"../img/mail.png\" /><a href=\"mailto:" + d.mail + "\">Contact</a></li>"
 													+"<li><img style = \" margin-left: -3px;\" class=\"img-circle\" width=24 height=24 hspace=10 vspace=10  src=\"../img/diigo.jpg\" /><a href="+urlDiigo+d['login Diigo']+">/"+d['login Diigo']+"</a></li>"
 													+"<li><img style = \" margin-left: -3px;\" class=\"img-circle\" width=24 height=24 hspace=10  src=\"../img/Octocat.png\"/><a href="+urlGit+d['login Github']+">/"+d['login Github']+"</a></li>";
+													$('<hr style="margin:0px 0 10px 0;"/>').html('').appendTo('#my_info_'+i); 
 													$('<ul class="list-unstyled"></ul>').html(list).appendTo('#my_info_'+i); 
 													       		    	
 										
@@ -79,7 +78,6 @@
 										
 										}
 									})
-
 								  i++;
 		                          });
 								  
@@ -99,45 +97,35 @@
 		   		   		   
 		  }
 		);
-
 	function draw(dataE,i)
 	{
-
-		var width = 450,
-		height = 450,
-		radius = Math.min(width, height) / 2,
+		var width = 480,
+		height = 480,
+		radius = 225,
 		innerRadius = 0.3 * radius;
-
 		var pie = d3.layout.pie()
 		.sort(null)
 		.value(function(d) { return d.width; });
-
 		var tip = d3.tip()
 		.attr('class', 'd3-tip')
 		.offset([0, 0])
 		.html(function(d) {
 		return d.data.label + ": <span style='color:orangered'>" + d.data.score + "</span>";
 		});
-
 		var arc = d3.svg.arc()
 		.innerRadius(innerRadius)
 		.outerRadius(function (d) { 
 		return (radius - innerRadius) * (d.data.score / 100.0) + innerRadius; 
 		});
-
 		var outlineArc = d3.svg.arc()
 		.innerRadius(innerRadius)
 		.outerRadius(radius);
-
-
 		var svg = d3.select("#skill_etud_"+i).append("svg")
 		.attr("width", width)
 		.attr("height", height)
 		.append("g")
-		.attr("transform", "translate(" + width / 2 + "," + height / 2 + ")");
-
+		.attr("transform", "translate(" + (15 + radius) + "," + (15 + radius)+ ")");
 		svg.call(tip);
-
 		d3.csv('aster_data.csv', function(error, data) {
 		data.forEach(function(d) {
 			d.id     =  d.id;
@@ -148,7 +136,6 @@
 			d.width  = +d.weight;
 			d.label  =  d.label;
 		});
-
 		var path = svg.selectAll(".solidArc")
 		.data(pie(data))
 		.enter().append("path")
@@ -158,7 +145,6 @@
 		.attr("d", arc)
 		.on('mouseover', tip.show)
 		.on('mouseout', tip.hide);
-
 		var outerPath = svg.selectAll(".outlineArc")
 		.data(pie(data))
 		.enter().append("path")
@@ -166,8 +152,6 @@
 		.attr("stroke", "gray")
 		.attr("class", "outlineArc")
 		.attr("d", outlineArc);  
-
-
 		// calculate the weighted mean score
 		var score = 
 		data.reduce(function(a, b) {
@@ -177,29 +161,28 @@
 		data.reduce(function(a, b) { 
 		return a + b.weight; 
 		}, 0);
-
 		svg.append("svg:text")
 		.attr("class", "aster-score")
 		.attr("dy", ".35em")
 		.attr("text-anchor", "middle") // text-align: right
 		.text(dataE.Nom);
-
 		});					
 	}
-
 </script>
 </head>
-<body>
+<body style="background-color: #555">
 
 
+	<h1  align =center style="color:white;padding:15px 0;">Trombinoscope</h1>
+		
+	<div class="container" style="background-color: #fefefe">
+		
+		<div class="row  col-sm-12">
+		 
+		</div>
 
-<div class="container">
-	<h1 class="header text-primary">Trombinoscope</h1>
-	<div class="row  col-sm-12">
-	 
 	</div>
-
-</div>
+	<h5  align =center style="color:white;padding:5px 0;">Master 2 Hypermédia : promo 2015 - 2016</h5>
 
 </body>
 </html>

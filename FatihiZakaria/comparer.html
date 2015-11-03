@@ -2,19 +2,26 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+ <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+  <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
 <title>Trombinoscope</title>
 <script src="../js/jquery.min.js" ></script>
 <script src="../js/d3.v3.min.js" ></script>
 <script src="../js/d3pie.js"></script>
 <script src="../js/colorbrewer/colorbrewer.js"></script>
 <link href="../js/colorbrewer/colorbrewer.css" rel="stylesheet" />
+<link type="text/css" rel="stylesheet" href="returnOnTop.css" media="all" />
+        
+<script type="text/javascript" src="jquery.js"></script>
+<script type="text/javascript" src="returnOnTop.js"></script>
 
 <style>
 #contenue{
 float:center;
 }
 #h1{
-background-color:#CCC;
+background-color:#jhhgi;
 }
 .items{
 	display:flex;	
@@ -22,9 +29,10 @@ background-color:#CCC;
 	border:2px solid black;
 }
 .data{
-	float:left;
-	margin: 3px;
-	color:#CC00FF;
+	 float: left;
+    margin: 3px;
+    color: #03A9F4;
+    
 	
 }
 .iTof{
@@ -33,7 +41,41 @@ background-color:#CCC;
 
 </style>
 <script>
-var dataEtu;  
+	 var tableau;
+     var login;
+
+function load() {
+      
+      var url = window.location.search;
+      login = url.substring(url.lastIndexOf("=")+1);
+
+		var reg=new RegExp("-");
+
+	  tableau=login.split(reg);
+		//for (var i=0; i<tableau.length; i++) {
+
+		 //document.write("tableau[" + i + "] = " + tableau[i] + "<BR>");
+		//}
+      //alert(login);
+     // alert("jjjjj"+tableau[1]);
+     var chaine=" ";
+    for (var i=0; i<tableau.length-1; i++) {
+
+    	 chaine = chaine + tableau[i].split("+")[0] +"  "  ;
+		 
+
+	}
+	chaine = chaine + tableau[tableau.length-1].split("+")[0] +".";
+	
+     document.getElementById("h1").innerHTML = "Comparaison entre <b>"+chaine+"</b>";
+
+
+
+}
+
+
+
+	var dataEtu;  
 var urlGit = "https://github.com/";
 var urlDiigo = "https://www.diigo.com/user/";	
 	$(document).ready(  
@@ -41,7 +83,7 @@ var urlDiigo = "https://www.diigo.com/user/";
 		 {
 		   $.ajax( {
 		            type: "GET",
-		            url: "pic.xml",
+		            url: "../php/lecteurFlux.php?url=THYP1516photo",
 		            dataType: "xml",
 		            success: function(xml) 
 		                     {
@@ -49,15 +91,38 @@ var urlDiigo = "https://www.diigo.com/user/";
 		                       $(xml).find('enclosure').each(   
 		                         function()
 		                         {
-		                        	 	//console.log(this.attributes[1].nodeValue);
-		                            $('<div class="items" id="link_' + i + '"></div>').html('<img onclick="voirData(' + i + ')" src="' + this.attributes[1].nodeValue + '" />').appendTo('#contenue');
-			                       i++;
+		                         
+		                         	for (var j=1; j<tableau.length; j++) {
+			                         	var index = tableau[j].substring(tableau[j].lastIndexOf("+")+1);
+
+			 							if(index==i){
+			 								$('<div class="items" id="link_' + i + '"></div>').html('<img onclick="voirData(' + i + ')" src="' + this.attributes[1].nodeValue + '" />').appendTo('#contenue');
+			 							}	
+		                            
+
+			                       
+									}
+  								i++;
+
+		                        	 	
 		                          });
-			           		   	d3.csv("donnee.csv", function(data) {
+			           		   	d3.csv("../php/lecteurFlux.php?url=THYP1516data", function(data) {
 			         			   dataEtu = data;
 			         			   data.forEach(function(d,i){
 			         				   //console.log(d.idPhoto+" "+d.Nom+" "+d.mail+" "+d.linkedIn);
-			         				   voirDataLogin(d);
+
+			         				   for (var i=0; i<tableau.length; i++) {
+			         				   		
+			         			   				var logingit = tableau[i].split("+")[0];
+
+											   if(logingit==d["login Github"]){
+											   	    //alert(tableau[i]);
+											   		voirDataLogin(d);
+											   }
+											}
+			         				   
+
+
 			         			   })
 			         			   
 			         			   
@@ -87,25 +152,37 @@ var urlDiigo = "https://www.diigo.com/user/";
 	
 	//afficher les infos 
 	function voirDataLogin(d){
-		var h = d.Prénom+" "+d.Nom
+		var h = 
+		d.Prénom+" "+d.Nom
 		+"</br>"
 		+" "+d.mail
 		+"</br>"
+		
 		+" "+d["page linkedIn"]
 			+"<br/>"
 			+"<a href='"+urlDiigo+d["login Diigo"]+"'><img height='40px' src='../img/diigo.jpg' /></a>"
 			+"<a href='"+urlGit+d["login Github"]+"'><img height='40px' src='../img/github.png' /></a>"
 			+"<div id='graph"+d.idPhoto+"' />"
               $('<div class="data" id="data_' + d.idPhoto + '"></div>').html(h).appendTo('#link_' + d.idPhoto);
+              +"<br/>"
+			
+
 		creaGraphEtu(d);	
 		
 	}
+
+
 </script>
 </head>
-<body  >
-<h1>Trombinoscope </h1>
-
+<body onload="load()"  >
+<div style="text-align:center;">
+	<img src="comparaison.jpg">
+		<font style="font-size: 124%;" id="h1"></font>
+	<img src="comparaison.jpg">
+</div>
+<br><br>
 <div id="contenue"></div>
+
 <div id="pieChart"></div>
 
 <script>
@@ -114,7 +191,7 @@ var score = {"nul": 0 , "moins nul": 20, "bon":60, "trop bon":80, "expert":100};
 var cats = ["Javascript","CSS","HTML","PHP","SVG","OWL","JAVA","XML",".NET","JSON","Objective-C","Android"];
 //var fctColor = d3.scale.category20();
 //var fctColor = d3.scale.ordinal().domain(cats).range(colorbrewer.RdBu[14]);
-var fctColor = d3.scale.linear().domain([0, 100]).range(["red", "green"]);
+var fctColor = d3.scale.linear().domain([0, 100]).range(["#ff3400", "#3c9a2e"]);
 
 function creaGraphEtu(d){
 	
@@ -146,7 +223,7 @@ function creaGraphEtu(d){
 				"font": "open sans"
 			},
 			"titleSubtitlePadding": 9
-		
+		},
 		"footer": {
 			"color": "#999999",
 			"fontSize": 10,

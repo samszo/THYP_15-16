@@ -2,7 +2,7 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<title>Trombinoscope</title>
+<title>Trombinoscope de Krayem Mabrouka</title>
 <script src="../js/jquery.min.js" ></script>
 <script src="../js/d3.v3.min.js" ></script>
 <script src="../js/d3pie.js"></script>
@@ -14,7 +14,7 @@
 float:center;
 }
 #h1{
-background-color:#CCC;
+background-color:#jhhgi;
 }
 .items{
 	display:flex;	
@@ -33,7 +33,7 @@ background-color:#CCC;
 
 </style>
 <script>
-var dataEtu;  
+	var dataEtu;  
 var urlGit = "https://github.com/";
 var urlDiigo = "https://www.diigo.com/user/";	
 	$(document).ready(  
@@ -41,7 +41,7 @@ var urlDiigo = "https://www.diigo.com/user/";
 		 {
 		   $.ajax( {
 		            type: "GET",
-		            url: "pic.xml",
+		            url: "../php/lecteurFlux.php?url=THYP1516photo",
 		            dataType: "xml",
 		            success: function(xml) 
 		                     {
@@ -53,7 +53,7 @@ var urlDiigo = "https://www.diigo.com/user/";
 		                            $('<div class="items" id="link_' + i + '"></div>').html('<img onclick="voirData(' + i + ')" src="' + this.attributes[1].nodeValue + '" />').appendTo('#contenue');
 			                       i++;
 		                          });
-			           		   	d3.csv("donnee.csv", function(data) {
+			           		   	d3.csv("../php/lecteurFlux.php?url=THYP1516data", function(data) {
 			         			   dataEtu = data;
 			         			   data.forEach(function(d,i){
 			         				   //console.log(d.idPhoto+" "+d.Nom+" "+d.mail+" "+d.linkedIn);
@@ -104,8 +104,9 @@ var urlDiigo = "https://www.diigo.com/user/";
 </head>
 <body  >
 <h1>Trombinoscope </h1>
-
+<h2>Kalmouni Nada</h2>
 <div id="contenue"></div>
+
 <div id="pieChart"></div>
 
 <script>
@@ -114,7 +115,7 @@ var score = {"nul": 0 , "moins nul": 20, "bon":60, "trop bon":80, "expert":100};
 var cats = ["Javascript","CSS","HTML","PHP","SVG","OWL","JAVA","XML",".NET","JSON","Objective-C","Android"];
 //var fctColor = d3.scale.category20();
 //var fctColor = d3.scale.ordinal().domain(cats).range(colorbrewer.RdBu[14]);
-var fctColor = d3.scale.linear().domain([0, 100]).range(["red", "green"]);
+var fctColor = d3.scale.linear().domain([0, 100]).range(["#ff3400", "#3c9a2e"]);
 
 function creaGraphEtu(d){
 	
@@ -146,7 +147,7 @@ function creaGraphEtu(d){
 				"font": "open sans"
 			},
 			"titleSubtitlePadding": 9
-		
+		},
 		"footer": {
 			"color": "#999999",
 			"fontSize": 10,

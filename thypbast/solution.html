@@ -3,21 +3,16 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>Trombinoscope des THYP 2015</title>
-<script src="../../js/jquery.min.js" ></script>
-<script src="../../js/d3.v3.min.js" ></script>
-<script src="http://d3js.org/d3.v3.min.js"></script>
-<script src="http://labratrevenge.com/d3-tip/javascripts/d3.tip.v0.6.3.js"></script>
-<style>
-</style>
+<script src="../js/jquery.min.js" ></script>
+<script src="../js/d3.v3.min.js" ></script>
 <script>
-
 	var dataEtu;   
 	$(document).ready(  
 		 function()
 		 {
 		   $.ajax( {
 		            type: "GET",
-		            url: "../php/lecteurFlux.php?url=THYP1516photo",
+		            url: "picture.xml",
 		            dataType: "xml",
 		            success: function(xml) 
 		                     {
@@ -31,7 +26,7 @@
 		                          });
 		                      }
 		        });
-		   d3.csv("../php/lecteurFlux.php?url=THYP1516data", function(data) {
+		   d3.csv("data.csv", function(data) {
 			   dataEtu = data;
 			   /*
 			   data.forEach(function(d,i){
@@ -55,7 +50,6 @@
 </script>
 </head>
 <body  >
-
 <div id="Div_XML"></div>
 
 </body>

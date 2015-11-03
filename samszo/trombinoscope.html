@@ -28,7 +28,7 @@
 		 {
 		   $.ajax( {
 		            type: "GET",
-		            url: "../php/lecteurFlux.php?url=THYP1516photo",
+		            url: "picture.xml",
 		            dataType: "xml",
 		            success: function(xml) 
 		                     {
@@ -42,7 +42,7 @@
 		                          });
 		                      }
 		        });
-		   d3.csv("../php/lecteurFlux.php?url=THYP1516data", function(data) {
+		   d3.csv("data.csv", function(data) {
 			   dataEtu = data;
 			   data.forEach(function(d,i){
 				   console.log(d.idPhoto+" "+d.Nom);
@@ -65,6 +65,7 @@
 	
 	
 	function voirDataLogin(d){
+	
 		var h = d.Prénom+" "+d.Nom
 			+"<br/>"
 			+"<a href='"+urlDiigo+d["login Diigo"]+"'><img height='32px' src='../img/diigo.jpg' /></a>"
