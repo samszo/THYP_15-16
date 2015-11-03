@@ -11,17 +11,31 @@
 
 <style>
 #contenue{
+padding-left:20px;
 float:center;
+padding-left:10px;
 }
-#h1{
-background-color:#jhhgi;
+h1{
+
+padding-left:500px;
 }
+h2{
+
+padding-left:500px;
+}
+
 .items{
 	display:flex;	
 	padding: 3px;
 	border:2px solid black;
+	background-color:#EDF7F2;
+	padding-left:10px;
+	padding-right:20px;
+	margin-left:80px;
+	margin-right:50px;
 }
 .data{
+padding-left:10px;
 	float:left;
 	margin: 3px;
 	color:#CC00FF;
@@ -36,6 +50,7 @@ background-color:#jhhgi;
 	var dataEtu;  
 var urlGit = "https://github.com/";
 var urlDiigo = "https://www.diigo.com/user/";	
+var urlLinkedIn = "https://fr.linkedin.com/"
 	$(document).ready(  
 		 function()
 		 {
@@ -72,6 +87,7 @@ var urlDiigo = "https://www.diigo.com/user/";
 		        });
 		  }
 		);
+		
 	//chercher les data
 	function voirData(id){
 		
@@ -95,6 +111,7 @@ var urlDiigo = "https://www.diigo.com/user/";
 			+"<br/>"
 			+"<a href='"+urlDiigo+d["login Diigo"]+"'><img height='40px' src='../img/diigo.jpg' /></a>"
 			+"<a href='"+urlGit+d["login Github"]+"'><img height='40px' src='../img/github.png' /></a>"
+			+"<a href='"+urlLinkedIn+d["login LinkedIn"]+"'><img height='40px' src='../img/linkedin.png' /></a>"
 			+"<div id='graph"+d.idPhoto+"' />"
               $('<div class="data" id="data_' + d.idPhoto + '"></div>').html(h).appendTo('#link_' + d.idPhoto);
 		creaGraphEtu(d);	
@@ -115,7 +132,7 @@ var score = {"nul": 0 , "moins nul": 20, "bon":60, "trop bon":80, "expert":100};
 var cats = ["Javascript","CSS","HTML","PHP","SVG","OWL","JAVA","XML",".NET","JSON","Objective-C","Android"];
 //var fctColor = d3.scale.category20();
 //var fctColor = d3.scale.ordinal().domain(cats).range(colorbrewer.RdBu[14]);
-var fctColor = d3.scale.linear().domain([0, 100]).range(["#ff3400", "#3c9a2e"]);
+var fctColor = d3.scale.linear().domain([0, 100]).range(["#01B0F0", "#FF358B"]);
 
 function creaGraphEtu(d){
 	
@@ -137,7 +154,7 @@ function creaGraphEtu(d){
 		"header": {
 			"title": {
 				"text": "Compétences",
-				"fontSize": 24,
+				"fontSize": 35,
 				"font": "open sans"
 			},
 			"subtitle": {
