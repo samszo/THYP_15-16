@@ -1,45 +1,10 @@
-<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
-<html>
-	<head>
-		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-		<title>Trombinoscope THYP1516</title>
 		<script src="../js/jquery.min.js" ></script>
 		<script src="../js/d3.v3.min.js" ></script>
 		<script src="../js/d3pie.js"></script>
 		<script src="../js/colorbrewer/colorbrewer.js"></script>
 		<link href="../js/colorbrewer/colorbrewer.css" rel="stylesheet" />
-
-		<style>
-			#contenue{
-			float:center;
-			}
-			#h1{
-			background-color:#jhhgi;
-			}
-			.items{
-				display:flex;	
-				padding: 3px;
-				
-			}
-			.paire{
-				margin-top: 10px;
-				margin-bottom: 10px;
-				border:5px solid black;
-			}
-			.impaire{
-				border:5px solid red;
-			}
-			.data{
-				float:left;
-				margin: 3px;
-				color:#CC00FF;
-				
-			}
-			.iTof{
-				float:left;
-			}
-		</style>
-		<script>
+			
+			
 			var dataEtu;  
 			var urlGit = "https://github.com/";
 			var urlDiigo = "https://www.diigo.com/user/";	
@@ -106,24 +71,11 @@
 				creaGraphEtu(d);	
 				
 			}
-		</script>
-	</head>
-	<body>
-		<div id="header_body">
-			<h1><u>Trombinoscope</u></h1>
-			<h2><strong><u>Yann MAHUET</u></strong></h2>
-		</div>
-
-		<div id="contenue"></div>
-
-		<div id="pieChart"></div>
-
-		<script>
 			// merci à  http://d3pie.org/
 			var score = {"nul": 0 , "moins nul": 20, "bon":60, "trop bon":80, "expert":100};
 			var cats = ["Javascript","CSS","HTML","PHP","SVG","OWL","JAVA","XML",".NET","JSON","Objective-C","Android"];
 
-			var fctColor = d3.scale.linear().domain([0, 100]).range(["#fbf400", "#3c9a2e"]);
+			var fctColor = d3.scale.linear().domain([0, 100]).range(["#ff3400", "#3c9a2e"]);
 
 			function creaGraphEtu(d){
 				var dtGraph = [];
@@ -202,6 +154,3 @@
 					"callbacks": {}
 				});
 			}
-		</script>
-	</body>
-</html>
