@@ -120,12 +120,19 @@ var urlDiigo = "https://www.diigo.com/user/";
 			+"<br/>"
 			+"<img width=24 height=24 class=\"icone\"  src=\"../img/Octocat.png\"/><a href="+urlGit+d['login Github']+">"+d['login Github']+"</a>"
 			+"<br/>"
-			+"<a href="+urlGit+d['login Github']+">"+"<p>Compétences</p>"+"</a>"
-			+"<div id='graph"+d.idPhoto+"' />"
-              $('<div class="data" id="data_' + d.idPhoto + '"></div>').html(h).appendTo('#link_' + d.idPhoto);
+			
+			+"<div id='graph"+d.idPhoto+"' />";
+             $('<div class="data" id="data_' + d.idPhoto + '"></div>').html(h).appendTo('#link_' + d.idPhoto);
 		//creaGraphEtu(d);	
 		
 	}
+
+//afficher les infos 
+	//+"<button onclick=\"test()\">Compétences</button>"
+	
+
+
+
 </script>
 </head>
 <body  >
