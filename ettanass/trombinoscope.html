@@ -1,14 +1,40 @@
-<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<!DOCTYPE html>
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<title>Trombinoscope des THYP 2015</title>
-<link rel="stylesheet" type="text/css" href="style.css">
+<title>Trombinoscope</title>
 <script src="../js/jquery.min.js" ></script>
 <script src="../js/d3.v3.min.js" ></script>
 <script src="../js/d3pie.js"></script>
 <script src="../js/colorbrewer/colorbrewer.js"></script>
 <link href="../js/colorbrewer/colorbrewer.css" rel="stylesheet" />
+
+<style>
+#contenue{
+float:center;
+}
+body{
+	background-color: #adadad;
+}
+.items{
+	display:flex;	
+	padding: 3px;
+	border:1px solid black;
+}
+p{
+	font-size: 25px;	
+}
+
+.iTof{
+	float:center;
+} 
+.data{
+	float:center;
+	margin: 20px;
+	
+}
+
+</style>
 <script>
 	var dataEtu;  
 var urlGit = "https://github.com/";
@@ -27,7 +53,7 @@ var urlDiigo = "https://www.diigo.com/user/";
 		                         function()
 		                         {
 		                        	 	//console.log(this.attributes[1].nodeValue);
-		                            $('<div class="items" id="link_' + i + '"></div>').html('<img	 onclick="voirData(' + i + ')" src="' + this.attributes[1].nodeValue + '" />').appendTo('#content');
+		                            $('<div class="items" id="link_' + i + '"></div>').html('<img width="400px" onclick="voirData(' + i + ')" src="' + this.attributes[1].nodeValue + '" />').appendTo('#contenue');
 			                       i++;
 		                          });
 			           		   	d3.csv("../php/lecteurFlux.php?url=THYP1516data", function(data) {
@@ -49,30 +75,19 @@ var urlDiigo = "https://www.diigo.com/user/";
 		        });
 		  }
 		);
-	//chercher les data
-	function voirData(id){
-		
-		dataEtu.forEach(function(d){
-			if(d.idPhoto==id && d.idPhoto!=""){
-                
-				
-			}
-		})
-		
-	}
+
 	
 	
 	//afficher les infos 
 	function voirDataLogin(d){
-		var h = d.Prénom+" "+d.Nom
+		var h = "<p><b >Prénom: </b>"+ d.Prénom +"</br>"+"<b>Nom: </b>"+d.Nom
 		+"</br>"
-		+" "+d.mail
+		+"<b>Email : </b>"+ d.mail
 		+"</br>"
-		+" "+d["page linkedIn"]
-			+"<br/>"
-			+"<a href='"+urlDiigo+d["login Diigo"]+"'><img height='40px' src='../img/diigo.jpg' /></a>"
-			+"<a href='"+urlGit+d["login Github"]+"'><img height='40px' src='../img/github.png' /></a>"
-			+"<div id='graph"+d.idPhoto+"' />"
+			+"<center><a href='"+urlDiigo+d["login Diigo"]+"'><img hspace='20' height='50px' src='../img/diigo.jpg' /></a>"
+			+"<a href='"+urlGit+d["login Github"]+"'><img hspace='20' height='50px' src='../img/github.png' /></a>"
+			+"<a href='"+d["page linkedIn"]+"'><img hspace='20' height='50px' src='../img/linkedIn.png' /></a></center>"
+			+"<div id='graph"+d.idPhoto+"' /><p>"
               $('<div class="data" id="data_' + d.idPhoto + '"></div>').html(h).appendTo('#link_' + d.idPhoto);
 		creaGraphEtu(d);	
 		
@@ -80,19 +95,19 @@ var urlDiigo = "https://www.diigo.com/user/";
 </script>
 </head>
 <body  >
-	<h1><center>Trombinoscope</center></h1>
-<div id="content"></div>
+<center><h1 color>Trombinoscope </h1></center>
+<div id="pieChart"></div>
+<div id="contenue"></div>
 
 
 
-<div id=""></div>
 <script>
 // merci à  http://d3pie.org/
 var score = {"nul": 0 , "moins nul": 20, "bon":60, "trop bon":80, "expert":100};
 var cats = ["Javascript","CSS","HTML","PHP","SVG","OWL","JAVA","XML",".NET","JSON","Objective-C","Android"];
 //var fctColor = d3.scale.category20();
 //var fctColor = d3.scale.ordinal().domain(cats).range(colorbrewer.RdBu[14]);
-var fctColor = d3.scale.linear().domain([0, 100]).range(["#ff3400", "#3c9a2e"]);
+var fctColor = d3.scale.linear().domain([0, 100]).range(["#0000FF", "#FF0000"]);
 
 function creaGraphEtu(d){
 	
@@ -123,7 +138,8 @@ function creaGraphEtu(d){
 				"fontSize": 12,
 				"font": "open sans"
 			},
-			"titleSubtitlePadding": 9
+			"titleSubtitlePadding": 9,
+			"location": "pie-center"
 		},
 		"footer": {
 			"color": "#999999",
@@ -132,8 +148,8 @@ function creaGraphEtu(d){
 			"location": "bottom-left"
 		},
 		"size": {
-			"pieInnerRadius": "33%",
-			"pieOuterRadius": "83%"
+			"pieInnerRadius": "60%",
+			"pieOuterRadius": "100%"
 		},
 		"data": {
 			"sortOrder": "value-desc",
@@ -141,7 +157,7 @@ function creaGraphEtu(d){
 		},
 		"labels": {
 			"outer": {
-				"pieDistance": 32
+				"pieDistance": 10
 			},
 			"inner": {
 				"hideWhenLessThanPercentage": 3
@@ -155,7 +171,7 @@ function creaGraphEtu(d){
 			},
 			"value": {
 				"color": "#adadad",
-				"fontSize": 11
+				"fontSize": 12
 			},
 			"lines": {
 				"enabled": true
@@ -168,7 +184,7 @@ function creaGraphEtu(d){
 			"pullOutSegmentOnClick": {
 				"effect": "linear",
 				"speed": 400,
-				"size": 8
+				"size": 10
 			}
 		},
 		"misc": {
