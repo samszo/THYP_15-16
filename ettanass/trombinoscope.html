@@ -12,6 +12,8 @@
 <style>
 #contenue{
 float:center;
+padding-right: 200px;
+padding-left: 200px;
 }
 body{
 	background-color: #adadad;
@@ -19,7 +21,8 @@ body{
 .items{
 	display:flex;	
 	padding: 3px;
-	border:1px solid black;
+	border:2px inset blue;
+	padding-left: 20%;
 }
 p{
 	font-size: 25px;	
@@ -31,6 +34,7 @@ p{
 .data{
 	float:center;
 	margin: 20px;
+	
 	
 }
 
@@ -80,7 +84,7 @@ var urlDiigo = "https://www.diigo.com/user/";
 	
 	//afficher les infos 
 	function voirDataLogin(d){
-		var h = "<p><b >Prénom: </b>"+ d.Prénom +"</br>"+"<b>Nom: </b>"+d.Nom
+		var h = "<p><b>Prénom: </b>"+ d.Prénom +"</br>"+"<b>Nom: </b>"+d.Nom
 		+"</br>"
 		+"<b>Email : </b>"+ d.mail
 		+"</br>"
