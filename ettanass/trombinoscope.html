@@ -12,11 +12,16 @@
 <style>
 #contenue{
 float:center;
-padding-right: 200px;
-padding-left: 200px;
+	margin-right: 200px;
+	margin-left: 200px;
+background-color: #C0C0C0;
+text-align: center;
 }
 body{
 	background-color: #adadad;
+}
+#cadre{
+	
 }
 .items{
 	display:flex;	
@@ -57,7 +62,7 @@ var urlDiigo = "https://www.diigo.com/user/";
 		                         function()
 		                         {
 		                        	 	//console.log(this.attributes[1].nodeValue);
-		                            $('<div class="items" id="link_' + i + '"></div>').html('<img width="400px" onclick="voirData(' + i + ')" src="' + this.attributes[1].nodeValue + '" />').appendTo('#contenue');
+		                            $('<div class="items" id="link_' + i + '"></div>').html('<img class="cadre" width="400px" onclick="voirData(' + i + ')" src="' + this.attributes[1].nodeValue + '" />').appendTo('#contenue');
 			                       i++;
 		                          });
 			           		   	d3.csv("../php/lecteurFlux.php?url=THYP1516data", function(data) {
