@@ -14,6 +14,7 @@
 padding-left:50px;
 float:center;
 padding-left:10px;
+margin-top: 10px;
 }
 h1{
 font-size: 20px;
@@ -162,7 +163,7 @@ var score = {"nul": 0 , "moins nul": 20, "bon":60, "trop bon":80, "expert":100};
 var cats = ["Javascript","CSS","HTML","PHP","SVG","OWL","JAVA","XML",".NET","JSON","Objective-C","Android"];
 //var fctColor = d3.scale.category20();
 //var fctColor = d3.scale.ordinal().domain(cats).range(colorbrewer.RdBu[14]);
-var fctColor = d3.scale.linear().domain([0, 100]).range(["#01B0F0", "#FF358B"]);
+var fctColor = d3.scale.linear().domain([0, 100]).range(["#01B0F0", "#grey"]);
 
 function creaGraphEtu(d){
 	
