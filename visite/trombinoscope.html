@@ -112,7 +112,8 @@ var urlLinkedIn = "https://fr.linkedin.com/";
 		var h = "<h2>"+d.Prénom+" "+d.Nom+"<h2>"
 		+"<a href='"+urlDiigo+d["login Diigo"]+"'><img hspace='5px' height='40px' src='../img/diigo.jpg' /></a>"
 		+"<a href='"+urlGit+d["login Github"]+"'><img hspace='5px' height='40px' src='../img/github.png' /></a>"
-		+"<a href='"+urlLinkedIn+d["login LinkedIn"]+"'><img hspace='5px' height='40px' src='../img/linkedin.png' /></a>"
+		+"<a href='"+d["page linkedIn"]+"'><img height='40px' src='../img/Linkedin.png' /></a>"
+		
 		+"<a href='mailto:"+ d.mail+"'><img height='40px' src='../img/mail.png' /></a>"
 	+"<div id='graph"+d.idPhoto+"' />"
              $('<div class="data" id="data_' + d.idPhoto + '"></div>').html(h).appendTo('#link_' + d.idPhoto);
