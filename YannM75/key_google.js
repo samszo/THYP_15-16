@@ -1,1 +1,0 @@
-var KEY_API_GOOGLE = "AIzaSyDWY622aBjL0ihPBaROrrSrZur6Cb9ngik";
