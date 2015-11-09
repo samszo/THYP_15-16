@@ -111,7 +111,7 @@ function success(event){
 		}
 		
 		var contentString = '<b>Bravo</b><br>' +
-		  'L\'origine de Facebook est<br>bel et bien les états-unis d\'amérique.<br>';
+		  'L\'origine de Facebook est<br>bel et bien les &eacutetats-unis d\'am&eacuterique.<br>';
 		  
 		// Replace the info window's content and position.
 		infoWindow.setContent(contentString);
