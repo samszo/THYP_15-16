@@ -5,15 +5,16 @@ include "mykey.php";
 <html>
   <head>
     <style type="text/css">
-      body { background-color: #C0E0BB;}
+      body { background-color: white;}
       #map { width: 1400px; height: 500px; margin-top: 100px; margin-left: 350px; padding: 0;  border:2px inset;}	
-	  h1{ font-size: 50px; text-align: center; border:2px outset; color:  black; background-color: #B2D0FE; margin-top: 1px;}
+	  h1{ font-size: 50px; text-align: center; border:2px outset; color:  green; background-color: #B2D0FE; margin-top: 1px;}
 	
     </style>
   </head>
   <body>
      <h1>Where Is It From?</h1> <br>
 	 <center><p>Choisissez un élement et trouver son pays d'origine : </p><img src="images/google.jpg" border="0" align="center" width=100px height=100px/></center>
+	<img id="Img" src="images/google.jpg" onclick="myFunction()" align="center" width=100px height=100px/>
 	
     <div id="map"></div>
     <script type="text/javascript">
