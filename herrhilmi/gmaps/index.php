@@ -1,5 +1,5 @@
 <?php 
-include "../../samszo/key.php";
+$apiGMap = "AIzaSyDRWApxqHrynQTocW6aK5Fb2R_vcLGEDVU";
 ?>
 <!DOCTYPE html>
 <html>
