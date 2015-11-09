@@ -2,7 +2,7 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<title>Trombinoscope de Krayem Mabrouka</title>
+<title>Trombinoscope KESRAOUI Mehdi</title>
 <script src="../js/jquery.min.js" ></script>
 <script src="../js/d3.v3.min.js" ></script>
 <script src="../js/d3pie.js"></script>
@@ -11,31 +11,34 @@
 
 <style>
 #contenue{
-float:center;
+    float:center;
 }
 #h1{
 background-color:#jhhgi;
 }
 .items{
-	display:flex;	
-	padding: 3px;
-	border:2px solid black;
+	display:inline-block;	
+	border:9px solid #FFFFFF;
+	background-color: #F99B6F;
 }
+p {
+ border-width:5px;
+ border-style:solid   ;
+ border-color:#FFFFFF;
+ }
+
 .data{
-	float:left;
+	float:right;
 	margin: 3px;
-	color:#CC00FF;
 	
-}
-.iTof{
-	float:left;
 }
 
 </style>
 <script>
 	var dataEtu;  
 var urlGit = "https://github.com/";
-var urlDiigo = "https://www.diigo.com/user/";	
+var urlDiigo = "https://www.diigo.com/user/";
+var urlTwitter = "https://www.twitter.com/";	
 	$(document).ready(  
 		 function()
 		 {
@@ -87,14 +90,18 @@ var urlDiigo = "https://www.diigo.com/user/";
 	
 	//afficher les infos 
 	function voirDataLogin(d){
-		var h = d.Prénom+" "+d.Nom
+		var h = "<p><b> Prénom :</b>"+d.Prénom
 		+"</br>"
-		+" "+d.mail
 		+"</br>"
-		+" "+d["page linkedIn"]
+		+"<b> Nom :</b>"+d.Nom
+		+"</br>"
+		+"<p><b> Email :</b>"+d.mail
+		+"</br>"
 			+"<br/>"
 			+"<a href='"+urlDiigo+d["login Diigo"]+"'><img height='40px' src='../img/diigo.jpg' /></a>"
 			+"<a href='"+urlGit+d["login Github"]+"'><img height='40px' src='../img/github.png' /></a>"
+			+"<a href='"+urlTwitter+d["login twitter"]+"'><img height='40px' src='../img/twitter.png' /></a>"
+			+"<a href='"+d["page linkedIn"]+"'><img height='40px' src='../img/Linkedin.png' /></a>"
 			+"<div id='graph"+d.idPhoto+"' />"
               $('<div class="data" id="data_' + d.idPhoto + '"></div>').html(h).appendTo('#link_' + d.idPhoto);
 		creaGraphEtu(d);	
@@ -102,9 +109,10 @@ var urlDiigo = "https://www.diigo.com/user/";
 	}
 </script>
 </head>
-<body  >
-<center><h1>Trombinoscope </h1></centre>
-<h2>KESRAOUI Mehdi</h2>
+<body bgcolor="#6DCD76">
+			<center><h1><u>Trombinoscope</u></h1></center>
+			<h2><strong><u>KESRAOUI Mehdi</u></strong></h2>
+
 <div id="contenue"></div>
 
 <div id="pieChart"></div>
@@ -115,7 +123,7 @@ var score = {"nul": 0 , "moins nul": 20, "bon":60, "trop bon":80, "expert":100};
 var cats = ["Javascript","CSS","HTML","PHP","SVG","OWL","JAVA","XML",".NET","JSON","Objective-C","Android"];
 //var fctColor = d3.scale.category20();
 //var fctColor = d3.scale.ordinal().domain(cats).range(colorbrewer.RdBu[14]);
-var fctColor = d3.scale.linear().domain([0, 100]).range(["#FA0A0A", "#F7EF0E"]);
+var fctColor = d3.scale.linear().domain([0, 100]).range(["#FF0000", "#06FF2C"]);
 
 function creaGraphEtu(d){
 	
@@ -137,13 +145,14 @@ function creaGraphEtu(d){
 		"header": {
 			"title": {
 				"text": "Compétences",
-				"fontSize": 24,
+				"color": "#BE0C0F",
+				"fontSize": 30,
 				"font": "open sans"
 			},
 			"subtitle": {
-				"text": "Langages informatiques maitrisés ou non",
-				"color": "#999999",
-				"fontSize": 12,
+				"text": "Langages de développement",
+				"color": "#0A6718",
+				"fontSize": 20,
 				"font": "open sans"
 			},
 			"titleSubtitlePadding": 9
@@ -155,8 +164,8 @@ function creaGraphEtu(d){
 			"location": "bottom-left"
 		},
 		"size": {
-			"pieInnerRadius": "33%",
-			"pieOuterRadius": "83%"
+			"pieInnerRadius": "0%",
+			"pieOuterRadius": "90%"
 		},
 		"data": {
 			"sortOrder": "value-desc",
@@ -164,16 +173,17 @@ function creaGraphEtu(d){
 		},
 		"labels": {
 			"outer": {
-				"pieDistance": 32
+				"pieDistance": 30
 			},
 			"inner": {
 				"hideWhenLessThanPercentage": 3
 			},
 			"mainLabel": {
-				"fontSize": 11
+				"color": "#BE0C0F",
+				"fontSize": 15
 			},
 			"percentage": {
-				"color": "#ffffff",
+				"color": "#000000",
 				"decimalPlaces": 0
 			},
 			"value": {
@@ -191,19 +201,18 @@ function creaGraphEtu(d){
 			"pullOutSegmentOnClick": {
 				"effect": "linear",
 				"speed": 400,
-				"size": 8
+				"size": 35
 			}
 		},
 		"misc": {
 			"gradient": {
-				"enabled": true,
-				"percentage": 100
+				"enabled": false,
+				"percentage": 50
 			}
 		},
 		"callbacks": {}
 	});
 }
 </script>
-<h1>by mkrayem </h1>
 </body>
 </html>
