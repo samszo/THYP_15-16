@@ -1,5 +1,5 @@
 <?php 
-$apiGMap = "AIzaSyDRWApxqHrynQTocW6aK5Fb2R_vcLGEDVU";
+include "../../samszo/key.php";
 ?>
 <!DOCTYPE html>
 <html>
@@ -39,7 +39,7 @@ $apiGMap = "AIzaSyDRWApxqHrynQTocW6aK5Fb2R_vcLGEDVU";
 	src="https://maps.googleapis.com/maps/api/js?key=<?php echo $apiGMap;?>&libraries=geometry&callback=initMap">
 	
 	</script>
-	<script src="script.min.js"></script>
+	<script src="script.js"></script>
     
   </body>
 </html>
