@@ -139,8 +139,8 @@ var urlLinkedIn = "https://www.linkedin.com/"
 	//afficher les infos 
 	function voirDataLogin(d){
 		var h = "<h1>"+"<center>"+d.Prénom+"<h1>"+d.Nom
-		+"<h1>Contact: "
-		+" "+d.mail + "</h1>"+"</center>"
+		+"<h1>Contact: "+"<a href='mailto:'>"
+		+" "+d.mail + "</h1>"+"</center>"+"</a>"
 			+"<p>"+"<a href='"+urlDiigo+d["login Diigo"]+"'><img hspace = '5' height='55px' src='../img/diigo.jpg' /></a>"
 			+"<a href='"+urlGit+d["login Github"]+"'><img hspace = '5' height='60px' src='../img/github.png' /></a>"
 			+"<a href='"+d["page linkedIn"]+"'><img hspace = '5' height='60px' src='../img/linkedin.png' /></a>"+"</p>"
