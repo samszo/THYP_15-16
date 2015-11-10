@@ -1,14 +1,8 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <h1>MAP Kesraoui </h1>
-<h2>La Carte</h2>
-<center><p> Ou se trouve se club <img src="img/real.png" width="50" height="40" /> ?
-</br>
-</br>
-</br>
-</p></center>
-    <style type="text/css">
+	<script src="../js/jquery.min.js" ></script>
+      <style type="text/css">
    
    h1 {
       color:#ffffff;
@@ -41,6 +35,15 @@
   </style>
   </head>
   <body>
+    <h1>MAP Kesraoui </h1>
+<h2>La Carte</h2>
+<center><p> Ou se trouve se club <img src="img/real.png" width="50" height="40" /> ?
+</br>
+  	<div id="result"></div>
+</br>
+</br>
+</p></center>
+  
     <div id="map"></div>
     <script type="text/javascript">
 var map;
@@ -70,8 +73,10 @@ function addMarker(location) {
   });
   markers.push(marker);
 
-  var distance = google.maps.geometry.spherical.computeDistanceBetween( source, marker.getPosition())/1000;
-  alert("La distance :" + distance + "  KM");
+  var distance = google.maps.geometry.spherical.computeDistanceBetween( source, marker.getPosition());
+  $("#result").html("La distance :" + (distance/1000) + "  KM");
+  creaScore({"id_doc":2,"id_perso":2,"distance":distance});
+  
 }
 function deleteMarkers() {
   clearMarkers();
@@ -85,6 +90,16 @@ function setMapOnAll(map) {
     markers[i].setMap(map);
   }
 }
+
+function creaScore(data){
+	data.table = "score";
+	$.get('../php/c.php',
+			data,
+        		function(html){
+				$("#result").html(html);
+       		});	
+}
+
     </script>
     <script async defer
       src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAtl4qOlHXTQ_3phq40KY69wNgF0YLfovk&libraries=geometry&callback=initMap">
