@@ -20,6 +20,7 @@ include "mykey.php";
 var map;
 var markers = [];
 var point;
+var compteur=5;
 function initMap() {
   var haightAshbury = {lat: 37.775091, lng: -122.418922};
 
@@ -66,21 +67,39 @@ function initMap() {
 
 // Adds a marker to the map and push to the array.
 function addMarker(location) {
-  var marker = new google.maps.Marker({
+setMapOnAll(null);
+	var marker = new google.maps.Marker({
     position: location,
-    map: map
+      map: map
   });
   markers.push(marker);
+  var distance = parseInt( google.maps.geometry.spherical.computeDistanceBetween( point, markers[markers.length-1].getPosition())/1000);
+  compteur--;
+  if (distance < 200){
+    alert ("VOUS AVEZ GAGNÉ");
+    compteur=5;
+  }
+  if (compteur==0){
+    alert("VOUS AVEZ PERDU! RECOMMENCEZ");
+    compteur =5;
   
+  }
+document.getElementById("compteur").innerHTML="il vous reste "+ compteur + "chances";
+document.getElementById("compteur").style.backgroundColor="red";
+/* 
+var path = [marker.getPosition(), point];
+  poly.setPath(path);
+  */
+document.getElementById("dis").innerHTML="la distance de votre point est "+distance+ " km";
+document.getElementById("dis").style.backgroundColor="blue";
 }
 
 // Sets the map on all markers in the array.
 function setMapOnAll(map) {
   for (var i = 0; i < markers.length; i++) {
     markers[i].setMap(map);
-	distance = google.maps.geometry.spherical.computeDistanceBetween( point, markers[i].getPosition());
-	dist = parseInt(distance/1000);
-	alert(dist);
+	distance = parseInt(google.maps.geometry.spherical.computeDistanceBetween( point, markers[i].getPosition())/1000);
+	alert(distance);
   }
   
 }
