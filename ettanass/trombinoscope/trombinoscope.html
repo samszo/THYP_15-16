@@ -1,8 +1,8 @@
-<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<!DOCTYPE html>
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<title>Trombinoscope de THYP 2015/2016</title>
+<title>Trombinoscope</title>
 <script src="../js/jquery.min.js" ></script>
 <script src="../js/d3.v3.min.js" ></script>
 <script src="../js/d3pie.js"></script>
@@ -12,44 +12,65 @@
 <style>
 #contenue{
 float:center;
-margin-right: 180px;
-margin-left: 180px;
-
+	margin-right: 200px;
+	margin-left: 200px;
+background-color: #C0C0C0;
 text-align: center;
-    
-}
-h1{
-background-color:#jhhgi;
-text-align: center;
-
-}
-
-.photo{
-width : 300px;
-height: 500px;
 }
 body{
 	background-color: #adadad;
 }
-
 .items{
 	display:flex;	
-	
-	border:2px solid black;
+	padding: 3px;
+	border:2px inset blue;
+	padding-left: 10%;
+}
+p{
+	font-size: 25px;	
+}
+.cadre { 
+  -webkit-transition: all 0.5s ease; 
+     -moz-transition: all 0.5s ease; 
+       -o-transition: all 0.5s ease; 
+      -ms-transition: all 0.5s ease; 
+          transition: all 0.5s ease; 
+          border:double;
+          margin-top: 10%;
+          border-color: blue;
 
-	padding: 12px;
-	margin: 12px;
-	background-color: #87CEEB;
-	
+} 
+  
+.cadre:hover { 
+  -webkit-transform: rotate(10deg); 
+     -moz-transform: rotate(10deg); 
+       -o-transform: rotate(10deg); 
+      -ms-transform: rotate(10deg); 
+          transform: rotate(10deg); 
+          border:double;
+          margin-top: 10%;
+           border-color: blue;
+}
+img { 
+  -webkit-transition: all 0.5s ease; 
+     -moz-transition: all 0.5s ease; 
+       -o-transition: all 0.5s ease; 
+      -ms-transition: all 0.5s ease; 
+          transition: all 0.5s ease; 
+} 
+  
+img:hover { 
+  -webkit-transform: rotate(-20deg); 
+     -moz-transform: rotate(-20deg); 
+       -o-transform: rotate(-20deg); 
+      -ms-transform: rotate(-20deg); 
+          transform: rotate(-20deg); 
 }
 .data{
 	float:center;
-	padding-left: 20px;
+	margin: 10px;
 	
 	
-}
-.iTof{
-	float:left;
 }
 
 </style>
@@ -57,7 +78,6 @@ body{
 	var dataEtu;  
 var urlGit = "https://github.com/";
 var urlDiigo = "https://www.diigo.com/user/";	
-var urlLinkedIn = "https://fr.linkedin.com/";
 	$(document).ready(  
 		 function()
 		 {
@@ -72,7 +92,7 @@ var urlLinkedIn = "https://fr.linkedin.com/";
 		                         function()
 		                         {
 		                        	 	//console.log(this.attributes[1].nodeValue);
-		                            $('<div class="items" id="link_' + i + '"></div>').html('<img class="photo" onclick="voirData(' + i + ')" src="' + this.attributes[1].nodeValue + '" />').appendTo('#contenue');
+		                            $('<div class="items" id="link_' + i + '"></div>').html('<img class="cadre" width="400px" height="500px"  src="' + this.attributes[1].nodeValue + '" />').appendTo('#contenue');
 			                       i++;
 		                          });
 			           		   	d3.csv("../php/lecteurFlux.php?url=THYP1516data", function(data) {
@@ -94,46 +114,31 @@ var urlLinkedIn = "https://fr.linkedin.com/";
 		        });
 		  }
 		);
-	//chercher les data
-	function voirData(id){
-		
-		dataEtu.forEach(function(d){
-			if(d.idPhoto==id && d.idPhoto!=""){
-                
-				
-			}
-		})
-		
-	}
+
 	
 	
 	//afficher les infos 
 	function voirDataLogin(d){
-		var h = "<h2>"+d.Prénom+" "+d.Nom+"<h2>"
-		+"<a href='"+urlDiigo+d["login Diigo"]+"'><img hspace='5px' height='40px' src='../img/diigo.jpg' /></a>"
-		+"<a href='"+urlGit+d["login Github"]+"'><img hspace='5px' height='40px' src='../img/github.png' /></a>"
-		+"<a href='"+d["page linkedIn"]+"'><img height='40px' src='../img/Linkedin.png' /></a>"
-		
-		+"<a href='mailto:"+ d.mail+"'><img height='40px' src='../img/mail.png' /></a>"
-	+"<div id='graph"+d.idPhoto+"' />"
-             $('<div class="data" id="data_' + d.idPhoto + '"></div>').html(h).appendTo('#link_' + d.idPhoto);
+		var h = "<p><b>Prénom: </b>"+ d.Prénom +"</br>"+"<b>Nom: </b>"+d.Nom
+		+"</br>"
+		+"<b>Email : </b>"+ d.mail
+		+"</br>"
+			+"<center><a href='"+urlDiigo+d["login Diigo"]+"'><img hspace='20' height='50px' src='../img/diigo.jpg' /></a>"
+			+"<a href='"+urlGit+d["login Github"]+"'><img hspace='20' height='50px' src='../img/github.png' /></a>"
+			+"<a href='"+d["page linkedIn"]+"'><img hspace='20' height='50px' src='../img/linkedIn.png' /></a></center>"
+			+"<div id='graph"+d.idPhoto+"' /><p>"
+              $('<div class="data" id="data_' + d.idPhoto + '"></div>').html(h).appendTo('#link_' + d.idPhoto);
 		creaGraphEtu(d);	
 		
 	}
-
-//afficher les infos 
-	//+"<button onclick=\"test()\">Compétences</button>"
-	
-
-
-
 </script>
 </head>
 <body  >
-<h1>Trombinoscope </h1>
+<center><h1 color>Trombinoscope </h1></center>
+<div id="pieChart"></div>
 <div id="contenue"></div>
 
-<div id="pieChart"></div>
+
 
 <script>
 // merci à  http://d3pie.org/
@@ -141,7 +146,7 @@ var score = {"nul": 0 , "moins nul": 20, "bon":60, "trop bon":80, "expert":100};
 var cats = ["Javascript","CSS","HTML","PHP","SVG","OWL","JAVA","XML",".NET","JSON","Objective-C","Android"];
 //var fctColor = d3.scale.category20();
 //var fctColor = d3.scale.ordinal().domain(cats).range(colorbrewer.RdBu[14]);
-var fctColor = d3.scale.linear().domain([0, 100]).range(["#fbf400", "#3c9a2e"]);
+var fctColor = d3.scale.linear().domain([0, 100]).range(["#0000FF", "#FF0000"]);
 
 function creaGraphEtu(d){
 	
@@ -172,7 +177,8 @@ function creaGraphEtu(d){
 				"fontSize": 12,
 				"font": "open sans"
 			},
-			"titleSubtitlePadding": 9
+			"titleSubtitlePadding": 9,
+			"location": "pie-center"
 		},
 		"footer": {
 			"color": "#999999",
@@ -181,8 +187,8 @@ function creaGraphEtu(d){
 			"location": "bottom-left"
 		},
 		"size": {
-			"pieInnerRadius": "33%",
-			"pieOuterRadius": "83%"
+			"pieInnerRadius": "60%",
+			"pieOuterRadius": "80%"
 		},
 		"data": {
 			"sortOrder": "value-desc",
@@ -190,7 +196,7 @@ function creaGraphEtu(d){
 		},
 		"labels": {
 			"outer": {
-				"pieDistance": 32
+				"pieDistance": 10
 			},
 			"inner": {
 				"hideWhenLessThanPercentage": 3
@@ -204,7 +210,7 @@ function creaGraphEtu(d){
 			},
 			"value": {
 				"color": "#adadad",
-				"fontSize": 11
+				"fontSize": 12
 			},
 			"lines": {
 				"enabled": true
@@ -217,7 +223,7 @@ function creaGraphEtu(d){
 			"pullOutSegmentOnClick": {
 				"effect": "linear",
 				"speed": 400,
-				"size": 8
+				"size": 10
 			}
 		},
 		"misc": {

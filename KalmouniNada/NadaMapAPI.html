@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html>
+  <head>
+                         <h1><i><u><center>Kalmouni Nada Map </i></u></h1></center>
+						    <div class="profile">
+                        <div class="profile_pic">
+                            <img src="images/Google.png" style="width: 60px;"  alt="..." class="img-circle profile_img">
+                        </div>
+                        <div class="profile_info">
+						
+                            <span>Bienvenue!</span>
+                         
+                        </div>
+                    </div>
+					
+            </div>
+    <style type="text/css">
+	
+     html, body { height: 90%; width: 85%; margin: 800;  background-color: #FFC0CB; padding: 40px; border: 50px solid #DDA0DD; } 
+      #map { border="5"; height: 75%; }
+    </style>
+  </head>
+  <body>
+    <div id="map"></div>
+    <script type="text/javascript">
+
+var map;
+var pointer = [];
+var noyau;
+function initMap() {
+  map = new google.maps.Map(document.getElementById('map'), {
+    center: {lat: -34.397, lng: 150.644},
+    zoom: 4
+	
+  });
+}
+map.addListener('click', function(event) {
+    addMarker(event.latLng);
+   
+  });
+noyau = new google.maps.LatLng({lat: 51.2089200,lng:3.2242400});
+
+
+function addMarker(location) {
+    setMapOnAll(null);
+  var marker = new google.maps.Marker({
+    position: location,
+    map: map
+  });
+  pointer.push(marker);
+
+  var distance = google.maps.geometry.spherical.computeDistanceBetween( noyau, marker.getPosition())/1000;
+  alert("La distance :" + distance);
+}
+function deleteMarkers() {
+  clearMarkers();
+  pointer = [];
+}
+function clearMarkers() {
+  setMapOnAll(null);
+}
+function setMapOnAll(map) {
+  for (var i = 0; i < pointer.length; i++) {
+    pointer[i].setMap(map);
+  }
+}
+    </script>
+	
+		<script type="text/javascript">
+			function initialisation(){
+				var centreCarte = new google.maps.LatLng(47.389982, 0.688877);
+				var optionsCarte = {
+					zoom: 8,
+					center: centreCarte,
+					mapTypeId: google.maps.MapTypeId.ROADMAP
+				};
+				var maCarte = new google.maps.Map(document.getElementById("EmplacementDeMaCarte"), optionsCarte);
+				var optionsMarqueur = {
+					position: maCarte.getCenter(),
+					map: maCarte
+				};
+				var marqueur = new google.maps.Marker(optionsMarqueur);
+			 }
+			 google.maps.event.addDomListener(window, 'load', initialisation);
+		</script>
+		
+    <script async defer
+      src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDw6OyiJO42yAh9l6LMUTFXK-wE8DdccNA&callback=initMap">
+    </script>
+  </body>
+</html>
