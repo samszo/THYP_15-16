@@ -5,7 +5,7 @@
       
 	  #titre{
 		 padding-left:600px;
-	background-color : #4BB5C1;		 
+	     background-color : #4BB5C1;		 
 	  }
 	  h1{
 		  padding-left:50px;
@@ -39,7 +39,7 @@
 			  }
     </style>
   </head>
-  <body onload="setup()">
+  <body onLoad="setup()">
   <div id="titre"><h1 id="watchme">Ma carte</h1>
 <h2>KRAYEM Mabrouka</h2>  
   </div>
