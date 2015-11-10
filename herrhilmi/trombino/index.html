@@ -20,7 +20,7 @@
 	$(document).ready(  
 		 function()
 		 {
-		 	d3.csv("../php/lecteurFlux.php?url=THYP1516data", function(data) {
+		 	d3.csv("../../php/lecteurFlux.php?url=THYP1516data", function(data) {
 			   dataEtu = data;
 			   
 			   data.forEach(function(d,i){
@@ -30,7 +30,7 @@
 			 });
 		   $.ajax( {
 		            type: "GET",
-		            url: "../php/lecteurFlux.php?url=THYP1516photo",
+		            url: "../../php/lecteurFlux.php?url=THYP1516photo",
 		            dataType: "xml",
 		            success: function(xml) 
 		                     {
@@ -52,9 +52,9 @@
 													$('<h3 class="text-primary"></h3>').html(d.Prénom + " " + d.Nom).appendTo('#my_info_'+i);
 													
 													var list = ""
-													+"<li><img style = \" margin-left: -3px;\" class=\"img-circle\" width=24 height=24 hspace=10  src=\"../img/mail.png\" /><a href=\"mailto:" + d.mail + "\">Contact</a></li>"
-													+"<li><img style = \" margin-left: -3px;\" class=\"img-circle\" width=24 height=24 hspace=10 vspace=10  src=\"../img/diigo.jpg\" /><a href="+urlDiigo+d['login Diigo']+">/"+d['login Diigo']+"</a></li>"
-													+"<li><img style = \" margin-left: -3px;\" class=\"img-circle\" width=24 height=24 hspace=10  src=\"../img/Octocat.png\"/><a href="+urlGit+d['login Github']+">/"+d['login Github']+"</a></li>";
+													+"<li><img style = \" margin-left: -3px;\" class=\"img-circle\" width=24 height=24 hspace=10  src=\"../../img/mail.png\" /><a href=\"mailto:" + d.mail + "\">Contact</a></li>"
+													+"<li><img style = \" margin-left: -3px;\" class=\"img-circle\" width=24 height=24 hspace=10 vspace=10  src=\"../../img/diigo.jpg\" /><a href="+urlDiigo+d['login Diigo']+">/"+d['login Diigo']+"</a></li>"
+													+"<li><img style = \" margin-left: -3px;\" class=\"img-circle\" width=24 height=24 hspace=10  src=\"../../img/Octocat.png\"/><a href="+urlGit+d['login Github']+">/"+d['login Github']+"</a></li>";
 													$('<hr style="margin:0px 0 10px 0;"/>').html('').appendTo('#my_info_'+i); 
 													$('<ul class="list-unstyled"></ul>').html(list).appendTo('#my_info_'+i); 
 													       		    	
