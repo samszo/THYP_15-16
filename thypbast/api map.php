@@ -16,14 +16,19 @@ include "mykey.php";
 	 <center><p>Choisissez un élement et trouver son pays d'origine : </p><img class = "imag" id="Img" src="images/google.jpg"  align="center" width=100px height=100px/></center>
 	
     <div id="map"></div>
+	
+	<center><label id="compteur"></label></center>
+	<center><label id="dis"></label></center>
     <script type="text/javascript">
 var map;
 var markers = [];
 var point;
 var compteur=5;
+var distance=0;
 function initMap() {
   var haightAshbury = {lat: 37.775091, lng: -122.418922};
-
+  document.getElementById("compteur").innerHTML="il vous reste "+ compteur + "chances";
+  document.getElementById("dis").innerHTML="la distance entre votre choix et l'emplacement est de "+distance+ " km";
   map = new google.maps.Map(document.getElementById('map'), {
     zoom: 3,
     center: haightAshbury,
@@ -73,7 +78,7 @@ setMapOnAll(null);
       map: map
   });
   markers.push(marker);
-  var distance = parseInt( google.maps.geometry.spherical.computeDistanceBetween( point, markers[markers.length-1].getPosition())/1000);
+  distance = parseInt( google.maps.geometry.spherical.computeDistanceBetween( point, markers[markers.length-1].getPosition())/1000);
   compteur--;
   if (distance < 200){
     alert ("VOUS AVEZ GAGNÉ");
@@ -85,21 +90,13 @@ setMapOnAll(null);
   
   }
 document.getElementById("compteur").innerHTML="il vous reste "+ compteur + "chances";
-document.getElementById("compteur").style.backgroundColor="red";
-/* 
-var path = [marker.getPosition(), point];
-  poly.setPath(path);
-  */
 document.getElementById("dis").innerHTML="la distance de votre point est "+distance+ " km";
-document.getElementById("dis").style.backgroundColor="blue";
 }
 
 // Sets the map on all markers in the array.
 function setMapOnAll(map) {
   for (var i = 0; i < markers.length; i++) {
     markers[i].setMap(map);
-	distance = parseInt(google.maps.geometry.spherical.computeDistanceBetween( point, markers[i].getPosition())/1000);
-	alert(distance);
   }
   
 }
