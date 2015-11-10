@@ -18,50 +18,11 @@ function initMap() {
     zoom: 8
   });
 }
-var markers = [];
-var poly;
-  map.addListener('click', function(event) {
-        addMarker(event.latLng);
-    }); 
-}
-
-function addMarker(location) {
-
- 
-    setMapOnAll(null);
-
-    var marker = new google.maps.Marker({
-        position: location,
-        map: map
-    });
-        point = new google.maps.LatLng({lat: 48.856614, lng: 2.352222});
-
-    markers[0] = marker;
-    var distance = parseInt(google.maps.geometry.spherical.computeDistanceBetween(point, markers[0].getPosition())/1000);
-
-    
-    poly = new google.maps.Polyline({
-    strokeColor: '#FF0000',
-    strokeOpacity: 1.0,
-    strokeWeight: 3,
-    map: map,
-  });
 
 
-    var path = [marker.getPosition(), point];
-    
-  poly.setPath(path);
-  function setMapOnAll(map) {
-    for (var i = 0; i < markers.length; i++) {
-        markers[i].setMap(map);
-        poly.setMap(map);
 
 
-    }
-}
 
-
-}
 
     </script>
     <script async defer
