@@ -8,28 +8,27 @@ include "mykey.php";
       body { background-color: white;}
       #map { width: 1400px; height: 500px; margin-top: 100px; margin-left: 350px; padding: 0;  border:2px inset;}	
 	  h1{ font-size: 50px; text-align: center; border:2px outset; color:  green; background-color: #B2D0FE; margin-top: 1px;}
-	
+	  .imag:hover {transform: scale(1.2);  -moz-transition: all 0.4s ease-in-out 0s;  -webkit-transition: all 0.4s ease-in-out 0s;  -o-transition: all 0.4s ease-in-out 0s;  -ms-transition: all 0.4s ease-in-out 0s;  transition: all 0.4s ease-in-out 0s;}
     </style>
   </head>
   <body>
      <h1>Where Is It From?</h1> <br>
-	 <center><p>Choisissez un élement et trouver son pays d'origine : </p><img src="images/google.jpg" border="0" align="center" width=100px height=100px/></center>
-	<img id="Img" src="images/google.jpg" onclick="myFunction()" align="center" width=100px height=100px/>
+	 <center><p>Choisissez un élement et trouver son pays d'origine : </p><img class = "imag" id="Img" src="images/google.jpg"  align="center" width=100px height=100px/></center>
 	
     <div id="map"></div>
     <script type="text/javascript">
 var map;
 var markers = [];
-
+var point;
 function initMap() {
-  var haightAshbury = {lat: 40.313043, lng: -3.669434};
+  var haightAshbury = {lat: 37.775091, lng: -122.418922};
 
   map = new google.maps.Map(document.getElementById('map'), {
     zoom: 3,
     center: haightAshbury,
     mapTypeId: google.maps.MapTypeId.TERRAIN
   });
-
+	point = new google.maps.LatLng({lat: 39.002673,lng:-122.596810});
   // This event listener will call addMarker() when the map is clicked.
   map.addListener('click', function(event) {
 	  deleteMarkers();
@@ -62,7 +61,7 @@ function initMap() {
       }
     });
   });
- 
+  
 }
 
 // Adds a marker to the map and push to the array.
@@ -72,13 +71,18 @@ function addMarker(location) {
     map: map
   });
   markers.push(marker);
+  
 }
 
 // Sets the map on all markers in the array.
 function setMapOnAll(map) {
   for (var i = 0; i < markers.length; i++) {
     markers[i].setMap(map);
+	distance = google.maps.geometry.spherical.computeDistanceBetween( point, markers[i].getPosition());
+	dist = parseInt(distance/1000);
+	alert(dist);
   }
+  
 }
 
 // Removes the markers from the map, but keeps them in the array.
