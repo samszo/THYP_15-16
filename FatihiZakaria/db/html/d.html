@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title></title>
+		<meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+  <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
+</head>
+
+	<script src="jquery.min.js" ></script>
+<style type="text/css">
+	#global
+{
+     width: 902px;
+  
+}
+ 
+#cadre1
+{
+	    margin-left: 11px;
+    height: 500px;
+    width: 300px;
+    float: left;
+    padding: 3px;
+    border: solid black 1px;
+}
+ 
+#cadre2
+{
+    height: 500px;
+    width: 300px;
+    padding: 3px;
+    margin-left: 325px;
+    border: solid black 1px;
+}
+#cadre3
+{
+    height: 500px;
+    width: 300px;
+    padding: 3px;
+        margin-left: 646px;
+    border: solid black 1px;
+    margin-top: -502px;
+}
+ 
+.centre
+{
+   
+    margin-left: 70px;
+}
+</style>
+ 
+
+<script type="text/javascript">
+	
+	function suppscore(){
+
+		var id = document.getElementById("sid").value;
+
+		supScore({"id":id});
+
+	}
+
+	function supScore(data){
+
+		data.table = "score";
+
+		$.get('../php/d.php',
+				data,
+	        		function(html){
+					alert('Score Bien supprimé.');
+	       		});	
+
+}
+
+//////////////////////////:
+function supppers(){
+
+		var id = document.getElementById("pid").value;
+
+		suppers({"id":id});
+
+	}
+
+	function suppers(data){
+
+		data.table = "personne";
+
+		$.get('../php/d.php',
+				data,
+	        		function(html){
+					alert('Personne Bien supprimée.');
+	       		});	
+
+}
+
+//////////////////////////:
+
+function suppdoc(){
+
+		var id = document.getElementById("did").value;
+
+		supdoc({"id":id});
+
+	}
+
+	function supdoc(data){
+
+		data.table = "document";
+
+		$.get('../php/d.php',
+				data,
+	        		function(html){
+					alert('Document Bien supprimée.');
+	       		});	
+
+}
+
+
+
+</script>
+
+
+<body>
+
+
+<div id="global">
+    <!--PREMIER CADRE-->
+    <div id="cadre1">
+	        <h3 class="centre">Supprimer un Score</h3>
+	       		 Supprimez par id score : <input type="number" id="sid"/><br><br>
+	       		 
+	       		 <button onclick="suppscore()" type="button" class="btn btn-danger btn-block">Supprimer</button>
+    </div>
+    <!--SECOND CADRE-->
+    <div id="cadre2">
+        <h3 class="centre">Supprimer une Personne</h3>
+         	Supprimez par id personne : <input type="number" id="pid"/><br><br>
+	       		 
+	       		 <button onclick="supppers()" type="button" class="btn btn-danger btn-block">Supprimer</button>
+
+    </div>
+    <!--third CADRE-->
+    <div id="cadre3">
+        <h3 class="centre">Supprimer un Document</h3>
+         		Supprimez par id Document : <input type="number" id="did"/><br><br>
+	       		 
+	       		 <button onclick="suppdoc()" type="button" class="btn btn-danger btn-block">Supprimer</button>
+    </div>
+</div>
+
+
+</body>
+</html>
