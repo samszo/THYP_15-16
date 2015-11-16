@@ -5,6 +5,7 @@
       
 	  #titre{
 		 padding-left:600px;
+		 padding-top: 0px;
 	background-color : #4BB5C1;		 
 	  }
 	  h1{
@@ -24,8 +25,9 @@
 		
       }
 	  #cord1{
-		  width:745px;
+		  width:560px;
 		  margin-left:680px;
+		  margin-top:10px;
 		  height:300px;
 		  border:2px solid black;
 			  }
@@ -41,17 +43,18 @@
   </head>
   <body onload="setup()">
   <div id="titre"><h1 id="watchme">Ma carte</h1>
-<h2>KRAYEM Mabrouka</h2>  
+  <img src="avion.gif">
+  <img src="v4.gif">
   </div>
   <div id="aa">
 		<div id="map">
 		</div>
 		<div id="cord1">
-		cord1
+		Distance entre saint Denis université et Paris <br>
+		<input type="text" value="distance">
+		
 		</div>
-		<div id="cord2">
-		cord2
-		</div>
+		
 		
 	</div>
     <script type="text/javascript">
