@@ -1,0 +1,190 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8">
+        <script src="../../js/jquery.min.js"></script>
+
+    <style type="text/css">
+      html, body { 
+      	width: 100%;
+      	height: 100%;
+       	margin: 0 auto ;
+        background-color: #d0d0d0;
+        padding: 0;
+  /*      background-image:url(amazonie.jpg);
+  background-size: 100%;*/
+         }
+      #map { 
+      	height: 80%;
+      	width: 80%;
+border: inset;
+margin-left: 10%;
+margin-right: 10%;
+       }
+      h1{
+        margin-top: 20px;
+      	text-align: center;
+      	text-decoration: inherit ;
+text-transform: capitalize;
+color: red;
+      }
+      header {
+font-weight: bolder;
+        margin-top: 10px;
+        text-align: center;
+        text-decoration: underline overline ;
+text-transform: capitalize;
+color: green;
+      }
+      label {margin-left: 30%; text-align: center; width: 300px;
+      font-size: 25px }
+    </style>
+
+
+  
+  </head>
+  <body>
+  	<div>
+    <header>Les Sept Merveilles du monde, constituent l’ensemble des sept œuvres architecturales et artistiques les plus extraordinaires du monde antique</header>
+<h1>ou se trouve <b id="place">le Taj Mahal</b></h1>
+
+  	</div>
+    <label id="compteur"></label>
+     <center><label id="dis"></label></center>
+    <div id="map"></div>
+   
+    <script type="text/javascript">
+var person = prompt("Entrez votre nom");
+
+while (person == " " || person=="") {
+   var person = prompt("Entrez votre nom");
+}
+
+var map;
+var markers = [];
+var point ;
+var compteur=5;
+var j=0;
+
+var places = ["le Taj Mahal", "les Moaï", "l'opéra de Sydney"];
+
+
+
+
+
+function initMap() {
+  var haightAshbury = {lat: 24.2610100, lng: -6.5802};
+
+  map = new google.maps.Map(document.getElementById('map'), {
+    zoom: 3,
+    center: haightAshbury,
+    mapTypeId: google.maps.MapTypeId.HYBRID 
+  });
+
+  // This event listener will call addMarker() when the map is clicked.
+  map.addListener('click', function(event) {
+    addMarker(event.latLng);
+
+
+  });
+
+var moai= new google.maps.LatLng({lat:  -27.104671,lng:-109.360481});
+var tajmahal= new google.maps.LatLng({lat:  27.173891,lng:78.042068});
+var sydney= new google.maps.LatLng({lat:  -33.856159,lng:151.215256});
+point = new google.maps.LatLng({lat:  -27.104671,lng:-109.360481});
+tableauCoords = {"le Taj Mahal": moai, "les Moaï": tajmahal, "l'opéra de Sydney": sydney};
+
+
+poly = new google.maps.Polyline({
+    strokeColor: '#0000CC',
+    strokeOpacity: 1.0,
+    strokeWeight: 3,
+    map: map
+  });
+
+}
+
+
+function addMarker(location) {
+
+setMapOnAll(null);
+	var marker = new google.maps.Marker({
+    position: location,
+      map: map
+
+  });
+
+  markers.push(marker);
+  var distance = parseInt( google.maps.geometry.spherical.computeDistanceBetween( point, markers[markers.length-1].getPosition()));
+
+  creaPersonne({"nom":person.toString()});
+  creaScore({"id_doc":2,"id_perso":2,"distance":distance});
+
+
+  compteur--;
+  if (distance < 200){
+    alert ("VOUS AVEZ GAGNÉ");
+    compteur=5;
+    changeQuestion();
+  }
+  if (compteur==0){
+    alert("VOUS AVEZ PERDU! RECOMMENCEZ");
+    compteur =5;
+    changeQuestion();
+  
+  }
+document.getElementById("compteur").innerHTML="il vous reste "+ compteur + "chances";
+document.getElementById("compteur").style.backgroundColor="red";
+
+/* 
+var path = [marker.getPosition(), point];
+  poly.setPath(path);
+  */
+document.getElementById("dis").innerHTML="la distance de votre point est "+distance/1000+ " km";
+document.getElementById("dis").style.backgroundColor="green";
+}
+
+function deleteMarkers() {
+  clearMarkers();
+  markers = [];
+}
+function clearMarkers() {
+  setMapOnAll(null);
+}
+function setMapOnAll(map) {
+  for (var i = 0; i < markers.length; i++) {
+    markers[i].setMap(map);
+  }
+}
+function creaScore(data){
+  data.table = "score";
+  $.get('php/c.php',
+      data);
+           
+}
+function creaPersonne(data){
+  data.table = "personne";
+  $.get('php/c.php',
+      data);
+           
+}
+
+
+function changeQuestion(){
+
+ document.getElementById("place").innerHTML = places[j];
+
+          j++;
+          alert(j);
+           if (j > places.length-1) {
+            j = 0;
+
+          }
+}
+    </script>
+    <script async defer
+      src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAmPlzseG6Ws4IYiDCIUHQPRUQ3hskgJoA&libraries=geometry&callback=initMap">
+    </script>
+   
+  </body>
+</html>
