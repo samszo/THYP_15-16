@@ -46,7 +46,7 @@ color: green;
   <body>
   	<div>
     <header>Les Sept Merveilles du monde, constituent l’ensemble des sept œuvres architecturales et artistiques les plus extraordinaires du monde antique</header>
-<h1>ou se trouve <b id="place">le Taj Mahal</b></h1>
+<h1>ou se trouve <b id="place"></b></h1>
 
   	</div>
     <label id="compteur"></label>
@@ -54,11 +54,11 @@ color: green;
     <div id="map"></div>
    
     <script type="text/javascript">
-var person = prompt("Entrez votre nom");
+/*var person = prompt("Entrez votre nom");
 
 while (person == " " || person=="") {
    var person = prompt("Entrez votre nom");
-}
+}*/
 
 var map;
 var markers = [];
@@ -80,19 +80,22 @@ function initMap() {
     center: haightAshbury,
     mapTypeId: google.maps.MapTypeId.HYBRID 
   });
-
+document.getElementById("place").innerHTML = places[j];
   // This event listener will call addMarker() when the map is clicked.
   map.addListener('click', function(event) {
     addMarker(event.latLng);
 
-
   });
 
-var moai= new google.maps.LatLng({lat:  -27.104671,lng:-109.360481});
-var tajmahal= new google.maps.LatLng({lat:  27.173891,lng:78.042068});
-var sydney= new google.maps.LatLng({lat:  -33.856159,lng:151.215256});
+//var moai= new google.maps.LatLng({lat:  -27.104671,lng:-109.360481});
+//var tajmahal= new google.maps.LatLng({lat:  27.173891,lng:78.042068});
+//var sydney= new google.maps.LatLng({lat:  -33.856159,lng:151.215256});
 point = new google.maps.LatLng({lat:  -27.104671,lng:-109.360481});
-tableauCoords = {"le Taj Mahal": moai, "les Moaï": tajmahal, "l'opéra de Sydney": sydney};
+//tableauCoords = {"le Taj Mahal": moai, "les Moaï": tajmahal, "l'opéra de Sydney": sydney};
+ 
+
+ 
+
 
 
 poly = new google.maps.Polyline({
@@ -115,14 +118,24 @@ setMapOnAll(null);
   });
 
   markers.push(marker);
+  switch (j) {
+  case 0:
+  point = new google.maps.LatLng({lat:  27.173891,lng:78.042068});
+    break;
+  case 1:
+    point= new google.maps.LatLng({lat:  -27.104671,lng:-109.360481});
+    break;
+  case 2:
+    point= new google.maps.LatLng({lat:  -33.856159,lng:151.215256});
+    break;    
+  default:
+    ;
+  break;
+}
+
   var distance = parseInt( google.maps.geometry.spherical.computeDistanceBetween( point, markers[markers.length-1].getPosition()));
 
-  creaPersonne({"nom":person.toString()});
-  creaScore({"id_doc":2,"id_perso":2,"distance":distance});
-
-
-  compteur--;
-  if (distance < 200){
+  if (distance < 250000){
     alert ("VOUS AVEZ GAGNÉ");
     compteur=5;
     changeQuestion();
@@ -133,6 +146,21 @@ setMapOnAll(null);
     changeQuestion();
   
   }
+  compteur--;
+
+
+
+
+ // creaPersonne({"nom":person});
+ 
+
+
+
+
+  creaScore({"id_doc":2,"id_perso":2,"distance":distance});
+
+
+ 
 document.getElementById("compteur").innerHTML="il vous reste "+ compteur + "chances";
 document.getElementById("compteur").style.backgroundColor="red";
 
@@ -172,14 +200,15 @@ function creaPersonne(data){
 
 function changeQuestion(){
 
- document.getElementById("place").innerHTML = places[j];
+
 
           j++;
-          alert(j);
+         
            if (j > places.length-1) {
             j = 0;
 
           }
+           document.getElementById("place").innerHTML = places[j];
 }
     </script>
     <script async defer
