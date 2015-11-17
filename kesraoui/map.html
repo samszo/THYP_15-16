@@ -1,12 +1,31 @@
 <!DOCTYPE html>
 <html>
   <head>
+  <meta charset="UTF-8">
+<script>
+var alprenom=("Votre Prenom");
+var prenom=prompt(alprenom, " ");
+if (prenom ==" ");
+var alnom=("Votre Nom");
+var nom=prompt(alnom, " ");
+if (nom ==" ") {
+  alert("Erreur veuillez reessayer");
+}
+else
+if (prenom !=" ");
+if (nom !=" "); 
+  
+{ 
+    document.write("<h2>"+"<center>"+ " Vous etes le bienvenue "+prenom+" "+nom +"</center>"+"</h2>");
+}
+
+</script>
 	<script src="../js/jquery.min.js" ></script>
       <style type="text/css">
    
-   h1 {
+    h1 {
       color:#ffffff;
-    font-size: 250%;
+    font-size: 150%;
     }
     h2 {
       color:#ffffff;
@@ -14,7 +33,7 @@
     }
     p {
     color:#ffffff;
-    font-size: 200%;
+    font-size: 130%;
     border-width:5px;
     border-style:solid   ;
     border-color:#ffffff;
@@ -28,31 +47,38 @@
       #map { height: 50%; border:3px outset #ffffff;
       padding:10px ; margin-left:90px; margin-right:90px;;
       }
+      #result  {
+      color:#000000;
+    font-size: 150%;
+    }
       body {
-
       background-color: #969696 ;
 }
   </style>
   </head>
   <body>
-    <h1>MAP Kesraoui </h1>
-<h2>La Carte</h2>
-<center><p> Ou se trouve se club <img src="img/real.png" width="50" height="40" /> ?
+    <h1>Veuillez trouver l'emplacement de ces clube </h1>
+<center><p> Ou se trouve le club  <b id="place"> Real Madrid</b> ?
 </br>
   	<div id="result"></div>
 </br>
-</br>
 </p></center>
-  
+  <label id="compteur"></label>
     <div id="map"></div>
     <script type="text/javascript">
+
 var map;
 var markers = [];
 var source;
+var compteur=4;
+var j=0;
+
+var places = ["Real Madrid", "Barcelone", "Paris"];
+
 function initMap() {
   var haightAshbury = {lat: 40.313043, lng: -3.669434};
   map = new google.maps.Map(document.getElementById('map'), {
-    zoom: 4,
+    zoom: 3,
     center: haightAshbury,
     mapTypeId: google.maps.MapTypeId.HYBRID 
   });
@@ -61,8 +87,12 @@ function initMap() {
     addMarker(event.latLng);
    
   });
+var madrid= new google.maps.LatLng({lat: 40.4165000, lng: -3.7025600});
+var barca= new google.maps.LatLng({lat:  41.3887900,lng: 2.1589900});
+var psg= new google.maps.LatLng({lat:  48.8566140,lng:  2.3522219});
 source = new google.maps.LatLng({lat:  40.4165000,lng:-3.7025600});
 
+tableauCoords = {"Real Madrid": madrid ,"Barcelone": barca, "Paris": psg};
 }
 
 function addMarker(location) {
@@ -73,10 +103,23 @@ function addMarker(location) {
   });
   markers.push(marker);
 
-  var distance = google.maps.geometry.spherical.computeDistanceBetween( source, marker.getPosition());
+  var distance = google.maps.geometry.spherical.computeDistanceBetween( source, markers[markers.length-1].getPosition());
   $("#result").html("La distance :" + (distance/1000) + "  KM");
   creaScore({"id_doc":2,"id_perso":2,"distance":distance});
-  
+
+if (distance < 20000)
+  {
+    $("#result").html("Vous avez gagne");
+    compteur=4;
+    changeQuestion();
+  }
+  if (compteur==0)
+  {
+    $("#result").html("Vous avez perdu! Recommencez");
+    compteur =4;
+    changeQuestion();
+  }
+  compteur--;
 }
 function deleteMarkers() {
   clearMarkers();
@@ -93,13 +136,23 @@ function setMapOnAll(map) {
 
 function creaScore(data){
 	data.table = "score";
-	$.get('../php/c.php',
+	$.get('../c.php',
 			data,
         		function(html){
 				$("#result").html(html);
        		});	
 }
+function changeQuestion(){
 
+ document.getElementById("place").innerHTML = places[j];
+
+          j++;
+          alert(j);
+           if (j > places.length-1) {
+            j = 0;
+
+          }
+}
     </script>
     <script async defer
       src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAtl4qOlHXTQ_3phq40KY69wNgF0YLfovk&libraries=geometry&callback=initMap">

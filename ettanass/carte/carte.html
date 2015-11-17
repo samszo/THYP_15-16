@@ -83,12 +83,14 @@ setMapOnAll(null);
 
   markers.push(marker);
   var distance = parseInt( google.maps.geometry.spherical.computeDistanceBetween( point, markers[markers.length-1].getPosition())/1000);
-  compteur--;
-  if (distance < 200){
-    alert ("VOUS AVEZ GAGNÉ");
-    compteur=5;
+  compteur=5;
+  if (distance < 200)
+  {
+    alert("VOUS AVEZ GAGNÉ");
+    compteur--;
   }
-  if (compteur==0){
+  if (compteur==0)
+  {
     alert("VOUS AVEZ PERDU! RECOMMENCEZ");
     compteur =5;
   
