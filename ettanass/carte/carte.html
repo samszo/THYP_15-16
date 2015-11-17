@@ -2,51 +2,77 @@
 <html>
   <head>
     <meta charset="UTF-8">
+        <script src="../../js/jquery.min.js"></script>
+
     <style type="text/css">
       html, body { 
-      	width: 100%;
-      	height: 100%;
-       	margin: 0 auto ;
+        width: 100%;
+        height: 100%;
+        margin: 0 auto ;
         background-color: #d0d0d0;
         padding: 0;
-        background-image:url(amazonie.jpg);
-
+      background-image:url(amazonie.jpg);
+  background-size: 100%;
          }
       #map { 
-      	height: 80%;
-      	width: 80%;
+        height: 60%;
+        width: 80%;
 border: inset;
 margin-left: 10%;
 margin-right: 10%;
        }
       h1{
-        margin-top: 10px;
-      	text-align: center;
-      	text-decoration: underline overline ;
+        margin-top: 20px;
+        text-align: center;
+        text-decoration: inherit ;
 text-transform: capitalize;
 color: red;
       }
-      label {margin-left: 30%; text-align: center; width: 200px; }
+      header {
+font-weight: bolder;
+        margin-top: 10px;
+        text-align: center;
+        text-decoration: underline overline ;
+text-transform: capitalize;
+color: green;
+      }
+      label {margin-left: 30%; text-align: center; width: 300px;
+      font-size: 25px }
     </style>
+
+
+  
   </head>
   <body>
-  	<div>
-    
-<h1>ou se trouve l'Amazonie?</h1>
+    <div>
+    <header>Les Sept Merveilles du monde, constituent l’ensemble des sept œuvres architecturales et artistiques les plus extraordinaires du monde antique</header>
+<h1>ou se trouve <b id="place"></b></h1>
 
-  	</div>
+    </div>
     <label id="compteur"></label>
+     <center><label id="dis"></label></center>
     <div id="map"></div>
-    <center><label id="dis"></label></center>
+  
     <script type="text/javascript">
+var person = prompt("Entrez votre nom");
 
-
+while (person == " " || person=="") {
+   var person = prompt("Entrez votre nom");
+}
+creaPersonne({"nom":person});
 var map;
 var markers = [];
 var point ;
 var compteur=5;
+var place;
+var score=0;
+var a;
+var places;
+ var lieu=0;
+
+
 function initMap() {
-  var haightAshbury = {lat: 24.2610100, lng: -6.5802};
+  var haightAshbury = {lat: 24.2610100, lng: 0.5802};
 
   map = new google.maps.Map(document.getElementById('map'), {
     zoom: 3,
@@ -57,11 +83,14 @@ function initMap() {
   // This event listener will call addMarker() when the map is clicked.
   map.addListener('click', function(event) {
     addMarker(event.latLng);
-
-
   });
+reaDocument();
+//var moai= new google.maps.LatLng({lat:  -27.104671,lng:-109.360481});
+//var tajmahal= new google.maps.LatLng({lat:  27.173891,lng:78.042068});
+//var sydney= new google.maps.LatLng({lat:  -33.856159,lng:151.215256});
+//point = new google.maps.LatLng({lat:  -27.104671,lng:-109.360481});
 
-point = new google.maps.LatLng({lat:  -3.4168427,lng:-65.85606459999997});
+ 
 poly = new google.maps.Polyline({
     strokeColor: '#0000CC',
     strokeOpacity: 1.0,
@@ -75,35 +104,77 @@ poly = new google.maps.Polyline({
 function addMarker(location) {
 
 setMapOnAll(null);
-	var marker = new google.maps.Marker({
+  var marker = new google.maps.Marker({
     position: location,
       map: map
 
   });
 
   markers.push(marker);
+<<<<<<< HEAD
   var distance = parseInt( google.maps.geometry.spherical.computeDistanceBetween( point, markers[markers.length-1].getPosition())/1000);
   compteur=5;
   if (distance < 200)
   {
     alert("VOUS AVEZ GAGNÉ");
     compteur--;
+=======
+  
+  var distance = parseInt( google.maps.geometry.spherical.computeDistanceBetween( point, markers[markers.length-1].getPosition()));
+
+  var invDistance=parseInt(100000000/distance);
+score+=invDistance;
+  if (distance < 100000){
+    alert ("VOUS AVEZ GAGNÉ");
+    alert("votre score est : "+score);
+    compteur=5;
+    changeDoc();
+    score=0;
+>>>>>>> eb41a4c645870a6241501f556a51177f5098eddd
   }
   if (compteur==0)
   {
     alert("VOUS AVEZ PERDU! RECOMMENCEZ");
+     alert("votre score est : "+score);
     compteur =5;
+    changeDoc();
+    score=0;
   
   }
-document.getElementById("compteur").innerHTML="il vous reste "+ compteur + "chances";
+  compteur--;
+
+
+
+/*
+musée de sydney
+
+
+
+
+
+
+
+
+*/
+ 
+ 
+
+
+
+
+  
+  
+
+ 
+document.getElementById("compteur").innerHTML=person + " il vous reste "+ compteur + "chances";
 document.getElementById("compteur").style.backgroundColor="red";
 
 /* 
 var path = [marker.getPosition(), point];
   poly.setPath(path);
   */
-document.getElementById("dis").innerHTML="la distance de votre point est "+distance+ " km";
-document.getElementById("dis").style.backgroundColor="blue";
+document.getElementById("dis").innerHTML="la distance de votre point est "+distance/1000+ " km";
+document.getElementById("dis").style.backgroundColor="green";
 }
 
 function deleteMarkers() {
@@ -118,8 +189,58 @@ function setMapOnAll(map) {
     markers[i].setMap(map);
   }
 }
+function creaScore(data){
+  data.table = "score";
+  $.get('php/c.php',
+      data
+/*
+      ,
+function (html){
+$("#bis").html("");
+}*/
+      );
+           
+}
+function creaPersonne(data){
+  data.table = "personne";
+  $.get('php/c.php',
+      data);
+           
+}
+function reaDocument(){
+  data = {"table":"document"};
+  $.get('php/r.php', data , function (html){
+          places = JSON.parse(html);
+        changeDoc();
+        });
+
+     }      
+
+function changeDoc(){
+  place = JSON.parse(places[lieu]);
+          var x = +place["lat"];
+          var y = +place["lng"];
+           
+          $("#place").html(place["nom"]); 
+          point = new google.maps.LatLng(x,y);
+
+          //alert(places.length);
+          document.body.style.backgroundImage = "url('"+place["url"]+"')";
+          lieu = (lieu === 0 ) ? 1 : 0;
+
+}
+
+/*
 
 
+          j++;
+         
+           if (j > places.length-1) {
+            j = 0;
+
+          }
+           document.getElementById("place").innerHTML = places[j];
+}*/
     </script>
     <script async defer
       src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAmPlzseG6Ws4IYiDCIUHQPRUQ3hskgJoA&libraries=geometry&callback=initMap">

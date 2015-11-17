@@ -1,0 +1,62 @@
+<!doctype html>
+<html lang=''>
+<head>
+   <meta charset='utf-8'>
+   <link rel="stylesheet" href="css/styles.css">
+   
+
+   <script type="text/javascript" src="js/script.js"></script>
+   <script src="//ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+   <title>Devoir</title>
+</head>
+<body>
+
+<div id='cssmenu'>
+<ul>
+   <li id='personneli' class='active'><a onclick="personne()">Creer une personne</a></li>
+   <li id='documentli' class='hover'><a onclick="documentT()">Creer un Document</a></li>
+   <li id='scoreli' class='hover'><a onClick="score()">Creer un Score</a></li>
+</ul>
+</div>
+
+<div id="personne" style="position: absolute; top: 50%;
+    left: 50%;
+    margin-top: -50px;
+    margin-left: -50px;
+    width: 200px;
+    height: 100px;">
+   <label>Nom de la personne</label><br>
+   <input type="text" id="presonneValue"/><br>
+               
+   <button onclick="addPersonne()" type="button" class="">Creer le profil</button>
+</div>
+
+<div id="document" style="position: absolute;visibility:hidden; top: 50%;
+    left: 50%;
+    margin-top: -50px;
+    margin-left: -50px;
+    width: 200px;
+    height: 100px;">
+   <label>Nom du document</label><br>
+   <input type="text" id="dnom"/><br>
+   <label>latitude</label><br>
+   <input type="number" id="dlat" /><br>
+   <label>longtitude</label><br>
+   <input type="number" id="dlng" /><br>
+   <label>image URL</label><br>
+   <input type="file" id="durl" /><br>
+
+   <button onclick="document()" type="button" class="">Creer le document</button>
+</div>
+
+<div id="score" style="display: absolute;visibility:hidden; top: 50%;
+    left: 50%;
+    margin-top: -50px;
+    margin-left: -50px;
+    width: 200px;
+    height: 100px;">
+   
+</div>
+
+</body>
+<html>
