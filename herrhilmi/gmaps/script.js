@@ -22,6 +22,8 @@ function checkLogin(){
 		showElementById("main-content");
 		hideElementById("splash-content");
 		showElementById("logout");
+		//charge les score de l'utilisateur
+		loadScore(list_documents[selected_doc]["id_doc"]);			
 	}
 };
 
@@ -114,6 +116,7 @@ function creaScore(data){
 	data.table = "score";
 	$.get('../php/c.php', data,
         		function(html){
+		
        		});	
 }
 
@@ -150,7 +153,7 @@ function onConnected(html){
 	member = JSON.parse(html);
 	logged = true;
 	document.getElementById("logged-user").innerHTML = member["nom"];
-	checkLogin();
+	checkLogin();	
 }
 
 function onLoginFailed(){
@@ -180,7 +183,7 @@ function loadDocuments()
 
 function onDocumentsLoaded()
 {
-	var a = JSON.parse(list_documents[selected_doc]);
+	var a = list_documents[selected_doc];
 	document.getElementById("question").innerHTML = a.nom;
 	// load coords
 	hiddenCoords = new google.maps.LatLng(+a["lat"],+a["lng"]);
@@ -189,6 +192,7 @@ function onDocumentsLoaded()
 	icon.src = a["url"];
 	document.imgquestion.src=eval("icon.src");
 	essais = 5;
+	
 }
 
 function loadScore(id_doc)
