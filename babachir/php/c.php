@@ -1,6 +1,6 @@
 <?php
 include_once 'connect.php';
-
+$_GET["table"] = "document";
 switch ($_GET["table"]) {
 	case "score":
 		createScore($_GET);
@@ -51,9 +51,8 @@ function getDoc(){
 
 	
 	} else {
-		return http_response_code(404);
+		return http_response_code(500);
 	}	
-	
 }
 
 /*

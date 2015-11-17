@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title></title>
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+  <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
+</head>
+	<script src="jquery.min.js" ></script>
+<style type="text/css">
+	#global
+{
+     width: 902px;
+  
+}
+.ddiv{
+    margin-left: 100px;
+}
+
+</style>
+<script type="text/javascript">
+	
+//////////////////////////:
+function modpersonne(){
+		var id = document.getElementById("pidpersonne").value;
+		var nompersonne = document.getElementById("pnompersonne").value;
+	
+		modPers({"nom":nompersonne,"id":id});
+	}
+	function modPers(data){
+		
+		data.table = "personne";
+		$.get('../php/u.php',
+				data,
+	        		function(html){
+					alert('Personne Bien modifiée.');
+	       		});	
+}
+//////////////////////////:
+function moddocument(){
+		var id = document.getElementById("did").value;
+		var nomdocument = document.getElementById("dnom").value;
+		var lat = document.getElementById("dlat").value;
+		var lng = document.getElementById("dlng").value;
+		var url = document.getElementById("durl").value;
+			
+	
+		moddoc({"nom":nomdocument,"id":id,"lat":lat,"lng":lng,"url":url});
+	}
+	function moddoc(data){
+		data.table = "document";
+		$.get('../php/u.php',
+				data,
+	        		function(html){
+					alert('Document Bien modifié.');
+	       		});	
+}
+</script>
+
+
+<body> 
+<h1></h1>
+<div class="container">
+   <div class="jumbotron">
+<div class="ddiv">  
+        <h1 class="centre">Modifier Personne</h1>
+        	Id la personne : <input type="text" id="pidpersonne"/><br><br>
+         	Nom personne : <input type="text" id="pnompersonne"/><br><br>
+	       		
+	       	<button onclick="modpersonne()" type="button" class="btn btn-success">Modifier</button>
+   </div></div><div class="jumbotron">
+<div class="ddiv">  
+        <h1 class="centre">Modifier Document</h1>
+       			 Id document : <input type="text" id="did"/><br><br>
+         		 Nom document : <input type="text" id="dnom"/><br><br>
+	       		 latitude : <input type="number" id="dlat" /><br><br>
+	       		 longtitude : <input type="number" id="dlng" /><br><br>
+	       		 image URL: <input type="file" id="durl" /><br><br>
+	       		 <button onclick="moddocument()" type="button" class="btn btn-success">Modifier</button>
+
+</div></div>
+</div>
+</body>
+</html>
