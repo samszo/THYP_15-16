@@ -9,7 +9,9 @@
 </head>
 	<script src="jquery.min.js" ></script>
 <style type="text/css">
-
+body{
+padding-left:20px;
+}
 </style>
 
 <script type="text/javascript">
@@ -24,24 +26,29 @@
 <h1>Creer</h1>
 
 
-    
+    <div id="c1">
 	        <h3 class="centre">Creer un Score</h3>
 	       		 Id personne : <input type="number" id="sidpersonne"/><br><br>
 	       		 Id doc : <input type="number" id="siddoc" /><br><br>
 	       		 Distance : <input type="number" id="sdistance" /><br><br>
+				 Maj:<input type="date" id="maj" /><br><br>
 	       		 <button onclick="creerscore()" type="button" >Creer</button>
-	       	
+	       	</div>
    <br><br>
-  
+  <div id="c2">
     
         <h3 class="centre">Creer une Personne</h3>
+			Identifiant : <input type="number" id="idpersonne"/><br><br>
          	Nom de la personne : <input type="text" id="pidpersonne"/><br><br>
 	       		
 	       	<button onclick="creerpersonne()" type="button" ">Creer</button>
 
    
- <br><br>
-    <div id="cadre3">     <h3 class="centre">Creer un Document</h3>
+	<br><br>
+</div>
+ <br><br><br>
+    <div id="c3">
+		<h3 class="centre">Creer un Document</h3>
          		Nom du document : <input type="text" id="dnom"/><br><br>
 	       		 latitude : <input type="number" id="dlat" /><br><br>
 	       		 longtitude : <input type="number" id="dlng" /><br><br>
@@ -50,6 +57,6 @@
 
 
 
-
+	</div>
 </body>
 </html>
