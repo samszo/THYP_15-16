@@ -1,7 +1,23 @@
 <?php 
 include "mykey.php";
-include "c.php";
-?>
+$nom = $_POST['nom']; 
+print("<center>Bonjour $nom</center>"); 
+
+try
+{
+$bdd = new PDO('mysql:host=localhost;dbname=thypbast', 'root', '');
+}
+catch(Exception $e)
+{
+die('Erreur : '.$e->getMessage());
+}
+
+
+$req = $bdd->prepare('INSERT INTO personnes(nom) VALUES(:nom)');
+$req->execute(array(
+':nom' => $_POST['nom']
+));
+?> 
 <!DOCTYPE html>
 <html>
   <head>
@@ -14,47 +30,6 @@ include "c.php";
   </head>
   <body>
      <h1>Where Is It From?</h1> <br>
-	 <script type="text/javascript">
-		var p = prenom();
-		var n = nom();
-		document.write("Bienvenue "+p + " "+ n); 
-		function prenom(){
-		var prenom = window.prompt("entrez votre prénom : ", "prénom");
-		if(prenom)
-		{
-		   
-		   
-		   var chainetestp = prenom;
-		   var reg=/^[a-zàäâéèêëïîöôùüû\s]*$/i;
-		   var testprenom = reg.test(chainetestp);
-		   
-		   if(testprenom == false){
-			   alert('attention ! pas de chaine de caractère spéciaux');
-			   prenom = window.prompt("entrez votre prénom sans caractère spéciaux ! : ", "prénom");
-		   }
-		   
-		   else return prenom;
-		}
-		}
-		function nom(){
-		var nom = window.prompt("entrez votre nom : ", "nom");
-		if(nom)
-		{
-		   
-		   var chainetestn = nom;
-		   var reg=/^[a-zàäâéèêëïîöôùüû\s]*$/i;
-		   var testnom = reg.test(chainetestn);
-		   
-		   if(testnom == false){
-			   alert('attention ! pas de chaine de caractère spéciaux');
-			   nom = window.prompt("entrez votre nom sans caractère spéciaux ! : ", "nom");
-		   }
-			  else return nom;
-
-		}
-		}
-		createPersonne(nom);
-	 </script>
 	 <center><p>Choisissez un élement et trouver son pays d'origine : </p><img class = "imag" id="Img" src="images/google.jpg"  align="center" width=100px height=100px/></center>
 	
     <div id="map"></div>

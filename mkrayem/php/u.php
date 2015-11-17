@@ -15,16 +15,7 @@ switch ($_GET["table"]) {
 		;
 	break;
 }
-// update data score 
-function updateScores($data){
-	 db(); // database function
-   $id_doc = $_POST['id_doc'];
-   $id_perso = $_POST['id_perso'];
-   $distance = $_POST['distance'];
-   $maj = $_POST['maj'];
-
-	global $conn;
-}
+/
 // update data personnes 
 function updatePersonnes($data){
 	 db(); // database function

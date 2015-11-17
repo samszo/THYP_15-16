@@ -77,7 +77,7 @@ function connect($data){
 		}
 		
 	} else {
-		return http_response_code(404);
+		return http_response_code(500);
 	}	
 	
 }
