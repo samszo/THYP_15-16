@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title></title>
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+  <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
+</head>
+	<script src="jquery.min.js" ></script>
+<style type="text/css">
+	#global
+{
+     width: 902px;
+	color : green;
+}
+ 
+
+ 
+.centre
+{
+	color: #f0ad4e;
+}
+.ddiv{
+    margin-left: 100px;
+}
+</style>
+<script type="text/javascript">
+	
+	function creerscore(){
+		var idpersonne = document.getElementById("sidpersonne").value;
+		var iddoc = document.getElementById("siddoc").value;
+		var distance = document.getElementById("sdistance").value;
+		creaScore({"id_doc":iddoc,"id_perso":idpersonne,"distance":distance});
+	}
+	function creaScore(data){
+		data.table = "score";
+		$.get('../php/c.php',
+				data,
+	        		function(html){
+					alert('Score Bien ajouté.');
+	       		});	
+}
+//////////////////////////:
+function creerpersonne(){
+		var nompersonne = document.getElementById("pidpersonne").value;
+	
+		creaPers({"nom":nompersonne});
+	}
+	function creaPers(data){
+		data.table = "personne";
+		$.get('../php/c.php',
+				data,
+	        		function(html){
+					alert('Personne Bien ajoutée.');
+	       		});	
+}
+//////////////////////////:
+function creerdocument(){
+		var nom = document.getElementById("dnom").value;
+		var lat = document.getElementById("dlat").value;
+		var lng = document.getElementById("dlng").value;
+		var url = document.getElementById("durl").value;
+		
+		creadoc({"nom":nom,"lat":lat,"lng":lng,"url":url});
+	}
+	function creadoc(data){
+		data.table = "document";
+		$.get('../php/c.php',
+				data,
+	        		function(html){
+					alert('Document Bien ajouté.');
+	       		});	
+}
+</script>
+
+
+<body>
+<h1></h1>
+<div class="container">
+<div class="jumbotron">
+<div class="ddiv">
+	        <h1 class="centre">  Creer Score</h1>
+	       		 Id personne :<input type="number" id="sidpersonne"/><br><br>
+	       		 Id doc : <input type="number" id="siddoc" /><br><br>
+	       		 Distance : <input type="number" id="sdistance" /><br><br>
+	       		 <button onclick="creerscore()" type="button" class="btn btn-success ">Creer</button>
+				 
+	   </div>    	
+   </div>
+   <div class="jumbotron">
+<div class="ddiv">
+        <h1 class="centre">  Creer Personne</h1>
+         	Nom de la personne : <input type="text" id="pidpersonne"/><br><br>
+	       		
+	       	<button onclick="creerpersonne()" type="button" class="btn btn-success">Creer</button>
+	   </div>    	
+   </div>
+			
+			<div class="jumbotron">
+<div class="ddiv">
+        <h1 class="centre">  Creer Document</h1>
+         		Nom du document : <input type="text" id="dnom"/><br><br>
+	       		 latitude : <input type="number" id="dlat" /><br><br>
+	       		 longtitude : <input type="number" id="dlng" /><br><br>
+	       		 image URL: <input type="file" id="durl" /><br><br>
+	       		 <button onclick="creerdocument()" type="button" class="btn btn-success">Creer</button>
+	   </div>    	
+   </div>
+</div>
+</body>
+</html>
