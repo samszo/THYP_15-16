@@ -1,32 +1,54 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <h2>MAPS</h2>
-<h1>La Carte</h1>
-<center><p class="question">Ou se trouve se club <img src="img/real.png" width="50" height="40" /> ?
-</p></center>
-    <style type="text/css">
-    p.question {
-    color:#0F470A;
-    font-size: 200%
+	<script src="../js/jquery.min.js" ></script>
+      <style type="text/css">
+   
+   h1 {
+      color:#ffffff;
+    font-size: 250%;
+    }
+    h2 {
+      color:#ffffff;
+    font-size: 200%;
+    }
+    p {
+    color:#ffffff;
+    font-size: 200%;
+    border-width:5px;
+    border-style:solid   ;
+    border-color:#ffffff;
+    margin-left:350px;
+    margin-right:350px;  
 }
-      html, body { 
+    html, body { 
 
       height: 100%; margin: 0; padding: 0; }
      
-      #map { height: 50%; border:3px outset #750B1F;
-    padding:10px ; margin:30px;;
+      #map { height: 50%; border:3px outset #ffffff;
+      padding:10px ; margin-left:90px; margin-right:90px;;
       }
       body {
-    background-color: #FAB6B7;
+
+      background-color: #969696 ;
 }
-    </style>
+  </style>
   </head>
   <body>
+    <h1>MAP Kesraoui </h1>
+<h2>La Carte</h2>
+<center><p> Ou se trouve se club <img src="img/real.png" width="50" height="40" /> ?
+</br>
+  	<div id="result"></div>
+</br>
+</br>
+</p></center>
+  
     <div id="map"></div>
     <script type="text/javascript">
 var map;
 var markers = [];
+var source;
 function initMap() {
   var haightAshbury = {lat: 40.313043, lng: -3.669434};
   map = new google.maps.Map(document.getElementById('map'), {
@@ -37,14 +59,12 @@ function initMap() {
   // This event listener will call addMarker() when the map is clicked.
   map.addListener('click', function(event) {
     addMarker(event.latLng);
-    alert("distance"+event.latLng.lng);
+   
   });
-  // Adds a marker at the center of the map.
+source = new google.maps.LatLng({lat:  40.4165000,lng:-3.7025600});
+
 }
-function distance(){
-var lat= 0;
-var lng=0;
-}
+
 function addMarker(location) {
     setMapOnAll(null);
   var marker = new google.maps.Marker({
@@ -52,6 +72,11 @@ function addMarker(location) {
     map: map
   });
   markers.push(marker);
+
+  var distance = google.maps.geometry.spherical.computeDistanceBetween( source, marker.getPosition());
+  $("#result").html("La distance :" + (distance/1000) + "  KM");
+  creaScore({"id_doc":2,"id_perso":2,"distance":distance});
+  
 }
 function deleteMarkers() {
   clearMarkers();
@@ -65,10 +90,19 @@ function setMapOnAll(map) {
     markers[i].setMap(map);
   }
 }
+
+function creaScore(data){
+	data.table = "score";
+	$.get('../php/c.php',
+			data,
+        		function(html){
+				$("#result").html(html);
+       		});	
+}
+
     </script>
     <script async defer
-      src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAtl4qOlHXTQ_3phq40KY69wNgF0YLfovk&callback=initMap">
+      src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAtl4qOlHXTQ_3phq40KY69wNgF0YLfovk&libraries=geometry&callback=initMap">
     </script>
-    <h1> Resultat </h1>
   </body>
 </html>

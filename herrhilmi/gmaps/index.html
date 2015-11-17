@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html>
+	<head>
+	<meta charset="UTF-8"/>
+	<link rel="stylesheet" type="text/css" href="style.css"/>
+	<script src="../js/jquery.min.js" ></script>
+	</head>
+  <body>
+	<div id="navbar">
+		<div id="navbar-container">
+			<h3 class="title" style="float:left">Devinette</h3>
+			<h3 class="title" id="logout" style="float:right;display:none"><a onClick="logout()">Deconnexion</a></h3>
+		</div>
+	</div>
+	<div id="container">
+		<div id="main-content" style="display:none">
+			<div id="left-menu">
+				<h3 class="title-primary">But</h3>
+				<p>le but est de deviner l'emplacement géographique d'un lieu, qui vous est proposé.</p>
+				
+				<h3 class="title-primary">Régles du jeu</h3>
+				<ul  class="list-item-holder">
+					<li class="list-item">Vous procéder par simple clic pour trouver le lieu caché.</li>
+					<li class="list-item">Vous avez 5 essais.</li>
+				</ul>
+				<h3 class="title-primary">Question</h3>
+				<p id="question"></p>
+				<img name="imgquestion" hspace=40 width=64 height=64 src="" />
+				
+			</div>
+			<div id="myContent">
+				<div id="map"></div>
+				<div id="display">
+					<p id="display-para"></p>
+					<button  id="reset-btn"align=center class="btn" style="display:none" onClick='refresh()'>Réintialiser</button>
+					<div id="result"></div>
+				</div>
+			</div>
+			<div id="sub-content">
+				<div class="box-login">
+					<h3 class="title-sub-menu">Connecté en tant que</h3>
+						<hr/>
+						<ul style="list-style:none;padding:0px">
+							<li><img height=24 hspace=15  src="../../img/Octocat.png"/><span id="logged-user"><span></li>
+						</ul>
+				</div>
+				<div class="box-score">
+					<h3 class="title-sub-menu">Scores</h3>
+						<hr/>
+						<table id="score-list">
+							<thead>	
+								<tr>
+									<th>ID du document</th>
+									<th>Score</th>
+									<th>Date</th>
+								</tr>
+							<thead>
+							<tbody id="scores">
+							</tbody>
+						</table>
+				</div>
+			</div>
+		</div>
+		
+		<div id="splash-content">
+			<h2 class="title-primary" align=center>Connectez-vous avec votre login Github.</h2>
+			<div id="login-box">
+				<input  id="login-github" name="login-github" type="text" />
+				<button  id="login-btn" align=center class="btn"  onClick='connect()'>Se connecter</button>
+				<h4 id="login-failed" class="title-error" align=center style="display:none"></h4>
+			</div>	
+			<img id="img-loading" width="42" alt="login loading"  style="margin:auto;display:none" src="../../img/loading.gif"/>
+		
+		</div>
+		
+	</div>
+	<script async defer
+	src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDRWApxqHrynQTocW6aK5Fb2R_vcLGEDVU&libraries=geometry&callback=initMap">
+	
+	</script>
+	
+	<script src="script.js">
+	</script>
+    
+  </body>
+</html>

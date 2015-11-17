@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <style type="text/css">
+      html, body { height: 100%; margin: 0; padding: 0; }
+      #map { height: 100%; }
+    </style>
+  </head>
+  <script type="text/javascript"
+      src="https://maps.googleapis.com/maps/api/js?sensor=false&libraries=geometry"></script>
+  <body>
+    <div id="map" style="width:100%;height:60%"></div>
+	<h1>Entrez les coordonnées pour calculer la distance entre votre place et les Champs élysées</h1>
+	<h1>Exemple->latitude saint denis:48.9333 &nbsp;&nbsp;longtitude saint denis:2.3667</h1>
+	Entrez Latitude : <input type="text" id="lat" />	<br><br>
+	Entrez Longtitude : <input type="text" id="lng" /> 
+	<button onclick="calculer()">Calculer</button><br><br>
+	
+	
+		<div id="val" style="border: 1px solid;
+		text-align: center;font-size: xx-large;"></div>
+	
+	
+	
+    <script type="text/javascript">
+
+	function calculer() {
+		var lat = document.getElementById("lat").value;
+		var lng = document.getElementById("lng").value;
+		
+		var point = new google.maps.LatLng(lat,lng);
+		
+	
+		
+		var champs = new google.maps.LatLng(48.870502,2.304897);
+		
+		
+		var distanceKm = google.maps.geometry.spherical.computeDistanceBetween(point, champs);
+		
+		var dis = (distanceKm / 1000);
+
+		document.getElementById('val').innerHTML= "<style='    font-size: xx-large;'>La distance = "+ dis.toFixed(2)+" KMS ";
+		
+	}
+	
+	
+var map; 
+
+
+function initMap() {
+  map = new google.maps.Map(document.getElementById('map'), {
+    center: {lat: 48.85661400000001, lng: 2.3522219000000177},
+    zoom: 12
+  });
+  
+  
+
+ 
+
+  
+  
+  
+  champs = new google.maps.Marker({
+    map: map,
+    draggable: true,
+    animation: google.maps.Animation.DROP,
+    position: {lat: 48.870502, lng: 2.304897},
+	title: 'champs élysées'
+  });
+  
+
+  
+}
+
+    </script>
+
+    <script async defer
+      src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAEXWgolgPWKhTIZyb2uEnvX_GLdLW2FnI&callback=initMap">
+    </script>
+	
+  </body>
+</html>

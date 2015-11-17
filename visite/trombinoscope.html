@@ -12,40 +12,39 @@
 <style>
 #contenue{
 float:center;
-position: relative;
-    left: 10%;
+margin-right: 180px;
+margin-left: 180px;
+
+text-align: center;
+    
 }
 h1{
 background-color:#jhhgi;
 text-align: center;
 
 }
-.icone{
-padding-right: 20px;
-
-}
-
 
 .photo{
-
-	height: 243px;
-	width: 167px;
+width : 300px;
+height: 500px;
 }
+body{
+	background-color: #adadad;
+}
+
 .items{
 	display:flex;	
-	padding: 3px;
+	
 	border:2px solid black;
 
-	height: 35%;
-	width: 35%;
 	padding: 12px;
 	margin: 12px;
+	background-color: #87CEEB;
 	
-	float:left;
 }
 .data{
-	float:left;
-	margin: 3px;
+	float:center;
+	padding-left: 20px;
 	
 	
 }
@@ -58,6 +57,7 @@ padding-right: 20px;
 	var dataEtu;  
 var urlGit = "https://github.com/";
 var urlDiigo = "https://www.diigo.com/user/";	
+var urlLinkedIn = "https://fr.linkedin.com/";
 	$(document).ready(  
 		 function()
 		 {
@@ -109,21 +109,15 @@ var urlDiigo = "https://www.diigo.com/user/";
 	
 	//afficher les infos 
 	function voirDataLogin(d){
-		var h = d.Prénom+" "+d.Nom
-		+"</br>"
-		+" "+d.mail
-		+"</br>"
+		var h = "<h2>"+d.Prénom+" "+d.Nom+"<h2>"
+		+"<a href='"+urlDiigo+d["login Diigo"]+"'><img hspace='5px' height='40px' src='../img/diigo.jpg' /></a>"
+		+"<a href='"+urlGit+d["login Github"]+"'><img hspace='5px' height='40px' src='../img/github.png' /></a>"
+		+"<a href='"+d["page linkedIn"]+"'><img height='40px' src='../img/Linkedin.png' /></a>"
 		
-			+"<br/>"
-			+"<img width=24 height=24 class=\"icone\"  src=\"../img/diigo.jpg\" /><a href="+urlDiigo+d['login Diigo']+">"+d['login Diigo']+"</a>"
-			+"<br/>"
-			+"<br/>"
-			+"<img width=24 height=24 class=\"icone\"  src=\"../img/Octocat.png\"/><a href="+urlGit+d['login Github']+">"+d['login Github']+"</a>"
-			+"<br/>"
-			
-			+"<div id='graph"+d.idPhoto+"' />";
+		+"<a href='mailto:"+ d.mail+"'><img height='40px' src='../img/mail.png' /></a>"
+	+"<div id='graph"+d.idPhoto+"' />"
              $('<div class="data" id="data_' + d.idPhoto + '"></div>').html(h).appendTo('#link_' + d.idPhoto);
-		//creaGraphEtu(d);	
+		creaGraphEtu(d);	
 		
 	}
 
@@ -147,7 +141,7 @@ var score = {"nul": 0 , "moins nul": 20, "bon":60, "trop bon":80, "expert":100};
 var cats = ["Javascript","CSS","HTML","PHP","SVG","OWL","JAVA","XML",".NET","JSON","Objective-C","Android"];
 //var fctColor = d3.scale.category20();
 //var fctColor = d3.scale.ordinal().domain(cats).range(colorbrewer.RdBu[14]);
-var fctColor = d3.scale.linear().domain([0, 100]).range(["#ff3400", "#3c9a2e"]);
+var fctColor = d3.scale.linear().domain([0, 100]).range(["#fbf400", "#3c9a2e"]);
 
 function creaGraphEtu(d){
 	

@@ -1,0 +1,110 @@
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+  <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
+<?php 
+include_once '../php/connect.php';
+
+
+		readScore();
+	
+		readPersonne();
+
+		readDocument();
+
+
+function readScore(){
+	global $conn;
+	
+	$sql = "SELECT * FROM scores";
+	$result = $conn->query($sql);
+	//echo $sql;
+	if ($result->num_rows > 0) {
+    // output data of each row
+		echo "<h1 style='text-align:center;'>Table score</h1>";
+		echo "<table class='table table-hover'>
+				 <thead>
+      					<tr class='danger'>
+					        <th>Id Score</th>
+					        <th>Id Personne</th>
+					        <th>Id Document</th>
+					        <th>Distance</th>
+					        <th>Mise à jour</th>
+     					 </tr>
+   				 </thead><tbody> ";
+
+	    while($row = $result->fetch_assoc()) {
+	        echo "<tr class='info'><td>" . $row["id_scores"]. "</td><td> " . $row["id_perso"]. "</td><td> " . $row["id_doc"]. "</td><td> " . $row["distance"]. " </td><td> " . $row["maj"]."</td></tr>";
+	    	
+	    }
+ echo "</tbody>
+  </table>";
+
+	} else {
+    	echo "Table score vide<br>";
+	}	
+}
+
+function readPersonne(){
+	global $conn;
+	
+	$sql = "SELECT * FROM personnes";
+	$result = $conn->query($sql);
+	//echo $sql;
+	if ($result->num_rows > 0) {
+    // output data of each row
+		echo "<h1 style='text-align:center;'>Table Personnes</h1>";
+		echo "<table class='table table-hover'>
+				 <thead>
+      					<tr class='danger'>
+					        
+					        <th>Id personne</th>
+					        <th>Nom de la personne</th>
+					       
+     					 </tr>
+   				 </thead><tbody> ";
+	    while($row = $result->fetch_assoc()) {
+	        echo "<tr class='info'><td> " . $row["id_perso"]. "</td><td> " . $row["nom"]. "</td></tr>";
+	    }
+	     echo "</tbody>
+  </table>";
+	} else {
+    	echo "Table personne vide<br>";
+	}	
+}
+
+function readDocument(){
+	global $conn;
+	
+	$sql = "SELECT id_doc,nom, AsText(`latlng`), url FROM documents";
+	$result = $conn->query($sql);
+	//echo $sql;
+	if ($result->num_rows > 0) {
+    // output data of each row
+		echo "<h1 style='text-align:center;'>Table Documents</h1>";
+		echo "<table class='table table-hover'>
+				 <thead>
+      					<tr class='danger'>
+					        
+					        <th>Id Document</th>
+					        <th>Nom du document</th>
+					        <th>LatLng</th>
+					        <th>Url</th>
+					       
+     					 </tr>
+   				 </thead><tbody> ";
+	    while($row = $result->fetch_assoc()) {
+	        echo "<tr class='info'><td>" . $row["id_doc"]. "</td><td>" . $row["nom"]."</td><td>" . $row["AsText(`latlng`)"]."</td><td>" . $row["url"] . "</td></tr>";
+	    }
+	    echo "</tbody>
+  </table>";
+	} else {
+    	echo "Table Document vide<br>";
+	}	
+}
+
+
+
+$conn->close();
+
+?>
