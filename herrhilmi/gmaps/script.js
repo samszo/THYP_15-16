@@ -1,11 +1,30 @@
 var map;
 var markers = [];
-var hiddenCoords = [];
+var hiddenCoords;
 var myCoordinates;
-var hiddenArea;
-var infoWindow;
 var essais = 5;
-var infoWindowVisible = false;
+var logged = false;
+var member;
+var list_documents;
+var selected_doc = 0;
+var distance;
+function checkLogin(){
+	if(logged ===false){
+		hideElementById("main-content");
+		showElementById("splash-content");
+		hideElementById("logout");
+		hideElementById("img-loading");
+		hideElementById("login-failed");
+		showElementById("login-box");
+	}
+	else
+	{
+		showElementById("main-content");
+		hideElementById("splash-content");
+		showElementById("logout");
+	}
+};
+
 
 function initMap() {
   map = new google.maps.Map(document.getElementById('map'), {
@@ -13,75 +32,37 @@ function initMap() {
 	zoom: 2
   });
   
-  hiddenCoords =[new google.maps.LatLng(48.574790,-124.453125),
-				new google.maps.LatLng(49.152970,-95.273438),
-				new google.maps.LatLng(48.341646,-88.945313),
-				new google.maps.LatLng(45.213004,-82.617188),
-				new google.maps.LatLng(41.902277,-83.144531),
-				new google.maps.LatLng(47.517201,-68.203125),
-				new google.maps.LatLng(45.336702,-66.796875),
-				new google.maps.LatLng(38.548165,-75.761719),
-				new google.maps.LatLng(36.456636,-75.761719),
-				new google.maps.LatLng(31.203405,-81.562500),
-				new google.maps.LatLng(26.115986,-80.332031),
-				new google.maps.LatLng(25.641526,-80.683594),
-				new google.maps.LatLng(26.745610,-82.089844),
-				new google.maps.LatLng(30.297018,-84.375000),
-				new google.maps.LatLng(29.382175,-95.449219),
-				new google.maps.LatLng(26.431228,-97.207031),
-				new google.maps.LatLng(30.145127,-102.480469),
-				new google.maps.LatLng(29.075375,-103.535156),
-				new google.maps.LatLng(31.653381,-108.105469),
-				new google.maps.LatLng(32.546813,-114.960938),
-				new google.maps.LatLng(32.842674,-117.421875),
-				new google.maps.LatLng(36.315125,-122.343750),
-				new google.maps.LatLng(40.044438,-124.628906),
-				new google.maps.LatLng(48.458352,-124.628906)
-				];
 				
-  hiddenArea = new google.maps.Polygon({
-    paths: hiddenCoords,
-    strokeOpacity: 0.0,
-    strokeWeight: 0,
-    fillOpacity: 0.0
-  });
-  
+  loadDocuments();
   // center of CA to compute the distance
   myCoordinates = new google.maps.LatLng(38.134557,-120.585938);
-  
-  infoWindow = new google.maps.InfoWindow;
-  map.addListener('click',addMarker);
-  hiddenArea.addListener('click', success);
-  infoWindow.addListener('closeclick', infoWindowClosed);
-  
-  hiddenArea.setMap(map);
-}
 
+  map.addListener('click',addMarker);
+}
 
 function addMarker(event) {
 	
-	if(essais >1 && !infoWindowVisible)
+	if(essais >1 )
 	{
-		var clicPosition = google.maps.geometry.poly.containsLocation(event.latLng, hiddenArea);
-		
-		if(clicPosition === true)
+		distance = google.maps.geometry.spherical.computeDistanceBetween(hiddenCoords,event.latLng)/1000;			
+			
+		if(distance <700)
 		{
 			success(event);
 		}
 		else{
-			var distance = google.maps.geometry.spherical.computeDistanceBetween(myCoordinates,event.latLng)/1000;			
 			
 			var marker = new google.maps.Marker({
 			position: event.latLng,
 			map: map
 			});
 		  
-			if(markers.length >0) {
+			if(markers.length > 0) {
 				markers[0].setMap(null);
 			}
 			
 			markers[0] = marker;
-			document.getElementById("display-para").innerHTML ="à " + distance.toFixed(2) + " KM près";
+			document.getElementById("display-para").innerHTML ="à " + distance.toFixed(3) + " KM près";
 		
 		}
 		
@@ -97,43 +78,141 @@ function addMarker(event) {
 }
 
 function deleteMarkers() {
-  markers[0].setMap(null);
-  markers = [];
+	markers[0].setMap(null);
+	markers = [];
 }
 
 function success(event){
-	if(essais >1 && !infoWindowVisible)
+	if(essais >1)
 		{
-		document.getElementById("display-para").innerHTML = "";
+		document.getElementById("display-para").innerHTML = "Bravo! vous avez gagner.";
 		// remove marker
 		if(markers.length >0) {
 				markers[0].setMap(null);
 		}
+		var a = JSON.parse(list_documents[selected_doc]);
+		creaScore({"id_doc":a["id_doc"],"id_perso": member["id_perso"],"distance": distance});
 		
-		var contentString = '<b>Bravo</b><br>' +
-		  'L\'origine de Facebook est<br>bel et bien les &eacutetats-unis d\'am&eacuterique.<br>';
-		  
-		// Replace the info window's content and position.
-		infoWindow.setContent(contentString);
-		infoWindow.setPosition(event.latLng);
-
-		infoWindowVisible = true;
-		infoWindow.open(map);
+		selected_doc = (selected_doc === 0) ? 1 : 0;
+		onDocumentsLoaded();
+		
+		//$("#result").html("hihi");
+	
 	}
 		
 }
 
-function infoWindowClosed(){
-	infoWindowVisible = false;
-	essais = 5;
-}
-
 function refresh(){
 	document.getElementById("display-para").innerHTML = "";
-	document.getElementById("reset-btn").style.display ="none";
+	hideElementById("reset-btn");
 	markers[0].setMap(null);
-	infoWindow.close();
+	essais = 5;
+	selected_doc = 0;
+}
+
+function creaScore(data){
+	data.table = "score";
+	$.get('../php/c.php', data,
+        		function(html){
+       		});	
+}
+
+function connect(){
+	hideElementById("login-failed");
+	showElementById("img-loading");
+	var data ={"table":"connect"};
+	var login = document.getElementById("login-github").value;
+	
+	if(login.length > 0 &&login.length <20){
+		hideElementById("login-box");
+		data.github = login;
+		
+		$.ajax({
+		  url: '../php/r.php',
+		  data: data,
+		  success: function(html){
+					onConnected(html);
+       		},
+		  error: function(xhr, ajaxOptions, thrownError){
+					onLoginFailed();	
+			}
+		});
+	}
+	else
+	{
+		showElementById("login-failed");
+		hideElementById("img-loading");
+		document.getElementById("login-failed").innerHTML = "Saisie invalide";
+	}
+}
+
+function onConnected(html){
+	member = JSON.parse(html);
+	logged = true;
+	document.getElementById("logged-user").innerHTML = member["nom"];
+	checkLogin();
+}
+
+function onLoginFailed(){
+	hideElementById("img-loading");
+	document.getElementById("login-failed").innerHTML = "Login github introuvable";
+	showElementById("login-box");
+	showElementById("login-failed");	
+}
+
+function logout(){
+	logged = false;
+	checkLogin();
+}
+
+function loadDocuments()
+{
+	var data = {"table":"document"};
+	$.ajax({
+		  url: '../php/r.php',
+		  data: data,
+		  success: function(html){
+				list_documents = JSON.parse(html);
+				onDocumentsLoaded();
+       		}
+		});
+}
+
+function onDocumentsLoaded()
+{
+	var a = JSON.parse(list_documents[selected_doc]);
+	document.getElementById("question").innerHTML = a.nom;
+	// load coords
+	hiddenCoords = new google.maps.LatLng(+a["lat"],+a["lng"]);
+	
+	icon = new Image();
+	icon.src = a["url"];
+	document.imgquestion.src=eval("icon.src");
 	essais = 5;
 }
 
-   
+function loadScore(id_doc)
+{
+	var data = {"table":"score","id_perso": member["id_perso"], "id_doc":id_doc};
+	$.ajax({
+		  url: '../php/r.php',
+		  data: data,
+		  success: function(html){
+				score = JSON.parse(html);
+				onScoreLoaded(score);
+       		}
+		});
+}
+
+function onScoreLoaded(score){
+	var col = "<td>"+score["id_doc"]+"</td><td>"+score.distance+"</td><td>"+score.maj+"</td>";
+	
+	$("<tr></tr>").html(col).appendTo("#scores");
+}
+function showElementById(attr) {
+	document.getElementById(attr).style.display = "block";
+}
+
+function hideElementById(attr) {
+	document.getElementById(attr).style.display = "none";
+}
