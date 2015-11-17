@@ -58,7 +58,7 @@
             zoom: 2,
         });
         getSites({"table":"document"});
-        alert(Sites);
+        console.log(Sites);
         carreOran = [
             new google.maps.LatLng(35.713068, -0.694885),
             new google.maps.LatLng(35.653391, -0.688705),
@@ -137,8 +137,10 @@ function getSites(data){
     $.get('../php/c.php',
             data,
                 function(html){
-                $("#result").html(html);
-                Sites = member = JSON.parse(html);
+                Sites = JSON.parse(html);
+                Sites.forEach(function(s){
+                    console.log(s.nom);
+                })
             }); 
   }
 </script>
@@ -146,7 +148,6 @@ function getSites(data){
         src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAL0C5xB_p1v50yImLbXLm-fi-Q11ELASI&callback=initMap">
 </script>
 </body>
-
     <style type="text/css">
         html, body, p {
             height: 100%;
