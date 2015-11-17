@@ -1,0 +1,121 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>Document sans nom</title>
+ 
+        
+<script type="text/jscript" src="info.js"></script>
+<script src="../../js/jquery.min.js"></script>
+</head>
+
+<html>
+  <head>
+    <style type="text/css">
+      html, body { height: 100%; margin: 0; padding: 0;background-color: #d0d0d0; }
+      #map { height: 50%; width: 85%; border: inset; margin-left: 10%; margin-right: 10%; }
+      
+    </style>
+  </head>
+  <body>
+  </br></br></br></br></br></br></br>
+ <center> <h2>Capital <b id="places">Espagne</b>?</h2></center>
+    <div id="map"></div>
+    <center><div id="result"></div></center>
+<script type="text/javascript">
+var map;
+var markers = [];
+var source;
+var compteur=5;
+var j=0;
+var ville = ["Espagne", "France"];
+function initMap() {
+  var haightAshbury = {lat: 40.313043, lng: -3.669434};
+  map = new google.maps.Map(document.getElementById('map'), {
+    zoom: 4,
+    center: haightAshbury,
+    mapTypeId: google.maps.MapTypeId.HYBRID 
+  });
+  // This event listener will call addMarker() when the map is clicked.
+  map.addListener('click', function(event) {
+    addMarker(event.latLng);
+   
+  });
+var France= new google.maps.LatLng({lat:  48.8558234,lng:2.3474154});
+var Espagne= new google.maps.LatLng({lat:  27.173891,lng:78.042068});
+
+source = new google.maps.LatLng({lat:  40.4165000,lng:-3.7025600});
+tableauCoords = {"Espagne": France, "France": Espagne};
+
+poly = new google.maps.Polyline({
+    strokeColor: '#0000CC',
+    strokeOpacity: 1.0,
+    strokeWeight: 3,
+    map: map
+  });
+
+}
+
+function addMarker(location) {
+    setMapOnAll(null);
+  var marker = new google.maps.Marker({
+    position: location,
+    map: map
+  });
+  markers.push(marker);
+
+  var distance = google.maps.geometry.spherical.computeDistanceBetween( source, marker.getPosition());
+  $("#result").html("La distance :" + (distance/1000) + "  KM");
+  compteur--;
+  if (distance < 20000){
+    alert ("Vous avez gagné !");
+    compteur=5;
+    changeQuestion();
+  }
+  if (compteur==0){
+    alert("Vous avez perdu ! Recommencez");
+    compteur =5;
+    changeQuestion();
+  }
+  creaScore({"id_doc":2,"id_perso":2,"distance":distance});
+  
+}
+function deleteMarkers() {
+  clearMarkers();
+  markers = [];
+}
+function clearMarkers() {
+  setMapOnAll(null);
+}
+function setMapOnAll(map) {
+  for (var i = 0; i < markers.length; i++) {
+    markers[i].setMap(map);
+  }
+}
+
+function creaScore(data){
+  data.table = "score";
+  $.get('../php/c.php',
+      data,
+            function(html){
+        $("#result").html(html);
+          }); 
+}
+function changeQuestion(){
+
+ document.getElementById("place").innerHTML = ville[j];
+          j++;
+          alert(j);
+           if (j > ville.length-1) {
+            j = 0;
+
+          }
+}
+
+    </script>
+
+
+<script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDMprp6veB7wO9zGY40X8QVywrkNLNNleo&libraries=geometry&callback=initMap"></script>
+  </body>
+
+</html>
