@@ -19,8 +19,7 @@ switch ($_GET["table"]) {
 function updateScore($data){
 	global $conn;
 	
-	$sql = "INSERT INTO scores  (id_doc, id_perso, distance, maj)
-	VALUES (".$data["id_doc"].", ".$data["id_perso"].", ".$data["distance"].",NOW())";
+	$sql = "UPDATE scores SET distance =".$data["distance"]. ", maj = NOW() WHERE id_scores =".$data["id_scores"];
 	//echo $sql;
 	if ($conn->query($sql) === TRUE) {
 	    echo "New record updated successfully";
@@ -31,8 +30,7 @@ function updateScore($data){
 function updatePersonne($data){	
 	global $conn;
 	
-	$sql = "INSERT INTO personnes (nom)
-	VALUES (".$data["nom"].")";
+	$sql = "UPDATE `personnes` SET `nom`=[value-2] WHERE id_perso =".$data["id_perso"]."";
 	//echo $sql;
 	if ($conn->query($sql) === TRUE) {
 	    echo "New record updated successfully";
@@ -43,8 +41,7 @@ function updatePersonne($data){
 function updateDocument($data){
 		global $conn;
 	
-	$sql = "INSERT INTO documents (id_doc, nom, latlng, url)
-	VALUES (".$data["id_doc"].", ".$data["nom"].", ".$data["latlng"].",".$data["url"].")";
+	$sql = "UPDATE `documents` SET `id_doc`=[value-1],`nom`=[value-2],`latlng`=[value-3],`url`=[value-4] WHERE id_doc =".$data["id_doc"]."";
 	//echo $sql;
 	if ($conn->query($sql) === TRUE) {
 	    echo "New record updated successfully";
