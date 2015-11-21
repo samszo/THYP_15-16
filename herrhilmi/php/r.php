@@ -23,7 +23,7 @@ function selectScore($data){
 	global $conn;
 	
 	$sql = "SELECT * FROM scores where id_doc =".$data["id_doc"]." AND id_perso=".$data["id_perso"];
-	echo $sql."<br>";
+	//echo $sql."<br>".$result->num_rows."<br>";
 	$result = $conn->query($sql);
 	if ($result->num_rows > 0) {
 		while($row = $result->fetch_assoc()) {
@@ -53,13 +53,14 @@ function selectDocuments(){
 	global $conn;
 	$list= array();
 	$sql = "SELECT id_doc, nom,  X(latlng) lat, Y(latlng) lng , url FROM documents";
-	//echo $sql;
 	$result = $conn->query($sql);
+	//echo $sql."<br>".$result->num_rows."<br>";
 	if ($result->num_rows > 0) {
 		while($row = $result->fetch_assoc()) {
-			$list[] = json_encode($row);
+			//print_r($row);
+			$list[] = $row;
 		}
-		
+		//print_r($list);
 		echo json_encode($list);
 	}
 }
