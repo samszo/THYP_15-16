@@ -1,6 +1,6 @@
 <?php
 include_once 'connect.php';
-$_GET["table"] = "document";
+
 switch ($_GET["table"]) {
 	case "score":
 		createScore($_GET);
@@ -12,7 +12,7 @@ switch ($_GET["table"]) {
 		getDoc();
 		break;
 		case "coords":
-		getCoords();
+		getCoords($_GET["idDoc"]);
 		break;		
 	default:
 		;
@@ -54,6 +54,29 @@ function getDoc(){
 		return http_response_code(500);
 	}	
 }
+
+
+function getCoords($id){
+	global $conn;
+	$tab_returned = array();
+	$sql = "SELECT * FROM coords where id_doc='".$id."'";
+	$result = $conn->query($sql);
+	
+	if ($result->num_rows > 0) {
+		while($row = $result->fetch_assoc()) {
+			$tab_returned[] = $row;
+
+					
+		}
+		echo json_encode($tab_returned);
+		return;
+
+	
+	} else {
+		return http_response_code(500);
+	}	
+}
+
 
 /*
 function getCoords(){
