@@ -1,61 +1,16 @@
 <?php 
 include "mykey.php";
-include "c.php";
-?>
+?> 
 <!DOCTYPE html>
 <html>
   <head>
-    <style type="text/css">
-      body { background-color: white;}
-      #map { width: 1400px; height: 500px; margin-top: 100px; margin-left: 350px; padding: 0;  border:2px inset;}	
-	  h1{ font-size: 50px; text-align: center; border:2px outset; color:  green; background-color: #B2D0FE; margin-top: 1px;}
-	  .imag:hover {transform: scale(1.2);  -moz-transition: all 0.4s ease-in-out 0s;  -webkit-transition: all 0.4s ease-in-out 0s;  -o-transition: all 0.4s ease-in-out 0s;  -ms-transition: all 0.4s ease-in-out 0s;  transition: all 0.4s ease-in-out 0s;}
-    </style>
+  <link rel="stylesheet" href="style.css" />
+    
   </head>
   <body>
-     <h1>Where Is It From?</h1> <br>
-	 <script type="text/javascript">
-		var p = prenom();
-		var n = nom();
-		document.write("Bienvenue "+p + " "+ n); 
-		function prenom(){
-		var prenom = window.prompt("entrez votre prénom : ", "prénom");
-		if(prenom)
-		{
-		   
-		   
-		   var chainetestp = prenom;
-		   var reg=/^[a-zàäâéèêëïîöôùüû\s]*$/i;
-		   var testprenom = reg.test(chainetestp);
-		   
-		   if(testprenom == false){
-			   alert('attention ! pas de chaine de caractère spéciaux');
-			   prenom = window.prompt("entrez votre prénom sans caractère spéciaux ! : ", "prénom");
-		   }
-		   
-		   else return prenom;
-		}
-		}
-		function nom(){
-		var nom = window.prompt("entrez votre nom : ", "nom");
-		if(nom)
-		{
-		   
-		   var chainetestn = nom;
-		   var reg=/^[a-zàäâéèêëïîöôùüû\s]*$/i;
-		   var testnom = reg.test(chainetestn);
-		   
-		   if(testnom == false){
-			   alert('attention ! pas de chaine de caractère spéciaux');
-			   nom = window.prompt("entrez votre nom sans caractère spéciaux ! : ", "nom");
-		   }
-			  else return nom;
-
-		}
-		}
-		createPersonne(nom);
-	 </script>
-	 <center><p>Choisissez un élement et trouver son pays d'origine : </p><img class = "imag" id="Img" src="images/google.jpg"  align="center" width=100px height=100px/></center>
+     <div id="titre">Where Is It From?</div>
+	 <div id="question">Choisissez un element et trouver son pays d'origine : </div>
+	 <div id="img"><img class = "imag" id="Img" src="images/google.jpg"  align="center" width=100px height=100px/></div>
 	
     <div id="map"></div>
 	

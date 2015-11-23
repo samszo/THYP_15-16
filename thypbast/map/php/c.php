@@ -31,15 +31,22 @@ function createScore($data){
 
 function createPersonne($data){
 	global $conn;
-	
-	$sql = "INSERT INTO personnes (nom) VALUES ("+$data["nom"]+")";
+	$sql = "SELECT * FROM personnes where  nom = '". $data["nom"]."'";
+	$result = $conn->query($sql);
+	if ($result->num_rows == 0) {
+		
+		$sql = "INSERT INTO personnes (nom)
+		VALUES ('".$data["nom"]."')";
+		echo "New record has id: " . mysqli_insert_id($conn);
 	//echo $sql;
-	if ($conn->query($sql) === TRUE) {
-	    echo "New record of type personnes created successfully";
-	} else {
-	    echo "Error: " . $sql . "<br>" . $conn->error;
-	}	
-}
+		if ($conn->query($sql) === TRUE) {
+	    //echo "New record created successfully";
+		} else {
+			echo "Error: " . $sql . "<br>" . $conn->error;
+		}	
+		
+	}
+
 
 function createDocument($data){
 	global $conn;
