@@ -53,14 +53,14 @@ function readPersonne($data){
 function readDocument($data){
 	global $conn;
 	
-	$sql = "SELECT id_doc,nom, AsText(`latlng`), url FROM documents";
+	$sql = "SELECT * FROM documents";
 	$result = $conn->query($sql);
 	//echo $sql;
 	if ($result->num_rows > 0) {
     // output data of each row
 		echo "<h1>Résultat Table documents</h1>";
 	    while($row = $result->fetch_assoc()) {
-	        echo "id: " . $row["id_doc"]. " - Nom : " . $row["nom"]." - LatLng : " . $row["AsText(`latlng`)"]." - URL : " . $row["url"] . "<br>";
+	        echo "id: " . $row["id_doc"]. " - Nom : " . $row["nom"]." - Lat : " . $row["lat"]." - Lng : " . $row["lng"]." - URL : " . $row["url"] . "<br>";
 	    }
 	} else {
     	echo "0 results";

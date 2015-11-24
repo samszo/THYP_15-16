@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title></title>
+</head>
+	
+<style type="text/css">
+  body {
+    color: purple;
+    background-color: #80BFFF }
+  </style>
+<script type="text/javascript">
+	
+
+
+
+
+function modpersonne(){
+
+		var id = document.getElementById("pidpersonne").value;
+		var nompersonne = document.getElementById("pnompersonne").value;
+
+	
+
+		modPers({"nom":nompersonne,"id":id});
+
+	}
+
+	function modPers(data){
+
+		data.table = "personne";
+
+		$.get('../php/u.php',
+				data,
+	        		function(html){
+					alert('Personne Bien modifiée.');
+	       		});	
+
+}
+
+function moddocument(){
+
+		var id = document.getElementById("did").value;
+		var nomdocument = document.getElementById("dnom").value;
+		var lat = document.getElementById("dlat").value;
+		var lng = document.getElementById("dlng").value;
+		var url = document.getElementById("durl").value;
+			
+
+	
+
+		moddoc({"nom":nomdocument,"id":id,"lat":lat,"lng":lng,"url":url});
+
+	}
+
+	function moddoc(data){
+
+		data.table = "document";
+
+		$.get('../php/u.php',
+				data,
+	        		function(html){
+					alert('Document Bien modifié.');
+	       		});	
+
+}
+
+
+
+</script>
+
+
+<body>
+
+
+<div id="global">
+    
+   
+   
+    <div id="cadre1">
+        <h3 class="centre">Modifier une Personne</h3>
+        	Identifant du personne : <input type="text" id="pidpersonne"/><br><br>
+         	Nom  du personne : <input type="text" id="pnompersonne"/><br><br>
+	       		
+	       	<button onclick="modpersonne()">Modifier</button>
+
+    </div>
+    
+    <div id="cadre2">
+        <h3 class="centre">Modifier un Document</h3>
+       			 Identifiant du document : <input type="text" id="did"/><br><br>
+         		 Nom document : <input type="text" id="dnom"/><br><br>
+	       		 latitude : <input type="number" id="dlat" /><br><br>
+	       		 longtitude : <input type="number" id="dlng" /><br><br>
+	       		 image URL: <input type="file" id="durl" /><br><br>
+	       		 <button onclick="moddocument()">Modifier</button>
+    </div>
+</div>
+
+
+</body>
+</html>

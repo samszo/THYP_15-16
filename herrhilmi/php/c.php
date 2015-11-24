@@ -32,7 +32,7 @@ function createScore($data){
 function createPersonne($data){
 	global $conn;
 	
-	$sql = "INSERT INTO personnes (nom) VALUES ("+$data["nom"]+")";
+	$sql = "INSERT INTO personnes (nom) VALUES ('".$data["nom"]."')";
 	//echo $sql;
 	if ($conn->query($sql) === TRUE) {
 	    echo "New record of type personnes created successfully";
@@ -44,8 +44,8 @@ function createPersonne($data){
 function createDocument($data){
 	global $conn;
 	
-	$sql = "INSERT INTO documents (nom, latlng, url) VALUES (".$data["nom"].", ".$data["latlng"].", ".$data["url"].")";
-	//echo $sql;
+	$sql = "INSERT INTO documents (nom, latlng, url) VALUES ('".$data["nom"]."', ".$data["latlng"].",'".$data["url"]."')";
+	echo $sql;
 	if ($conn->query($sql) === TRUE) {
 	    echo "New record of type documents created successfully";
 	} else {

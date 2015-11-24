@@ -25,3 +25,19 @@ html, body {
 #header{
 	background-color:#D3D3D3;
 }
+#left-menu {
+	position:relative;
+	float:left;
+	width:220px;
+	height:100%;
+	background-color:#e6e6e6;
+}
+#myContent{ 
+	position:relative;
+	float:left;
+	padding-left: 36px;
+	color:#F8F8FF;
+}
+#links{
+	margin: auto;
+}
