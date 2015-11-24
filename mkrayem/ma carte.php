@@ -3,8 +3,24 @@
   <head>
   <link rel="stylesheet" type="text/css" href="style.css"/>
     <style type="text/css">
+<<<<<<< HEAD
       #aa{
 		  padding-left:10px;
+=======
+      
+	  #titre{
+		 padding-left:600px;
+<<<<<<< HEAD
+	     background-color : #4BB5C1;		 
+=======
+		 padding-top: 0px;
+	background-color : #4BB5C1;		 
+<<<<<<< HEAD
+>>>>>>> origin/master
+=======
+>>>>>>> 367be944bbf6657860a65290a96960503adeff55
+>>>>>>> b3c125aa5193ea38cfd5aae8d8a73ff90be22d89
+>>>>>>> 7fd687aed84af6cbdcfad5b317a28b17171a28c3
 	  }
     </style>
 	

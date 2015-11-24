@@ -1,11 +1,7 @@
 <?php
+	include_once '../lib/toolKit.php';
 	include_once 'connect.php';
-	
-	if (isset($_GET["table"])){
-		$table = $_GET['table'];
-		echo $table,'<br>';
-	}
-	
+
 	switch ($_GET["table"]) {
 		case "score":
 			selectScore($_GET);
@@ -13,64 +9,153 @@
 		case "personne":
 			selectPersonne($_GET);
 			break;
-		case "documents":
-			echo 'Appel documents <br>';
-			selectDocuments($_GET);
+		case "AllUsers":
+			selectAllUsers();
 			break;
-		case "nbDocuments":
-			selectNBDocuments();
+		case "AllScores":
+			selectAllScores();
 			break;
+		case "AllDocuments":
+			selectDocuments();
+			break;
+		case "document":
+			selectOneDocument($_GET);
+			break;				
 		default:
 			;
 		break;
 	}
-
-	//selection data  score
-	function selectScore($data){
+	
+	function selectAllScores(){
 		global $conn;
+		$list= array();
+		
+		$sql = "SELECT * FROM scores";
 
-		$select = "SELECT * FROM `scores` WHERE id_perso ='".$data["id_perso"]."' ";
+		$result = $conn->query($sql);
 		
-		$result = $conn->query($select);
-		
-		return $result;
+		if ($result->num_rows > 0) {
+			while ($row = $result->fetch_row()) {
+				$list[] = $row;
+				//echo $row,'<br>';
+			}
+
+			echo json_encode($list);
+		}else{
+			debug_to_console('No Result. Select Score. SQL : '. $sql );
+		}
 	}
 
-	//selection data personne
+	function selectScore($data){
+		global $conn;
+		
+		$sql = "SELECT * FROM scores where id_doc =".$data["id_doc"]." AND id_perso=".$data["id_perso"];
+		
+		$result = $conn->query($sql);
+		if ($result->num_rows > 0) {
+			while($row = $result->fetch_assoc()) {
+				echo json_encode($row);
+				return;
+			}
+		} else {
+			debug_to_console('No Result. Select Score. SQL : '. $sql );
+		}	
+	}
+
 	function selectPersonne($data){
 		global $conn;
 		
-		$select =  "SELECT * FROM `personnes` WHERE id_perso ='".$data["id_perso"]."' ";
-		
-		$result = $conn->query($select);
-		
-		return $result;
-	}
-	
-	//selection data documents
-	function selectDocuments($data){
-		global $conn;
-		$select =  "SELECT * FROM `documents` WHERE id_doc ='".$data["id_doc"]."' ;";
-
-		$result = $conn->query($select);
-		
-		echo 'result : '.$result.'<br>';
-		while ($data =  $result){
-			echo $data['NOM'],'<br>';
+		$sql = "SELECT * FROM personnes where id_perso =".$data["id_perso"];
+		//echo $sql;
+		$result = $conn->query($sql);
+		if ($result->num_rows > 0) {
+			while($row = $result->fetch_assoc()) {
+				echo json_encode($row);
+				return;
+			}
+		}else{
+			debug_to_console('No Result. Select Personne. SQL : '. $sql );
 		}
+	}
 
-		return $result;
+	function selectAllUsers(){
+		global $conn;
+		$list= array();
+		
+		$sql = "SELECT * FROM personnes";
+
+		$result = $conn->query($sql);
+		
+		if ($result->num_rows > 0) {
+			while ($row = $result->fetch_row()) {
+				$list[] = $row;
+				//echo $row,'<br>';
+			}
+
+			echo json_encode($list);
+		}else{
+			debug_to_console('No Result. Select Personne. SQL : '. $sql );
+		}
+	}
+
+	function selectDocuments(){
+		global $conn;
+		$list= array();
+		$tab_ligne=array();
+		$id='id_doc';
+		$name='nom';
+		$lat='lat';
+		$lng='lng';
+		$url='url';
+		
+		$sql = "SELECT id_doc, nom,  X(latlng) lat, Y(latlng) lng , url FROM documents";
+
+		
+		$result = $conn->query($sql);
+		
+		if ($result->num_rows > 0) {
+
+			 $nbLigne=0;
+			while ($row = $result->fetch_row()) {
+
+				$list[] = $row;
+			}
+
+			echo json_encode($list);
+		}else{
+			debug_to_console('No Result. Select Document. SQL : '. $sql );
+		}
 	}
 	
-	function selectNBDocuments(){
+		function selectOneDocument($data){
 		global $conn;
-		$select =  "SELECT COUNT(*) FROM `documents`";
+		$list= array();
+		$tab_ligne=array();
+		$id='id_doc';
+		$name='nom';
+		$lat='lat';
+		$lng='lng';
+		$url='url';
 		
-		$result = $conn->query($select);
+		$sql = "SELECT id_doc, nom,  X(latlng) lat, Y(latlng) lng , url FROM documents WHERE id=" .$data["id"];
+
 		
-		return $result;
+		$result = $conn->query($sql);
+		
+		if ($result->num_rows > 0) {
+
+			 $nbLigne=0;
+			while ($row = $result->fetch_row()) {
+
+				$list[] = $row;
+			}
+
+			echo json_encode($list);
+		}else{
+			debug_to_console('No Result. Select Document. SQL : '. $sql );
+		}
 	}
+	
 
-
-	//mysql_close($conn);
+	$conn->close();
 ?>

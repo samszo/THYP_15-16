@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html>
+  <head>
+	<script src="jquery.min.js" ></script>
+      <style type="text/css">
+   
+   
+    
+   
+    html, body { 
+
+      height: 100%; margin: 800; padding: 40px;border: 50px solid #DDA0DD; }
+     
+      #map { height: 100%; border:3px outset #ffffff;
+      padding:180px; margin-left:0px; margin-right:90px;
+      }
+      body {
+
+      background-color: #FFC0CB ;
+}
+  </style>
+  </head>
+  <body>
+   <h1><i><u><center>Kalmouni Nada Map </i></u></h1></center>
+						    <div class="profile">
+                        <div class="profile_pic">
+                            <img src="image/Google-Maps-1.0.0.png" style="width: 60px;"  alt="..." class="img-circle profile_img">
+                        </div>
+                        <div class="profile_info">
+						
+                            <span>Bienvenue!</span>
+                         
+                        </div>
+ <h1>Indiquez ou est Paris !!</h1>
+</br>
+  	<div id="result"></div>
+</br>
+</br>
+</p></center>
+  
+    <div id="map"></div>
+    <script type="text/javascript">
+var map;
+var markers = [];
+var source;
+function initMap() {
+  var haightAshbury = {lat: 40.313043, lng: -3.669434};
+  map = new google.maps.Map(document.getElementById('map'), {
+    zoom: 4,
+    center: haightAshbury,
+    mapTypeId: google.maps.MapTypeId.HYBRID 
+  });
+  // This event listener will call addMarker() when the map is clicked.
+  map.addListener('click', function(event) {
+    addMarker(event.latLng);
+   
+  });
+source = new google.maps.LatLng({lat:  48.864716,lng:2.349014});
+
+}
+
+function addMarker(location) {
+    setMapOnAll(null);
+  var marker = new google.maps.Marker({
+    position: location,
+    map: map
+  });
+  markers.push(marker);
+
+  var distance = google.maps.geometry.spherical.computeDistanceBetween( source, marker.getPosition());
+  $("#result").html("Vous êtes prêt de  :" + (distance/1000) + "  kilomètres.");
+  
+  
+}
+function deleteMarkers() {
+  clearMarkers();
+  markers = [];
+}
+function clearMarkers() {
+  setMapOnAll(null);
+}
+function setMapOnAll(map) {
+  for (var i = 0; i < markers.length; i++) {
+    markers[i].setMap(map);
+  }
+}
+
+
+
+    </script>
+    <script async defer
+      src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAtl4qOlHXTQ_3phq40KY69wNgF0YLfovk&libraries=geometry&callback=initMap">
+    </script>
+  </body>
+</html>

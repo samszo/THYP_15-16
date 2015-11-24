@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title></title>
+	
+</head>
+	
+<style type="text/css">
+  body {
+    color: purple;
+    background-color: #80BFFF}
+  </style>
+<script type="text/javascript">
+	
+	function creerscore(){
+
+		var idpersonne = document.getElementById("sidpersonne").value;
+		var iddoc = document.getElementById("siddoc").value;
+		var distance = document.getElementById("sdistance").value;
+
+		creaScore({"id_doc":iddoc,"id_perso":idpersonne,"distance":distance});
+
+	}
+
+	function creaScore(data){
+
+		data.table = "score";
+
+		$.get('../php/c.php',
+				data,
+	        		function(html){
+					alert('Score Bien ajouté.');
+	       		});	
+
+}
+
+//////////////////////////:
+
+function creerpersonne(){
+
+		var nompersonne = document.getElementById("pidpersonne").value;
+	
+
+		creaPers({"nom":nompersonne});
+
+	}
+
+	function creaPers(data){
+
+		data.table = "personne";
+
+		$.get('../php/c.php',
+				data,
+	        		function(html){
+					alert('Personne Bien ajoutée.');
+	       		});	
+
+}
+//////////////////////////:
+
+function creerdocument(){
+
+		var nom = document.getElementById("dnom").value;
+		var lat = document.getElementById("dlat").value;
+		var lng = document.getElementById("dlng").value;
+		var url = document.getElementById("durl").value;
+		
+
+		creadoc({"nom":nom,"lat":lat,"lng":lng,"url":url});
+
+	}
+
+	function creadoc(data){
+
+		data.table = "document";
+
+		$.get('../php/c.php',
+				data,
+	        		function(html){
+					alert('Document Bien ajouté.');
+	       		});	
+
+}
+
+
+
+</script>
+
+
+<body>
+
+<div id="global">
+    
+    <div id="cadre1">
+        <h3 class="centre">Creer une Personne</h3>
+         	Nom  du Personne : <input type="text" id="pidpersonne"/><br><br>
+	       		
+	       	<button onclick="creerpersonne()">Creer</button>
+
+    </div>
+    
+	<div id="cadre2">
+    <h3 class="centre">Creer un Document</h3>
+         		Nom du Document : <input type="text" id="dnom"/><br><br>
+	       		 latitude : <input type="number" id="dlat" /><br><br>
+	       		 longtitude : <input type="number" id="dlng" /><br><br>
+	       		  URL: <input type="file" id="durl" /><br><br>
+	       		 <button onclick="creerdocument()">Creer</button>
+    </div>
+    
+	 <div id="cadre3">
+	        <h3 class="centre">Creer un Score</h3>
+	       		 Identifiant Personne : <input type="number" id="sidpersonne"/><br><br>
+	       		 Identifiant Document : <input type="number" id="siddoc" /><br><br>
+	       		 Distance : <input type="number" id="sdistance" /><br><br>
+	       		 <button onclick="creerscore()">Creer</button>
+    </div>
+</div>
+
+
+</body>
+</html>

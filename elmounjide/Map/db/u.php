@@ -41,7 +41,7 @@ function updateDocument($data){
 		
 
 
-	$sql = "UPDATE documents SET nom='".$data["nom"]."', latlng = GeomFromText('$location'), url='".$data["url"]."'  WHERE id_doc=".$data["id"]."";
+	$sql = "update documents set nom='".$data["nom"]."',lat='".$data["lat"]."',lng='".$data["lng"]."',url='".$data["url"]."' where id_doc=$id";
 
 	if ($conn->query($sql) === TRUE) {
 	    echo "Document updated successfully";

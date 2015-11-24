@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html>
+    <head>
+    <style type="text/css">
+      html, body { height: 100%; margin: 0; padding: 0;background-color: #d0d0d0; }
+      </style>
+    <title>Personnes</title>
+    <link rel="stylesheet" type="text/css" href="http://w2ui.com/src/w2ui-1.4.2.min.css" />
+    <script src="http://ajax.googleapis.com/ajax/libs/jquery/2.1.0/jquery.min.js"></script>
+    <script type="text/javascript" src="http://w2ui.com/src/w2ui-1.4.2.min.js"></script>
+</head>
+<body>
+</br></br>
+<center><h2>Gestion Personne</h2></center>
+<center><div id="grid" style="width: 60%; height: 250px;margin: 1%"></div></center>
+<center><h2>Gestion Scores</h2></center>
+<center><div id="grid2" style="width: 60%; height: 250px;margin: 1%"></div></center>
+<br>
+<center><h2>Gestion Docuements</h2></center>
+<center><div id="grid3" style="width: 60%; height: 250px;margin: 1%"></div></center>
+<br>
+
+
+<script defer type="text/javascript">
+
+ var table=[];
+ var scores= [];
+ AllPersonnes();
+ selectAllScores();
+
+
+function showChanged() {
+    console.log(w2ui['grid'].getChanges()); 
+    w2alert('Changed records are displayed in the console');
+}
+
+
+ function AllPersonnes(){
+  data = {"table":"personnes"};
+  $.ajax({url :'php/r.php',
+        data: data ,
+        success : function (html){
+          pers = JSON.parse(html);
+        populatePersonnes(pers);
+    }
+        });
+
+     }   
+
+     function selectAllScores()
+{   
+    var data ={"table":"allscores"};
+        
+    $.ajax({
+      url: 'php/r.php',
+      data: data,
+      success: function(html){
+                myScores = JSON.parse(html);
+                populateGridScores(myScores);
+        }
+    });
+
+}     
+
+function populatePersonnes(personnes){
+personnes.forEach(function(s){
+    table.push({ recid: s["id_perso"], text: s["nom"], check: false })
+
+});
+$(function () {
+    $('#grid').w2grid({ 
+        name: 'grid', 
+        show: { 
+            toolbar: true,
+            footer: true,
+        },
+        columns: [                
+            { field: 'recid', caption: 'id_perso', size: '300px', sortable: true, resizable: true },
+            { field: 'text', caption: 'Login Github', size: '300px', sortable: true, resizable: true, 
+                editable: { type: 'text' }
+            },
+           
+            { field: 'check', caption: 'select', size: '50px', sortable: true, resizable: true, 
+                editable: { type: 'checkbox' } 
+            },
+        ],
+        toolbar: {
+            items: [
+                { id: 'add', type: 'button', caption: 'Ajouter personne', icon: 'w2ui-icon-plus' },
+                { id: 'delete', type: 'button', caption: 'Supprimer personne', icon: 'w2ui-icon-cross' }
+            ],
+            onClick: function (event) {
+                if (event.target == 'add') {
+                    w2ui.grid.add({ 
+
+                        recid: w2ui.grid.records.length + 1 });
+                }
+                else if (event.target == 'delete') {
+                    w2ui.grid.delete({ 
+
+                        recid: w2ui.grid.records.length + 1 });
+                }
+            }
+        },
+        records: table
+    });    
+});
+
+}
+
+function populateGridScores(Scores)
+{
+    
+    myScores.forEach(function(s){
+       
+        scores.push({recid: s["id_scores"], text: name, document: s["id_doc"], distance: s["distance"], time: s["maj"], check: false });
+    
+    });
+    
+    $(function () {
+        $('#grid2').w2grid({ 
+            name: 'grid2', 
+            show: { 
+                toolbar: true,
+                footer: true
+            },
+            columns: [                
+                { field: 'recid', caption: 'ID Score', size: '80px', sortable: true, resizable: true },
+              /*  { field: 'text', caption: 'Login Github', size: '140px', sortable: true, resizable: true, editable: false},*/
+                { field: 'document', caption: 'ID Document', size: '140px', sortable: true, resizable: true, editable: false},
+                { field: 'distance', caption: 'Distance', size: '140px', sortable: true, resizable: true, editable: false},
+                { field: 'time', caption: 'Date', size: '140px', sortable: true, resizable: true, editable: false},
+                { field: 'check', caption: 'Cocher', size: '140px', sortable: false, resizable: true, editable: { type: 'checkbox' }} 
+                ],
+            toolbar: {
+                items: [
+                    { id: 'supprimer', type: 'button', caption: 'Delete Score', icon: 'w2ui-icon-cross' }
+                ],
+                onClick: function (event) {
+                    if (event.target == 'add') {
+                        w2ui.grid2.add({ recid: w2ui.grid2.records.length + 1 });
+                    }
+                }
+            },
+            records: scores
+        });    
+    });
+}
+
+  
+
+</script>
+</body>
+</html>
