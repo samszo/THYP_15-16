@@ -5,9 +5,48 @@
    <link rel="stylesheet" href="css/styles.css">
    
 
+   <script type="text/javascript" src="app.js"></script>
    <script type="text/javascript" src="js/script.js"></script>
-   <script src="//ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+   <link rel="stylesheet" type="text/css" href="http://w2ui.com/src/w2ui-1.4.min.css" />
+    <script src="http://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+    <script type="text/javascript" src="http://w2ui.com/src/w2ui-1.4.min.js"></script>
+    <link rel="stylesheet" type="text/css" href="http://www.jeasyui.com/easyui/themes/default/easyui.css">
+    <link rel="stylesheet" type="text/css" href="http://www.jeasyui.com/easyui/themes/icon.css">
+    <link rel="stylesheet" type="text/css" href="http://www.jeasyui.com/easyui/themes/color.css">
+    <link rel="stylesheet" type="text/css" href="http://www.jeasyui.com/easyui/demo/demo.css">
+    <script type="text/javascript" src="http://code.jquery.com/jquery-1.6.min.js"></script>
+    <script type="text/javascript" src="http://www.jeasyui.com/easyui/jquery.easyui.min.js"></script>
    <title>Devoir</title>
+
+   <style type="text/css">
+      html, body { height: 100%; }
+      #map { height: 100%; }
+    </style>
+
+   <style type="text/css">
+    #fm{
+      margin:0;
+      padding:10px 30px;
+    }
+    .ftitle{
+      font-size:14px;
+      font-weight:bold;
+      padding:5px 0;
+      margin-bottom:10px;
+      border-bottom:1px solid #ccc;
+    }
+    .fitem{
+      margin-bottom:5px;
+    }
+    .fitem label{
+      display:inline-block;
+      width:80px;
+    }
+    .fitem input{
+      width:160px;
+    }
+  </style>
+
 </head>
 <body>
 
@@ -15,6 +54,7 @@
 <ul>
    <li id='personneli' class='active'><a onclick="personne()">Creer une personne</a></li>
    <li id='documentli' class='hover'><a onclick="documentT()">Creer un Document</a></li>
+   <li id='listDoc' class='hover'><a onclick="listDoc()">Liste des documents</a></li>
    <li id='scoreli' class='hover'><a onClick="score()">Creer un Score</a></li>
 </ul>
 </div>
@@ -40,23 +80,154 @@
    <label>Nom du document</label><br>
    <input type="text" id="dnom"/><br>
    <label>latitude</label><br>
-   <input type="number" id="dlat" /><br>
+   <input type="text" id="dlat" /><br>
    <label>longtitude</label><br>
-   <input type="number" id="dlng" /><br>
+   <input type="text" id="dlng" /><br>
    <label>image URL</label><br>
-   <input type="file" id="durl" /><br>
+   <input type="text" id="durl" /><br>
 
-   <button onclick="document()" type="button" class="">Creer le document</button>
+   <button onclick="addDoc()" type="button" class="">Creer le document</button>
+</div>
+
+<div id="listdoc" style="position: absolute;visibility:hidden; top: 50%;
+    left: 50%;
+    margin-top: -150px;
+    margin-left: -400px;
+    width: 200px;
+    height: 100px;">
+
+    <table id="dg" title="Doduments" class="easyui-datagrid" style="width:700px;height:250px"
+      url="db/get_documents.php"
+      toolbar="#toolbar" pagination="true"
+      rownumbers="true" fitColumns="true" singleSelect="true">
+    <thead>
+      <tr>
+        <th field="id_doc" width="50">id_document</th>
+        <th field="nom" width="50">nom</th>
+        <th field="lat" width="50">Latitude</th>
+        <th field="lng" width="50">Longitude</th>
+        <th field="url" width="50">Image</th>
+      </tr>
+    </thead>
+  </table>
+    <div id="toolbar">
+      <a href="javascript:void(0)" class="easyui-linkbutton" iconCls="icon-add" plain="true" onclick="newDoc()">Ajouter</a>
+      <a href="javascript:void(0)" class="easyui-linkbutton" iconCls="icon-edit" plain="true" onclick="editDoc()">Modifier</a>
+      <a href="javascript:void(0)" class="easyui-linkbutton" iconCls="icon-remove" plain="true" onclick="destroyDoc()">Suprimer</a>
+    </div>
+    
+    <div id="dlg" class="easyui-dialog" style="width:400px;height:280px;padding:10px 20px"
+        closed="true" buttons="#dlg-buttons">
+      <div class="ftitle">Information</div>
+      <form id="fm" method="post" novalidate>
+        <div class="fitem">
+          <label>Id</label>
+          <input name="id_doc" class="easyui-textbox" disabled>
+        </div>
+        <div class="fitem">
+          <label>Nom</label>
+          <input name="nom" class="easyui-textbox">
+        </div>
+        <div class="fitem">
+          <label>latitude</label>
+          <input name="lat" class="easyui-textbox">
+        </div>
+        <div class="fitem">
+          <label>longitude</label>
+          <input name="lng" class="easyui-textbox">
+        </div>
+        <div class="fitem">
+          <label>Image</label>
+          <input name="url" class="easyui-textbox">
+        </div>
+      </form>
+    </div>
+    <div id="dlg-buttons">
+      <a href="javascript:void(0)" class="easyui-linkbutton c6" iconCls="icon-ok" onclick="saveDoc()" style="width:90px">Save</a>
+      <a href="javascript:void(0)" class="easyui-linkbutton" iconCls="icon-cancel" onclick="javascript:$('#dlg').dialog('close')" style="width:90px">Cancel</a>
+    </div>
+
 </div>
 
 <div id="score" style="display: absolute;visibility:hidden; top: 50%;
     left: 50%;
-    margin-top: -50px;
-    margin-left: -50px;
-    width: 200px;
-    height: 100px;">
+    margin-top: 50px;
+    margin-left: 100px;
+    width: 900px;
+    height: 500px;">
+    <div style="border:0px solid green;
+    width:-100px;
+    float:left;
+    margin:2px 0 2px 2px;
+    height:200px;">
+      <table>
+          <tr>
+            <td>Utilisateur</td>
+          </tr>
+          <tr>
+            <td><input type="text" id="util" /></td>
+          </tr>
+          <tr>
+            <td>Document</td>
+          </tr>
+          <tr>
+            <td><img src="http://www.travlang.com/blog/wp-content/uploads/2010/04/arc-de-triomphe_11.jpg" style="width:160px;"></td>
+          </tr>
+      </table>
+    </div>
+    <div id="map"></div>
+    
    
 </div>
 
 </body>
+<script>
+
+var url;
+    function newDoc(){
+      $('#dlg').dialog('open').dialog('setTitle','Ajouter');
+      $('#fm').form('clear');
+      url = 'db/save_doc.php';
+    }
+    function editDoc(){
+      var row = $('#dg').datagrid('getSelected');
+      if (row){
+        $('#dlg').dialog('open').dialog('setTitle','Modifier');
+        $('#fm').form('load',row);
+        url = 'db/update_doc.php?id='+row.id;
+      }
+    }
+    function saveDoc(){
+      $('#fm').form('submit',{
+        url: url,
+        onSubmit: function(){
+          return $(this).form('validate');
+        },
+        success: function(result){
+          var result = eval('('+result+')');
+          if (result.errorMsg){
+            $.messager.show({
+              title: 'Error',
+              msg: result.errorMsg
+            });
+          } else {
+            $('#dlg').dialog('close');    
+            $('#dg').datagrid('reload');  
+          }
+        }
+      });
+    }
+    function destroyDoc(){
+      var row = $('#dg').datagrid('getSelected');
+      if (row){
+        $('#dlg').dialog('open').dialog('setTitle','Suprimer');
+        $('#fm').form('load',row);
+        url = 'db/destroy_doc.php?id='+row.id;
+      }
+    }
+</script>
+
+    <script async defer
+      src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBj0C_2XOJQWLmHSp-gb5CxC2OhxW5d_oA&callback=initMap">
+    </script>
 <html>

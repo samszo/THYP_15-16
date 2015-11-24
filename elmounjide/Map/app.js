@@ -1,4 +1,3 @@
-      alert("Je suis ou !");
       var map;
       var latitude,longitude;
       function initMap() {
@@ -20,9 +19,10 @@
             };
 
 
-            alert("latitude : "+pos.lat+" \nlongitude : "+pos.lng);
             latitude = pos.lat;
             longitude = pos.lng;
+
+            document.getElementById("util").value=localStorage.getItem('personneName');
 
             infoWindow.setPosition(pos);
             infoWindow.setContent('Location found');
@@ -35,6 +35,7 @@
           handleLocationError(false, infoWindow, map.getCenter());
         }
       }
+
 
       function handleLocationError(browserHasGeolocation, infoWindow, pos) {
         infoWindow.setPosition(pos);
