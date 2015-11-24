@@ -1,6 +1,6 @@
 <?php
 
-include_once 'db/connect.php';
+include_once 'connect.php';
 
 switch ($_GET["table"]) {
 	case "score":
@@ -10,6 +10,7 @@ switch ($_GET["table"]) {
 		createPersonne($_GET);
 		break;
 	case "document":
+		echo "string";
 		createDocument($_GET);
 		break;		
 	default:
@@ -45,16 +46,9 @@ function createPersonne($data){
 function createDocument($data){
 	global $conn;
 
-	$lat = $data["lat"];
-	$lng = $data["lng"];
+	$sql = "INSERT INTO documents (nom, lat, lng, url)
 
-
-	$location = 'POINT(' . $lat . " " . $lng . ')';
-	
-
-	$sql = "INSERT INTO documents (nom, latlng, url)
-
-	VALUES ('".$data["nom"]."', GeomFromText('$location') , '".$data["url"]."')";
+	VALUES ('".$data["nom"]."', '".$data["lat"]."', '".$data["lng"]."' , '".$data["url"]."')";
 	//echo $sql;
 	if ($conn->query($sql) === TRUE) {
 	    echo "New record created successfully";
