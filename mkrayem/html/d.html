@@ -3,6 +3,7 @@
 <head>
 	<title></title>
 		<meta name="viewport" content="width=device-width, initial-scale=1">
+		<link rel="stylesheet" type="text/css" href="style.css"/>
   <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
   <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
@@ -17,9 +18,74 @@ padding-left:20px;
  
 
 <script type="text/javascript">
+	
+	function suppscore(){
+
+		var id_scores = document.getElementById("sid").value;
+
+		supScore({"id_scores":id_scores});
+
+	}
+
+	function supScore(data){
+
+		data.table = "scores";
+
+		$.get('../php/d.php',
+				data,
+	        		function(html){
+					alert('Score Bien supprimé.');
+	       		});	
+
+}
+
+//////////////////////////:
+function supppers(){
+
+		var id_perso = document.getElementById("pid").value;
+
+		suppers({"id_perso":id_perso});
+
+	}
+
+	function suppers(data){
+
+		data.table = "personnes";
+
+		$.get('../php/d.php',
+				data,
+	        		function(html){
+					alert('Personne Bien supprimée.');
+	       		});	
+
+}
+
+//////////////////////////:
+
+function suppdoc(){
+
+		var id_doc = document.getElementById("did").value;
+
+		supdoc({"id_doc":id_doc});
+
+	}
+
+	function supdoc(data){
+
+		data.table = "documents";
+
+		$.get('../php/d.php',
+				data,
+	        		function(html){
+					alert('Document Bien supprimée.');
+	       		});	
+
+}
+
 
 
 </script>
+
 
 
 <body>
@@ -27,29 +93,31 @@ padding-left:20px;
 
 
     <!--PREMIER CADRE-->
-   
+      <div id="c1">
 	        <h3 class="centre">Supprimer un Score</h3>
 	       		 Supprimez par id score : <input type="number" id="sid"/><br><br>
 	       		 
 	       		 <button onclick="suppscore()" type="button" >Supprimer</button>
- 
+ </div>
+ <br><br>
     <!--SECOND CADRE-->
-   
+    <div id="c2">
         <h3 class="centre">Supprimer une Personne</h3>
          	Supprimez par id personne : <input type="number" id="pid"/><br><br>
 	       		 
 	       		 <button onclick="supppers()" type="button" >Supprimer</button>
 
- 
+ </div>
+  <br><br>
     <!--third CADRE-->
-   
+   <div id="c3">
         <h3 class="centre">Supprimer un Document</h3>
          		Supprimez par id Document : <input type="number" id="did"/><br><br>
 	       		 
 	       		 <button onclick="suppdoc()" type="button" >Supprimer</button>
-  
+  </div>
 
-
+ <br><br>
 
 </body>
 </html>

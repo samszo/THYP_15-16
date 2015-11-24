@@ -1,36 +1,61 @@
 <!DOCTYPE html>
 <html>
-  <head>
-  <link rel="stylesheet" type="text/css" href="style.css"/>
-    <style type="text/css">
-      #aa{
-		  padding-left:10px;
-	  }
-    </style>
-	
-  </head>
-  <body onLoad="setup()">
-  <div id="titre">
-		<h1>Jeux carte</h1>
+
+<head>
+    <title>Map Game</title>
+    <script src="../js/jquery.min.js"></script>
+    <meta charset="utf-8">
+<link rel="stylesheet" type="text/css" href="style.css">
+<style type="text/css">
+
+</style>
+</head>
+<body>
+    <center>
+		<div id="titre">
+			
+			<h1>Jeux carte</h1>
+		</div>
+		<div>
+		   <h1 id="m" style="display:none">où se trouve PARIS </h1>
+		   <img name="myimage" id="id1" src="doc1.png" width="60" height="60" alt="word" style="display:none" />
+		 </div>
+    </center>
+    <div id="map" style="display:none"></div>
+    <br>
+    <center>
+        <div>
+            <label id="resultat" style="display:none"></label>
+        </div>
+		
+  
+	  <div id="lien" style="display:none">
+	    <button type="button"  onclick="window.location.href='html/c.html'">Creer</button><br><br>
+	    <button type="button"  onclick="window.location.href='html/r.html'">Afficher</button><br><br>
+	    <button type="button"  onclick="window.location.href='html/u.html'">Modifier</button><br><br>
+	    <button type="button"  onclick="window.location.href='html/d.html'">Supprimer</button><br><br>
+	  </div>
+
+    </center>
+    <br>
+    <br>
+
+    <div id="container" style="display:block">
+    
+    
+			<label for="name">Entrer votre Login Github </label>
+			
+			<input type="name" id="logGithub">
+			
+			<input type="submit" onClick="affichage()" value="Se connecter">
+    
   </div>
-  <div id="aa">
- <script>
-	var lgGithub=("Votre github");
-var github=prompt(lgGithub, " ");
-if (github ==" ");
-
-if (lgGithub ==" ") {
-  alert("Erreur veuillez reessayer");
-}
-else
-if (github !=" ");
-  { 
-    document.write("<h2>"+"<tect>"+ " bienvenue sur notre jeux: "+github+"</tect>"+"</h2>");
-}
 
 
-//
- var name;
+    <script type="text/javascript">
+	
+	
+        var name;
 
         var myStyle = [{
             featureType: "administrative",
@@ -64,15 +89,17 @@ if (github !=" ");
 
         function affichage()
         {
-            name = document.getElementById("prenom").value;
+            name = document.getElementById("logGithub").value;
             creaPersonne({
                 "nom": name
+				
             });
             document.getElementById("container").style.display = "none";
             document.getElementById("map").style.display = "block";
             document.getElementById("resultat").style.display = "block";
             document.getElementById("m").style.display = "block";
             document.getElementById("id1").style.display = "block";
+			 document.getElementById("lien").style.display = "block";
 
             initMap();
         }
@@ -203,88 +230,10 @@ if (github !=" ");
             $.get('r.php',
                 data);
         }
-
-	</script>
-  <br>
-  <br>
-  <br>
-  </div>
-  <br>
-  
-		<div id="map">
-		</div>
-		<div id="cord1">
-		
-		Distance entre saint Denis université et Paris <br>
-		<input type="text" value="distance">
-		
-		</div>
-		
-		
-
-    <script type="text/javascript">
-	// identification login github 
-
-
-//
-
-function cal() {
-		var lat = document.getElementById("lat").value;
-		var lng = document.getElementById("lng").value;
-		
-		var point = new google.maps.LatLng(lat,lng);
-		
-	
-		
-		var paris8 = new google.maps.LatLng(48.945567, 2.363268);
-		
-		
-		var distanceKm = google.maps.geometry.spherical.computeDistanceBetween(paris8, paris);
-		
-		var dis = (distanceKm / 1000);
-
-		document.getElementById('val').innerHTML= "<font style='    font-size: xx-large;'>La distance = "+ dis.toFixed(2)+" Kilomètres </font>";	
-	}
-var map; 
-function initMap() {
-  map = new google.maps.Map(document.getElementById('map'), {
-    center: {lat: 48.945567, lng: 2.363268},
-    zoom: 14
-	
-  });
-    paris8 = new google.maps.Marker({
-    map: map,
-    draggable: true,
-    animation: google.maps.Animation.DROP,
-    position: {lat: 48.945567, lng: 2.363268},
-	title: 'paris8'
-  });
-  paris = new google.maps.Marker({
-    map: map,
-    draggable: true,
-    animation: google.maps.Animation.DROP,
-    position: {lat: 48.945550, lng: 2.363261},
-	title: 'paris'
-  });
-  
-/////////////////////////////
-
-var point = new GPoint(45.779915302498935, 4.803814888000488);  // Création du point correspondant aux coordonnées nous intéressant
-var marker = new GMarker(point);  // Création d'un marqueur localisé sur ce point
-map.addOverlay(marker);  // Et ajout du marqueur à la carte 
-map.addOverlay(point); 
-  
-}
-
-
-//info windows 
-
-  
-
-
+        
     </script>
-    <script async defer
-      src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBY21s3i4xbxpdJy5pWU2rd7Oxe4ZHRbgw&callback=initMap">
+    <script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyC8iPdcMicCIEF556BHvhFLeVHxKR7Llgc&libraries=geometry&callback=initMap">
     </script>
-  </body>
+</body>
+
 </html>

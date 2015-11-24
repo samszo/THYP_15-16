@@ -58,19 +58,19 @@
 function modpersonne(){
 
 
-		var id = document.getElementById("pidpersonne").value;
-		var nompersonne = document.getElementById("pnompersonne").value;
+		var id_perso = document.getElementById("pidpersonne").value;
+		var nom = document.getElementById("pnompersonne").value;
 
 	
 
-		modPers({"nom":nompersonne,"id":id});
+		modPers({"nom":nom,"id_perso":id_perso});
 
 	}
 
 	function modPers(data){
 
 		
-		data.table = "personne";
+		data.table = "personnes";
 
 		$.get('../php/u.php',
 				data,
@@ -82,22 +82,22 @@ function modpersonne(){
 //////////////////////////:
 function moddocument(){
 
-		var id = document.getElementById("did").value;
-		var nomdocument = document.getElementById("dnom").value;
-		var lat = document.getElementById("dlat").value;
-		var lng = document.getElementById("dlng").value;
+		var id_doc = document.getElementById("did").value;
+		var nom = document.getElementById("dnom").value;
+		var latIng = document.getElementById("dlat").value;
+		var longIng = document.getElementById("dlng").value;
 		var url = document.getElementById("durl").value;
 			
 
 	
 
-		moddoc({"nom":nomdocument,"id":id,"lat":lat,"lng":lng,"url":url});
+		moddoc({"nom":nomdocument,"id_doc":id,"latIng":lat,"longIng":lng,"url":url});
 
 	}
 
 	function moddoc(data){
 
-		data.table = "document";
+		data.table = "documents";
 
 		$.get('../php/u.php',
 				data,

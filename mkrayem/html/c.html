@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Créer </title>
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+ <link rel="stylesheet" type="text/css" href="style.css"/>
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+  <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
+</head>
+	<script src="jquery.min.js" ></script>
+<style type="text/css">
+
+
+</style>
+
+<script type="text/javascript">
+	
+	function creerscore(){
+
+		var id_perso = document.getElementById("sidpersonne").value;
+		var id_doc = document.getElementById("siddoc").value;
+		var distance = document.getElementById("sdistance").value;
+		
+
+		creaScore({"id_perso":id_perso,"id_doc":id_doc,"distance":distance});
+
+	}
+
+	function creaScore(data){
+
+		data.table = "scores";
+
+		$.get('../php/c.php',
+				data,
+	        		function(html){
+					alert('Score Bien ajouté.');
+	       		});	
+
+}
+
+//////////////////////////:
+
+function creerpersonne(){
+
+		var nom = document.getElementById("pidpersonne").value;
+	
+
+		creaPers({"nom":nom});
+
+	}
+
+	function creaPers(data){
+
+		data.table = "personnes";
+
+		$.get('../php/c.php',
+				data,
+	        		function(html){
+					alert('Personne Bien ajoutée.');
+	       		});	
+
+}
+//////////////////////////:
+
+function creerdocument(){
+
+		var nom = document.getElementById("dnom").value;
+		var latIng = document.getElementById("dlat").value;
+		var longIng = document.getElementById("dlng").value;
+		var url = document.getElementById("durl").value;
+		
+
+		creadoc({"nom":nom,"latIng":latIng,"longIng":lngIng,"url":url});
+
+	}
+
+	function creadoc(data){
+
+		data.table = "documents";
+
+		$.get('../php/c.php',
+				data,
+	        		function(html){
+					alert('Document Bien ajouté.');
+	       		});	
+
+}
+
+
+</script>
+<body>
+
+    <div id="c1">
+
+	        <h3 class="centre">Créer un Score</h3>
+	       		  Id personne : <input type="number" id="sidpersonne"/><br><br>
+	       		 Id doc : <input type="number" id="siddoc" /><br><br>
+	       		 Distance : <input type="number" id="sdistance" /><br><br>
+				 
+	       		 <button onclick="creerscore()" type="button" class="btn btn-info btn-block">Creer</button>
+	       	</div>
+   <br><br>
+  <div id="c2">
+    
+        <h3 class="centre">Créer une Personne</h3>
+			Nom de la personne : <input type="text" id="pidpersonne"/><br><br>
+	       		
+	       	<button onclick="creerpersonne()" type="button" class="btn btn-info btn-block">Creer</button>
+
+
+	<br><br>
+</div>
+ <br><br><br>
+    <div id="c3">
+		<h3 class="centre">Créer un Document</h3>
+         		Nom du document : <input type="text" id="dnom"/><br><br>
+	       		 latitude : <input type="number" id="dlat" /><br><br>
+	       		 longtitude : <input type="number" id="dlng" /><br><br>
+	       		 image URL: <input type="file" id="durl" /><br><br>
+	       		 <button onclick="creerdocument()" type="button" class="btn btn-info btn-block">Creer</button>
+
+
+	</div>
+</body>
+</html>

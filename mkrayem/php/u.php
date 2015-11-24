@@ -2,47 +2,58 @@
 include_once 'connect.php';
 
 switch ($_GET["table"]) {
-	case "scores":
-		updateScores($_GET);
+	case "score":
+		updateScore($_GET);
 		break;
-	case "personnes":
-		updatePersonnes($_GET);
+	case "personne":
+		updatePersonne($_GET);
 		break;
-	case "documents":
-		updateDocuments($_GET);
+	case "document":
+		updateDocument($_GET);
 		break;		
 	default:
 		;
 	break;
 }
-/
-// update data personnes 
-function updatePersonnes($data){
-	 db(); // database function
-  
-   $id_perso = $_POST['id_perso'];
-   $nom = $_POST['nom'];
 
-
+function updateScore($data){
 	global $conn;
+	
+
+}
+function updatePersonne($data){
+	global $conn;
+	
+	$sql = "UPDATE personnes SET nom='".$data["nom"]."' WHERE id_perso=".$data["id"]."";
+
+	if ($conn->query($sql) === TRUE) {
+	    echo "Personne updated successfully";
+	} else {
+	    echo "Error updating record: " . $conn->error;
+	}	
+}
+function updateDocument($data){
+	global $conn;
+
+	$lat = $data["lat"];
+	$lng = $data["lng"];
+	$location = 'POINT(' . $lat . " " . $lng . ')';
+		
+
+
+	$sql = "UPDATE documents SET nom='".$data["nom"]."', latlng = GeomFromText('$location'), url='".$data["url"]."'  WHERE id_doc=".$data["id"]."";
+
+	if ($conn->query($sql) === TRUE) {
+	    echo "Document updated successfully";
+	} else {
+	    echo "Error updating record: " . $conn->error;
+	}	
+
+
+
+
+
 }
 
-// update data documents 
-function updateDocuments($data){
-	 db(); // database function
-  $id_doc = $_POST['id_doc'];
-  $nom = $_POST['nom'];
-  $lating = $_POST['lating'];
-  $url = $_POST['url'];   
 
-
-	global $conn;
-}
-
-
-
-
-
-
-
-?>
+$conn->close();

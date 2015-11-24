@@ -1,67 +1,72 @@
 <?php
 include_once 'connect.php';
-if (isset($_GET["table"]))
-{
-          $table = $_GET['table'];
-		  
-}
+
 switch ($_GET["table"]) {
-	case "scores":
-		selectScores($_GET);
+	case "score":
+		readScore($_GET);
 		break;
-	case "personnes":
-		selectPersonnes($_GET);
+	case "personne":
+		readPersonne($_GET);
 		break;
-	case "documents":
-		selectDocuments($_GET);
+	case "document":
+		readDocument($_GET);
 		break;		
 	default:
 		;
 	break;
 }
 
-//selection data  scores
-function selectScores($data){
+function readScore($data){
 	global $conn;
-	//$select =  "SELECT * FROM scores WHERE id_doc ='$id_doc' ";
-$sql = "SELECT * FROM scores WHERE id_doc ='$id_doc' ";
-
-$id_doc = $rows['id_doc'];
-$id_perso = $rows['id_perso'];
-$distance = $rows['distance'];
-$maj = $rows['maj'];
-$result = $conn->query($sql);
-if ($result->num_rows > 0) {
+	
+	$sql = "SELECT * FROM scores";
+	$result = $conn->query($sql);
+	//echo $sql;
+	if ($result->num_rows > 0) {
     // output data of each row
-    while($row = $result->fetch_assoc()) {
-        echo "id: " . $row["id"]. " id_perso " . $row["id_perso"]. "distance: " . $row["distance"]. "maj: " . $row["maj"]. "<br>";
-    }
-} else {
-    echo "0 results";
-}
+		echo "<h1>Résultat Table score</h1>";
+	    while($row = $result->fetch_assoc()) {
+	        echo "id: " . $row["id_scores"]. " - id perso: " . $row["id_perso"]. " - id doc " . $row["id_doc"]. " - distance " . $row["distance"]. " - maj " . $row["maj"]."<br>";
+	    }
+	} else {
+    	echo "0 results";
+	}	
 }
 
-//selection data personnes  id_perso, nom
-function selectPersonnes($data){
+function readPersonne($data){
 	global $conn;
-	$select =  "SELECT * FROM personnes WHERE id_perso ='$id_perso' ";
-
-$id_perso = $rows['id_perso'];
-
-$nom = $rows['nom'];
+	
+	$sql = "SELECT * FROM personnes";
+	$result = $conn->query($sql);
+	//echo $sql;
+	if ($result->num_rows > 0) {
+    // output data of each row
+		echo "<h1>Résultat Table personnes</h1>";
+	    while($row = $result->fetch_assoc()) {
+	        echo "id: " . $row["id_perso"]. " - Nom : " . $row["nom"]. "<br>";
+	    }
+	} else {
+    	echo "0 results";
+	}	
 }
-//selection data documents   id_doc, nom,lating,url
-function selectDocuments($data){
+
+function readDocument($data){
 	global $conn;
-	$select =  "SELECT * FROM documents WHERE id_doc ='$id_doc' ";
-
-$id_doc = $rows['id_doc'];
-
-$nom = $rows['nom'];
-$lating = $rows['lating'];
-$url = $rows['url'];
+	
+	$sql = "SELECT id_doc,nom, AsText(`latlng`), url FROM documents";
+	$result = $conn->query($sql);
+	//echo $sql;
+	if ($result->num_rows > 0) {
+    // output data of each row
+		echo "<h1>Résultat Table documents</h1>";
+	    while($row = $result->fetch_assoc()) {
+	        echo "id: " . $row["id_doc"]. " - Nom : " . $row["nom"]." - LatLng : " . $row["AsText(`latlng`)"]." - URL : " . $row["url"] . "<br>";
+	    }
+	} else {
+    	echo "0 results";
+	}	
 }
+
 
 
 $conn->close();
-?>
