@@ -90,8 +90,10 @@ body {
 }
 
 #score-list  > thead > tr > th{
-	font-size:0.9em;
-	border-bottom:1px #cccaca solid;
+	font-size:0.8em;
+	padding:8px;
+	background-color: #009688;
+	color: #FFFFFF;
 }
 .title-primary{
 	font-size: 1.2em;
@@ -178,4 +180,84 @@ hr {
 	font-style: underline;
 }
 
+#container-admin {
+	width: 960px;
+	height: 100%;
+	margin: 0 auto;
+}
 
+#header {
+	font-size: 2.1em;
+	color : #009688;
+	padding:10px;
+}
+
+.title-admin {
+	font-size: 1.3em;
+	color : #009688;
+	padding:10px;
+	margin-bottom:20px;
+}
+
+#liste {
+	width:960px;
+	text-align:left;
+	margin-top:40px;
+}
+
+#liste  > tbody > tr > td{
+	font-size:0.8em;
+	padding:10px;
+}
+
+#liste  > tbody > tr > th{
+	font-size:0.8em;
+	padding:10px;
+	background-color: #009688;
+	color: #FFFFFF;
+}
+
+.block-div {
+	min-width:960px;
+	margin: 0 auto;
+	padding-top:50px;
+	clear:both;
+}
+
+.insert-row {
+	float:left;
+	padding:10px;
+	clear:both;
+	width:auto;
+}
+
+.insert-row  > label {
+	width:110px;
+	display:inline-block;
+}
+
+#info-input {
+    max-width: 255px;
+    height: auto;
+    float: left;
+}
+
+.btn-admin {
+	margin:20px auto;
+	border: 0px;
+	background-color: #00695C;
+	border-bottom: 2px #004D40 solid;
+	color: #FFF;
+	padding:12px 20px;
+	font-size: 0.9em;
+}
+
+.btn-admin:hover {
+	background-color: #004D40;
+	border-bottom: 2px #004D40 solid;
+}
+
+.btn-admin:active{
+	background-color: #004D40;
+	border-bottom: 2px #00695C solid;
+}
