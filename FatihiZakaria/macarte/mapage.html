@@ -1,0 +1,80 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+<html>
+<head>
+<title>Full Secondary Column, 2/3 x 1/3 Main Column.</title>
+<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" >
+<meta charset="UTF-8">
+  <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+  <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
+  <link rel="stylesheet" type="text/css" href="http://w2ui.com/src/w2ui-1.4.2.min.css" />
+    <script type="text/javascript" src="http://w2ui.com/src/w2ui-1.4.2.min.js"></script>
+<link rel="stylesheet" type="text/css" href="css/styles.css" >
+ 
+<link
+    href="http://code.google.com/apis/maps/documentation/javascript/examples/default.css"
+    rel="stylesheet" type="text/css"> 
+    <style type="text/css"> 
+      #country {
+        text-align: center;
+      }
+      #map_canvas {
+        height: 84%;
+      }
+    </style> 
+    <script type="text/javascript"
+      src="http://maps.google.com/maps/api/js?sensor=false&libraries=geometry"></script> 
+    <script src="js.js" ></script>
+    <script src="dist/sweetalert.min.js"></script> 
+    <link rel="stylesheet" type="text/css" href="dist/sweetalert.css">
+</head>
+<body onload="load()" background="http://s18.postimg.org/l7yq0ir3t/pick8_1.jpg">
+<div id="doc" class="yui-t7">
+  <div id="hd">
+    <div id="header">
+       <div style=" text-align: -webkit-center;">
+          <br>
+        
+         <img src="http://simpleicon.com/wp-content/uploads/user1-64x64.png" style="height:29px;">
+         <font style="font-size:20px;" >Joueur : </font><font style="font-size:20px;" id="user"></font>
+         &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+        <a href="index.html" class="btn btn-danger" style="margin-top: -14px;">Déconnexion</a>
+       </div>
+
+    </div>
+  </div>
+  <div id="bd">
+    <div id="yui-main">
+      <div class="yui-b">
+        <div class="yui-gc">
+          <div class="yui-u first">
+            <div class="content">
+                <h3 align="center" id="country">Cliquez sur le pays correspondant</h3>
+
+                <div id="map_canvas"></div> 
+            </div>
+          </div>
+          <div class="yui-u">
+            <div class="content">
+              <h2 id="nomDoc" style="text-align:center;"></h2>
+              <img src="" id="img" style="    height: 173px;"> </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="yui-b">
+      <div id="secondary">
+          <div style="text-align: -webkit-center;">
+            <img src="http://bantysroost.com/w/wp-content/uploads/2014/04/icon-score-card.png" style="height: 29px;">
+              <font style="font-size: x-large;">Votre Score</font>
+            <img src="http://bantysroost.com/w/wp-content/uploads/2014/04/icon-score-card.png" style="height: 29px;">
+          </div>
+
+         <div id="gridscore" style="width: 100%; height: 400px;"></div>
+      </div>
+    </div>
+  </div>
+ 
+</div>
+</body>
+</html>

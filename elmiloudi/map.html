@@ -1,26 +1,134 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <style type="text/css">
-      html, body { height: 100%; margin: 0; padding: 0; }
-      #map { height: 100%; }
-    </style>
+	<script src="jquery.min.js" ></script>
+      <style type="text/css">
+   
+   
+    
+   
+    html, body { 
+
+      height: 100%; margin: 0; padding: 0; }
+     
+      #map { height: 100%; border:3px outset #ffffff;
+      padding:10px ; margin-left:90px; margin-right:90px;;
+      }
+      body {
+
+      background-color: #fff ;
+}
+  </style>
   </head>
   <body>
+ <h1>Ou se trouve <label id="place"></label> ?</h1>
+</br>
+  	<div id="result"></div>
+</br>
+</br>
+</p></center>
+  
     <div id="map"></div>
     <script type="text/javascript">
-
 var map;
+var markers = [];
+var source;
+var point ;
+var place;
+var places;
+var lieu=0;
 function initMap() {
+  var haightAshbury = {lat: 40.313043, lng: -3.669434};
   map = new google.maps.Map(document.getElementById('map'), {
-    center: {lat: -34.397, lng: 150.644},
-    zoom: 8
+    zoom: 4,
+    center: haightAshbury,
+    mapTypeId: google.maps.MapTypeId.HYBRID 
   });
+  // This event listener will call addMarker() when the map is clicked.
+  map.addListener('click', function(event) {
+    addMarker(event.latLng);
+   
+  });
+  reaDocument();
+ 
+source = new google.maps.LatLng({lat:  48.864716,lng:2.349014});
+
+}
+
+function addMarker(location) {
+    setMapOnAll(null);
+  var marker = new google.maps.Marker({
+    position: location,
+    map: map
+  });
+  markers.push(marker);
+
+  var distance = google.maps.geometry.spherical.computeDistanceBetween( source, marker.getPosition());
+  $("#result").html("Vous etes pret de  :" + (distance/1000) + "  kilometres.");
+  changeDoc();	
+  
+}
+function deleteMarkers() {
+  clearMarkers();
+  markers = [];
+}
+function clearMarkers() {
+  setMapOnAll(null);
+}
+function setMapOnAll(map) {
+  for (var i = 0; i < markers.length; i++) {
+    markers[i].setMap(map);
+  }
+}
+
+function creaScore(data){
+	data.table = "score";
+	$.get('php/c.php',
+			data,
+        		function(html){
+				$("#result").html(html);
+       		});	
+}
+function reaDocument(){
+  data = {"table":"document"};
+  $.ajax({url:'php/r.php',
+      data: data ,
+      success: function (html){
+          places = JSON.parse(html);
+          changeDoc();
+          }
+      });
+
+     }
+
+
+function changeDoc(){
+
+    place = places[lieu];
+    var x = +place["lat"];
+    var y = +place["lng"];
+     
+    $("#place").html(place["nom"]); 
+    point = new google.maps.LatLng(x,y);
+
+    //alert(places.length);
+    document.body.style.backgroundImage = "url('"+place["url"]+"')";
+
+    if (lieu < (places.length -1)) 
+    {
+
+    lieu++;
+    }
+    else{
+      lieu=0;
+    }
+ 
+
 }
 
     </script>
     <script async defer
-      src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBEvZFiqGAU2XpaCdfXaknIKsSbWQaOPS0&callback=initMap">
+      src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAtl4qOlHXTQ_3phq40KY69wNgF0YLfovk&libraries=geometry&callback=initMap">
     </script>
   </body>
 </html>

@@ -1,0 +1,156 @@
+  <!DOCTYPE html>
+  <html>
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>Personnes</title>
+    <!-- Tell the browser to be responsive to screen width -->
+    <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
+    <!-- Bootstrap 3.3.5 -->
+    <link rel="stylesheet" href="../bootstrap/css/bootstrap.min.css">
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css">
+    <!-- Ionicons -->
+    <link rel="stylesheet" href="https://code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css">
+    <!-- Theme style -->
+    <link rel="stylesheet" href="../dist/css/AdminLTE.min.css">
+      <!-- AdminLTE Skins. Choose a skin from the css/skins
+      folder instead of downloading all of them to reduce the load. -->
+      <link rel="stylesheet" href="../dist/css/skins/_all-skins.min.css">
+      
+
+      <script src="../dist/js/jquery.min.js" ></script>
+      <script src="../dist/js/global.js"></script>
+
+      <link rel="stylesheet" type="text/css" href="http://w2ui.com/src/w2ui-1.4.2.min.css" />
+      <script type="text/javascript" src="http://w2ui.com/src/w2ui-1.4.2.min.js"></script>
+      <style>
+      #map {
+        height: 640px;
+        width: 640px;
+      }
+      </style>
+
+    </head>
+    <body class="hold-transition skin-blue sidebar-mini">
+      <script type="text/javascript">
+      $(function () {
+        personnes();
+      });
+      </script>
+      <!-- Site wrapper -->
+      <div class="wrapper">
+
+        <header class="main-header">
+          <!-- Logo -->
+          <a href="#" class="logo">
+            <!-- mini logo for sidebar mini 50x50 pixels -->
+            <span class="logo-mini"><b>A</b>DM</span>
+            <!-- logo for regular state and mobile devices -->
+            <span class="logo-lg"><b>Admin</b></span>
+          </a>
+          <!-- Header Navbar: style can be found in header.less -->
+          <nav class="navbar navbar-static-top" role="navigation">
+            <!-- Sidebar toggle button-->
+            <a href="#" class="sidebar-toggle" data-toggle="offcanvas" role="button">
+              <span class="sr-only">Toggle navigation</span>
+              <span class="icon-bar"></span>
+              <span class="icon-bar"></span>
+              <span class="icon-bar"></span>
+            </a>
+
+            <div class="navbar-custom-menu" id="personne" style="display: none;">
+              <ul class="nav navbar-nav">
+                <!-- Messages: style can be found in dropdown.less-->
+                
+                <!-- Notifications: style can be found in dropdown.less -->
+                
+                <!-- Tasks: style can be found in dropdown.less -->
+                
+                <!-- User Account: style can be found in dropdown.less -->
+                <li class="dropdown user user-menu">
+                  <a href="#" class="dropdown-toggle" aria-expanded="false">
+                    <img src="../dist/img/user.jpg" class="user-image" alt="User Image">
+                    <span class="hidden-xs" id="personName"></span>
+                  </a>
+                  
+                </li>
+                <!-- Control Sidebar Toggle Button -->
+                
+              </ul>
+            </div>
+
+          </nav>
+        </header>
+
+        <!-- =============================================== -->
+
+        <!-- Left side column. contains the sidebar -->
+        <aside class="main-sidebar">
+          <!-- sidebar: style can be found in sidebar.less -->
+          <section class="sidebar">
+
+            <!-- sidebar menu: : style can be found in sidebar.less -->
+            <ul class="sidebar-menu">
+              <li class="header">Menu</li>
+              <li>
+                <a href="personne.html">
+                  <i class="fa fa-calendar"></i> <span>Personnes</span>
+                </a>
+              </li>
+            </ul>
+          </section>
+          <!-- /.sidebar -->
+        </aside>
+
+        <!-- =============================================== -->
+
+        <!-- Content Wrapper. Contains page content -->
+        <div class="content-wrapper">
+
+
+          <!-- Main content -->
+          <section class="content">
+            <div class="row" id="divJouer">
+              <div class="col-md-3"></div>
+              <div class="col-md-6" >
+
+                <!-- general form elements -->
+                <div class="box box-primary">
+                  <div class="box-header with-border" style=" text-align: center; ">
+                    <h3 class="box-title">Personnes</h3>
+                  </div>
+                  <!-- /.box-header -->
+
+                  <div class="box-body">
+                    <div class="form-group" >
+                      <!--put grid here-->
+                      <div id="grid" style="height: 640px;"></div>
+                    </div>
+                  </div>
+                  <!-- /.box-body -->
+
+                  <div class="box-footer">
+                  </div>
+                </div>
+                <!-- /.box -->
+
+              </div>
+            </div>
+
+
+          </section><!-- /.content -->
+        </div><!-- /.content-wrapper -->
+
+
+        <div class="control-sidebar-bg"></div>
+      </div><!-- ./wrapper -->
+
+      <!-- Bootstrap 3.3.5 -->
+      <script src="../bootstrap/js/bootstrap.min.js"></script>
+      <!-- AdminLTE App -->
+      <script src="../dist/js/app.min.js"></script>
+
+
+    </body>
+    </html>

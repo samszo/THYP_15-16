@@ -1,87 +1,82 @@
 var map;
 var markers = [];
-var hiddenCoords = [];
+var hiddenCoords;
 var myCoordinates;
-var hiddenArea;
-var infoWindow;
 var essais = 5;
-var infoWindowVisible = false;
+var logged = false;
+var member;
+var list_documents = [];
+var scores = [];
+var selected_doc = 0;
+var distance;
 
+/* refresh page display
+**/
+function checkLogin(){
+	if(logged ===false){
+		hideElementById("main-content");
+		showElementById("splash-content");
+		hideElementById("logout");
+		hideElementById("img-loading");
+		hideElementById("login-failed");
+		showElementById("login-box");
+	}
+	else
+	{
+		showElementById("main-content");
+		hideElementById("splash-content");
+		showElementById("logout");
+		initMap();
+		//charge les score de l'utilisateur
+		//loadScore(list_documents[selected_doc]["id_doc"]);			
+	}
+}
+
+
+/* init Maps and load all documents
+**/
 function initMap() {
   map = new google.maps.Map(document.getElementById('map'), {
 	center: {lat: 40.416775, lng: -3.703790},
-	zoom: 2
-  });
-  
-  hiddenCoords =[new google.maps.LatLng(48.574790,-124.453125),
-				new google.maps.LatLng(49.152970,-95.273438),
-				new google.maps.LatLng(48.341646,-88.945313),
-				new google.maps.LatLng(45.213004,-82.617188),
-				new google.maps.LatLng(41.902277,-83.144531),
-				new google.maps.LatLng(47.517201,-68.203125),
-				new google.maps.LatLng(45.336702,-66.796875),
-				new google.maps.LatLng(38.548165,-75.761719),
-				new google.maps.LatLng(36.456636,-75.761719),
-				new google.maps.LatLng(31.203405,-81.562500),
-				new google.maps.LatLng(26.115986,-80.332031),
-				new google.maps.LatLng(25.641526,-80.683594),
-				new google.maps.LatLng(26.745610,-82.089844),
-				new google.maps.LatLng(30.297018,-84.375000),
-				new google.maps.LatLng(29.382175,-95.449219),
-				new google.maps.LatLng(26.431228,-97.207031),
-				new google.maps.LatLng(30.145127,-102.480469),
-				new google.maps.LatLng(29.075375,-103.535156),
-				new google.maps.LatLng(31.653381,-108.105469),
-				new google.maps.LatLng(32.546813,-114.960938),
-				new google.maps.LatLng(32.842674,-117.421875),
-				new google.maps.LatLng(36.315125,-122.343750),
-				new google.maps.LatLng(40.044438,-124.628906),
-				new google.maps.LatLng(48.458352,-124.628906)
-				];
-				
-  hiddenArea = new google.maps.Polygon({
-    paths: hiddenCoords,
-    strokeOpacity: 0.0,
-    strokeWeight: 0,
-    fillOpacity: 0.0
+	zoom: 2,
+	mapTypeControl: false,
+	streetViewControl: false,
+	rotateControl: false
   });
   
   // center of CA to compute the distance
   myCoordinates = new google.maps.LatLng(38.134557,-120.585938);
-  
-  infoWindow = new google.maps.InfoWindow;
+
   map.addListener('click',addMarker);
-  hiddenArea.addListener('click', success);
-  infoWindow.addListener('closeclick', infoWindowClosed);
-  
-  hiddenArea.setMap(map);
 }
 
-
+/* add a Marker on the Map after interation
+* compute the distance from document coords
+* check whether the user has won or not
+**/
 function addMarker(event) {
 	
-	if(essais >1 && !infoWindowVisible)
+	if(essais >1 )
 	{
-		var clicPosition = google.maps.geometry.poly.containsLocation(event.latLng, hiddenArea);
-		
-		if(clicPosition === true)
+		//distance = google.maps.geometry.spherical.computeDistanceBetween(hiddenCoords,event.latLng)/1000;			
+			distance = google.maps.geometry.spherical.computeHeading(hiddenCoords,event.latLng)/1000;
+		if(distance <700)
 		{
 			success(event);
 		}
 		else{
-			var distance = google.maps.geometry.spherical.computeDistanceBetween(myCoordinates,event.latLng)/1000;			
 			
 			var marker = new google.maps.Marker({
 			position: event.latLng,
 			map: map
 			});
 		  
-			if(markers.length >0) {
+			if(markers.length > 0) {
 				markers[0].setMap(null);
 			}
 			
 			markers[0] = marker;
-			document.getElementById("display-para").innerHTML ="à " + distance.toFixed(2) + " KM près";
+			document.getElementById("display-para").innerHTML ="à " + distance.toFixed(3) + " KM près";
 		
 		}
 		
@@ -96,44 +91,260 @@ function addMarker(event) {
   
 }
 
+/* delete the last drawed marker
+**/
 function deleteMarkers() {
-  markers[0].setMap(null);
-  markers = [];
+	markers[0].setMap(null);
+	markers = [];
 }
 
+/* user has won, add a new score 
+* prepare the next document
+**/
 function success(event){
-	if(essais >1 && !infoWindowVisible)
+	if(essais >1)
 		{
-		document.getElementById("display-para").innerHTML = "";
+		document.getElementById("display-para").innerHTML = "Bravo! vous avez gagner.";
 		// remove marker
 		if(markers.length >0) {
 				markers[0].setMap(null);
 		}
+		var a = list_documents[selected_doc];
+		var data = {"id_doc": a["id_doc"], "id_perso": member["id_perso"], "distance": distance};
+		creaScore(data);
 		
-		var contentString = '<b>Bravo</b><br>' +
-		  'L\'origine de Facebook est<br>bel et bien les &eacutetats-unis d\'am&eacuterique.<br>';
-		  
-		// Replace the info window's content and position.
-		infoWindow.setContent(contentString);
-		infoWindow.setPosition(event.latLng);
-
-		infoWindowVisible = true;
-		infoWindow.open(map);
+		selected_doc = (selected_doc < (list_documents.length - 1)) ? (selected_doc + 1) : 0;
+		onDocumentsLoaded();
 	}
 		
 }
 
-function infoWindowClosed(){
-	infoWindowVisible = false;
-	essais = 5;
-}
-
+/* refresh user login's area
+* used for form validation
+**/
 function refresh(){
 	document.getElementById("display-para").innerHTML = "";
-	document.getElementById("reset-btn").style.display ="none";
+	hideElementById("reset-btn");
 	markers[0].setMap(null);
-	infoWindow.close();
+	essais = 5;
+	selected_doc = 0;
+}
+
+/* send an ajax request with a new score 
+* handle if it's an update/insert request
+**/
+function creaScore(data){
+	data.table = "score";
+	var id_score;
+	// lookup wheter it's an update/insert Request
+	if(scores !== undefined){
+		scores.forEach(function(score){
+			//update request
+			if(score['id_perso'] === data['id_perso'] && score['id_doc'] === data['id_doc'])
+			{
+				id_score = score['id_scores'];
+			}
+		
+		});
+	
+	}
+	
+	//update
+	if(id_score !== undefined)
+	{
+		data['id_score'] = id_score;
+		$.get('../php/u.php', data, function(html){
+			loadScore(data['id_doc'], false);
+		});	
+		
+	}
+	else
+	{
+		// insert
+		$.get('../php/c.php', data
+		, function(html){
+			// get id of the inserted score
+			loadScore(data['id_doc'], true);
+		});	
+		
+	}
+}
+
+/* authentification function
+**/
+function connect(){
+	hideElementById("login-failed");
+	showElementById("img-loading");
+	var data ={"table":"connect"};
+	var login = document.getElementById("login-github").value;
+	
+	if(login.length > 0 && login.length <20){
+		hideElementById("login-box");
+		data.github = login;
+		
+		$.ajax({
+		  url: '../php/r.php',
+		  data: data,
+		  success: function(html){
+					onConnected(html);
+       		},
+		  error: function(xhr, ajaxOptions, thrownError){
+					onLoginFailed();	
+			}
+		});
+	}
+	else
+	{
+		hideElementById("img-loading");
+		showElementById("login-failed");
+		document.getElementById("login-failed").innerHTML = "Saisie invalide";
+	}
+}
+
+/* successful login callback
+**/
+function onConnected(json)
+{
+	member = JSON.parse(json);
+	logged = true;
+	document.getElementById("logged-user").innerHTML = member["nom"];
+	checkLogin();	
+	loadDocuments();
+}
+
+/* failed login callback
+**/
+function onLoginFailed()
+{
+	hideElementById("img-loading");
+	showElementById("login-box");
+	document.getElementById("login-failed").innerHTML = "Login github introuvable";
+	showElementById("login-failed");	
+}
+
+/* logout function
+**/
+function logout()
+{
+	logged = false;
+	checkLogin();
+}
+
+/* an ajax request to load all documents 
+**/
+function loadDocuments()
+{
+	var data = {"table":"document"};
+	$.ajax({
+		  url: '../php/r.php',
+		  data: data,
+		  success: function(html){
+				list_documents = JSON.parse(html);
+				onDocumentsLoaded();
+				loadAllScores();
+       		}
+		});
+}
+
+
+/* documents successfuly loaded callback
+**/
+function onDocumentsLoaded()
+{
+	var a = list_documents[selected_doc];
+	document.getElementById("question").innerHTML = a.nom;
+	// load coords
+	hiddenCoords = new google.maps.LatLng(+a["lat"],+a["lng"]);
+	
+	icon = new Image();
+	icon.src = a["url"];
+	document.imgquestion.src=eval("icon.src");
 	essais = 5;
 }
 
-   
+/* AJAX request to load all scores for a specific user
+**/
+function loadAllScores()
+{
+	var data = {"table":"scores","id_perso": member["id_perso"]};
+	$.ajax({
+		  url: '../php/r.php',
+		  data: data,
+		  success: function(html){
+				onScoresLoaded(html);
+       		}
+		});
+}
+
+/* scores successfuly loaded callback
+**/
+function onScoresLoaded(html)
+{
+	if(html.length >0)
+	{
+		scores = JSON.parse(html);
+		scores.forEach(function(score){
+				var col = "<td>"+score["id_doc"]+"</td><td>"+score.distance+"</td><td>"+score.maj+"</td>";
+				$("<tr id=\"score_"+score['id_scores']+"\"></tr>").html(col).appendTo("#scores");
+			});
+	}
+	
+}
+
+/* AJAX request to load score for a specific document
+**/
+function loadScore(id_doc, create_new_row)
+{
+	var data = {"table":"score","id_perso": member["id_perso"], "id_doc":id_doc};
+	$.ajax({
+		  url: '../php/r.php',
+		  data: data,
+		  success: function(html){
+				score = JSON.parse(html);
+				updateScoreTable(score, create_new_row);
+				}
+		});
+}
+
+/* update scores table 
+**/
+function updateScoreTable(score , create_new_row)
+{
+	var col = "<td>"+score["id_doc"]+"</td><td>"+score.distance+"</td><td>"+score.maj+"</td>";
+	
+	if(create_new_row)
+	{
+		$("<tr id=\"score_"+score['id_scores']+"\"></tr>").html(col).appendTo("#scores");
+		// pusg a new score
+		scores.push(score);
+	}
+	else
+	{
+		$('#score_'+score['id_scores']).html(col).appendTo("#scores");
+		// update local scores
+		scores.forEach(function(d){
+			if(d['id_perso'] === score['id_perso'] && d['id_doc'] === score['id_doc'])
+			{
+				d = score;
+			}
+		
+		});
+	}
+	
+}
+
+
+
+/* show an element given its Id
+**/
+function showElementById(attr) 
+{
+	document.getElementById(attr).style.display = "block";
+}
+
+/* hide an element given its Id
+**/
+function hideElementById(attr)
+ {
+	document.getElementById(attr).style.display = "none";
+}

@@ -2,6 +2,7 @@ html, body {
 	height: 100%;
 	margin: 0;
 	padding: 0;
+	background:#696969;
 }
 
 #map {
@@ -20,4 +21,23 @@ html, body {
 }
 #DatasMaker{
 	margin-left:10px;
+}
+#header{
+	background-color:#D3D3D3;
+}
+#left-menu {
+	position:relative;
+	float:left;
+	width:220px;
+	height:100%;
+	background-color:#e6e6e6;
+}
+#myContent{ 
+	position:relative;
+	float:left;
+	padding-left: 36px;
+	color:#F8F8FF;
+}
+#links{
+	margin: auto;
 }
