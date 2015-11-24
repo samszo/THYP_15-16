@@ -1,5 +1,6 @@
 <?php
 include_once 'connect.php';
+include_once './lib/toolKit.php';
 
 switch ($_GET["table"]) {
 	case "score":
@@ -8,7 +9,7 @@ switch ($_GET["table"]) {
 	case "personne":
 		createPersonne($_GET);
 		break;
-	case "documents":
+	case "document":
 		createDocument($_GET);
 		break;		
 	default:
@@ -16,49 +17,41 @@ switch ($_GET["table"]) {
 	break;
 }
 
-//créer scores
 function createScore($data){
 	global $conn;
 	
-	$sql = "INSERT INTO `scores` (ID_SCORE, ID_PERSO, ID_DOC, DISTANCE, MAH)
-	VALUES ('NULL', ".$data["id_perso"].", ".$data["id_doc"].", ".$data["distance"].",NOW())";
-
-	if ($conn->query($sql) === TRUE) {
-	    echo "New record scores created successfully";
-	} else {
-	    echo "Error: " . $sql . "<br>" . $conn->error;
-	}	
-}
-
-//créer Document
-function createDocument($data){
-	global $conn;
+	$sql = "INSERT INTO scores (id_doc, id_perso, distance, maj)
+	VALUES (".$data["id_doc"].", ".$data["id_perso"].", ".$data["distance"].",NOW())";
 	
-	$sql = "INSERT INTO `documents` (id,Nom, LatLng, URL)
-	VALUES ('NULL',".$data["Nom"].", ".$data["latlng"].", ".$data["URL"].")";
-
 	if ($conn->query($sql) === TRUE) {
-	    echo "New record Document created successfully";
+		debug_to_console('create Score successfully');
 	} else {
-	    echo "Error: " . $sql . "<br>" . $conn->error;
+		debug_to_console('Error create Score. SQL : '. $sql );
 	}	
 }
 
-
-// créer personnes 
 function createPersonne($data){
 	global $conn;
 	
-	$sql = "INSERT INTO `personnes` (id_perso, nom)
-	VALUES ('NULL', ".$data["nom"].")";
+	$sql = "INSERT INTO personnes (nom) VALUES ("+$data["nom"]+")";
 
 	if ($conn->query($sql) === TRUE) {
-	    echo "New record created successfully";
+	    debug_to_console('create personnes successfully');
 	} else {
-	    echo "Error: " . $sql . "<br>" . $conn->error;
+	    debug_to_console('Error create Personne. SQL : '. $sql );
 	}	
 }
 
+function createDocument($data){
+	global $conn;
+	
+	$sql = "INSERT INTO documents (nom, latlng, url) VALUES (".$data["nom"].", ".$data["latlng"].", ".$data["url"].")";
+	//echo $sql;
+	if ($conn->query($sql) === TRUE) {
+		debug_to_console('create document successfully');
+	} else {
+	    debug_to_console('Error create Document. SQL : '. $sql );
+	}	
+}
 $conn->close();
-
 ?>

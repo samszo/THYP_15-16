@@ -1,61 +1,57 @@
 <?php
-	include_once 'connect.php';
+include_once 'connect.php';
+include_once './lib/toolKit.php';
 
-	switch ($_GET["table"]) {
-		case "score":
-			deleteScore($_GET);
-			break;
-		case "personne":
-			deletePersonne($_GET);
-			break;
-		case "documents":
-			deleteDocument($_GET);
-			break;		
-		default:
-			;
+switch ($_GET["table"]) {
+	case "score":
+		deleteScore($_GET);
 		break;
-	}
+	case "personne":
+		deletePersonne($_GET);
+		break;
+	case "document":
+		deleteDocument($_GET);
+		break;		
+	default:
+		;
+	break;
+}
 
-	//créer scores
-	function deleteScore($data){
-		global $conn;
-		
-		$sql = "DELETE FROM `scores` WHERE `ID_SCORE`='".$data["id_score"]."';";
+function deleteScore($data){
+	global $conn;
+	$sql = "DELETE FROM scores where  id_scores ='".$data["id_score"]."'";
 
-		if ($conn->query($sql) === TRUE) {
-			echo "New record scores DELETED successfully";
-		} else {
-			echo "Error: " . $sql . "<br>" . $conn->error;
-		}	
-	}
+	//echo $sql;
+	if ($conn->query($sql) === TRUE) {
+	    echo "score deleted successfully";
+	} else {
+	    echo "Error: " . $sql . "<br>" . $conn->error;
+	}	
+}
 
-	//créer Document
-	function deleteDocument($data){
-		global $conn;
-		
-		$sql = "DELETE FROM `documents` WHERE `Nom`='".$data["Nom"]."';";
+function deletePersonne($data){
+	global $conn;
+	
+	$sql = "DELETE FROM personnes where ( id_perso =".$data["id_perso"].")";
+	//echo $sql;
+	if ($conn->query($sql) === TRUE) {
+	    echo "personne deleted successfully";
+	} else {
+	    echo "Error: " . $sql . "<br>" . $conn->error;
+	}	
+}
 
-		if ($conn->query($sql) === TRUE) {
-			echo "New record Document DELETED successfully";
-		} else {
-			echo "Error: " . $sql . "<br>" . $conn->error;
-		}	
-	}
+function deleteDocument($data){
+	global $conn;
+	
+	$sql = "DELETE FROM documents where ( id_doc =".$data["id_doc"].")";
+	//echo $sql;
+	if ($conn->query($sql) === TRUE) {
+	    echo "document deleted successfully";
+	} else {
+	    echo "Error: " . $sql . "<br>" . $conn->error;
+	}	
+}
 
-
-	// créer personnes 
-	function deletePersonne($data){
-		global $conn;
-		
-		$sql = "DELETE FROM `personnes` WHERE `Nom`='".$data["Nom"]."';";
-
-		if ($conn->query($sql) === TRUE) {
-			echo "New record DELETED successfully";
-		} else {
-			echo "Error: " . $sql . "<br>" . $conn->error;
-		}	
-	}
-
-	mysql_close($conn);
-
+$conn->close();
 ?>
