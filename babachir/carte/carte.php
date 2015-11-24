@@ -20,7 +20,7 @@ if (!isset($_SESSION['nom'])) {
 </head>
 <body>
 
-<h1 id="h1-header"> Mini-game with google map <a href="../php/deconnect.php"> Deconnexion</a></h1>
+<h1 id="h1-header"> Mini-game with google map <a href="admin.php"> Admin</a> <a href="../php/deconnect.php"> Deconnexion</a></h1>
 
 <div id="map">
 

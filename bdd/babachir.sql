@@ -92,7 +92,9 @@ CREATE TABLE IF NOT EXISTS `personnes` (
 
 INSERT INTO `personnes` (`id_perso`, `nom`) VALUES
 (1, 'bachir'),
+(2, 'admin'),
 (3, 'bachbach');
+
 
 -- --------------------------------------------------------
 
