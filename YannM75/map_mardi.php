@@ -8,6 +8,7 @@
         <title>Google Maps JavaScript</title>
 
 		<script type="text/javascript">
+		//Merci Mohammed HILMI
 			var nb_clik = 0;
 			var list_documents;
 			var map;
