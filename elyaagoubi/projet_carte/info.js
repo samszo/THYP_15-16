@@ -14,5 +14,5 @@ else if (nom !=" ");
 else if (prenom !=" ");
 
 {
-		document.write("Bienvenue "+nom+" "+prenom);
+		document.write("<h2>"+"<center>"+ " Bienvenue  "+prenom+" "+nom +"</center>"+"</h2>");
 }

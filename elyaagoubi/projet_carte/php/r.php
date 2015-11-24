@@ -5,12 +5,27 @@ switch ($_GET["table"]) {
 	case "score":
 		selectScore($_GET);
 		break;
+	case "scores":
+		selectScores($_GET);
+		break;
 	case "personne":
 		selectPersonne($_GET);
 		break;
+	case "personnes":
+		selectPersonnes();
+		break;
+	case "allscores":
+		selectAllScores($_GET);
+		break;
+	case "alldocuments":
+		selectAllDocuments($_GET);
+		break;
 	case "document":
-		selectDocument($_GET);
-		break;		
+		selectDocuments();
+		break;	
+	case "connect":
+		connect($_GET);
+		break;	
 	default:
 		;
 	break;
@@ -19,40 +34,130 @@ switch ($_GET["table"]) {
 function selectScore($data){
 	global $conn;
 	
-	$sql = "SELECT * FROM scores where id_scores =".$data["id_score"];
-	echo $sql."<br>";
+	$sql = "SELECT * FROM scores where id_doc =".$data["id_doc"]." AND id_perso=".$data["id_perso"];
+	//echo $sql."<br>".$result->num_rows."<br>";
 	$result = $conn->query($sql);
 	if ($result->num_rows > 0) {
 		while($row = $result->fetch_assoc()) {
-			echo "id_score: " . $row["id_scores"]. " id_perso: " . $row["id_perso"]." id_doc: " . $row["id_doc"]."<br>";
+			echo json_encode($row);
 		}
-		echo "score selected successfully";
 	} else {
-	    echo "Error: " . $sql . "<br>" . $conn->error;
+	   echo "";
 	}	
 }
 
+function selectScores($data){
+	global $conn;
+	$list= array();
+	$sql = "SELECT * FROM scores where id_perso=".$data["id_perso"];
+	//echo $sql."<br>".$result->num_rows."<br>";
+	$result = $conn->query($sql);
+	if ($result && $result->num_rows) {
+		while($row = $result->fetch_assoc()) {
+			$list[] = $row;
+		}
+		echo json_encode($list);
+	} else {
+	    echo "";
+	}	
+	
+}
+
+function selectAllScores($data){
+	global $conn;
+	$list= array();
+	$sql = "SELECT * FROM scores";
+	//echo $sql."<br>".$result->num_rows."<br>";
+	$result = $conn->query($sql);
+	if ($result && $result->num_rows) {
+		while($row = $result->fetch_assoc()) {
+			$list[] = $row;
+		}
+		echo json_encode($list);
+	} else {
+	    echo "";
+	}	
+	
+}
+
+function selectAllDocuments($data){
+	global $conn;
+	$list= array();
+	$sql = "SELECT id_doc, nom, X(latlng) lng, url FROM documents";
+	//echo $sql."<br>".$result->num_rows."<br>";
+	$result = $conn->query($sql);
+	if ($result && $result->num_rows) {
+		while($row = $result->fetch_assoc()) {
+			$list[] = $row;
+		}
+		echo json_encode($list);
+	} else {
+	    echo "";
+	}	
+	
+}
 function selectPersonne($data){
 	global $conn;
 	
-	$sql = "SELECT * FROM personnes where ( id_perso =".$data["id_perso"].")";
+	$sql = "SELECT * FROM personnes where id_perso =".$data["id_perso"];
 	//echo $sql;
-	if ($conn->query($sql) === TRUE) {
-	    echo "personne selected successfully";
-	} else {
-	    echo "Error: " . $sql . "<br>" . $conn->error;
-	}	
+	$result = $conn->query($sql);
+	if ($result->num_rows > 0) {
+		while($row = $result->fetch_assoc()) {
+			echo json_encode($row);
+			return;
+		}
+	}
 }
 
-function selectDocument($data){
+function selectPersonnes(){
+	global $conn;
+	$list= array();
+	$sql = "SELECT * FROM personnes";
+	$result = $conn->query($sql);
+	
+	//echo $sql."<br>".$result->num_rows."<br>";
+	if ($result && $result->num_rows) {
+		while($row = $result->fetch_assoc()) {
+			$list[] = $row;
+		}
+		echo json_encode($list);
+	}
+}
+
+function selectDocuments(){
+	global $conn;
+	$list= array();
+	$sql = "SELECT id_doc, nom,  X(latlng) lat, Y(latlng) lng , url FROM documents";
+	$result = $conn->query($sql);
+	
+	//echo $sql."<br>".$result->num_rows."<br>";
+	if ($result->num_rows > 0) {
+		while($row = $result->fetch_assoc()) {
+			//print_r($row);
+			$list[] = $row;
+		}
+		echo json_encode($list);
+	}
+}
+
+function connect($data){
 	global $conn;
 	
-	$sql = "SELECT * FROM documents where ( id_doc =".$data["id_doc"].")";
+	$sql = "SELECT * FROM personnes where nom ='".$data["github"]."'";
 	//echo $sql;
-	if ($conn->query($sql) === TRUE) {
-	    echo "document selected successfully";
+	$result = $conn->query($sql);
+	
+	if ($result && $result->num_rows) {
+		while($row = $result->fetch_assoc()) {
+			echo json_encode($row);
+		}	
 	} else {
-	    echo "Error: " . $sql . "<br>" . $conn->error;
+		return http_response_code(500);
 	}	
+	
 }
+
+
+
 $conn->close();
