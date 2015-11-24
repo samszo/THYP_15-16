@@ -46,8 +46,8 @@ function addMarker(event) {
 	
 	if(essais >1 )
 	{
-		distance = google.maps.geometry.spherical.computeDistanceBetween(hiddenCoords,event.latLng)/1000;			
-			
+		//distance = google.maps.geometry.spherical.computeDistanceBetween(hiddenCoords,event.latLng)/1000;			
+			distance = google.maps.geometry.spherical.computeHeading(hiddenCoords,event.latLng)/1000;
 		if(distance <700)
 		{
 			success(event);
