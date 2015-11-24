@@ -11,8 +11,11 @@
 
 #question  {
 	color:  #3a5795; 
-	font-size: 20px; 
-	margin-top: 150px;
+	font-size: 20px;
+	width: 500px; 
+	height: 500px;
+	border:2px outset; 	
+	margin-top: 60px;
 	margin-left: 150px;
 	float:left;
 	margin-right: 50px;
@@ -30,12 +33,13 @@
 	
 	margin-top: 210px;
 	font-size: 25px; 
-	text-align: center; 
 	color:  rgba(22, 122, 198, 1); 
 	display:block;
+	margin-left:750px;
 
 }
 #afficheNom{
+	margin-top: 20px;
 	font-size: 20px; 
 	text-align: left; 
 	color:  #3a5795; 
