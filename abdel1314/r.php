@@ -10,6 +10,12 @@ switch ($_GET["table"]) {
 		break;
 	case "document":
 		readDocument($_GET);
+		break;
+	case "personnes":
+		readPersonnes($_GET);
+		break;
+	case "scores":
+		readScores($_GET);
 		break;		
 	default:
 		;
@@ -24,9 +30,25 @@ function readScore($data){
 	$result = $conn->query($sql);
 	if ($result->num_rows > 0) {
 		while($row = $result->fetch_assoc()) {
-			echo "id_score: " . $row["id_scores"]." id_perso: " . $row["id_perso"]." id_doc: " . $row["id_doc"]." distance: " . $row["distance"]."<br>";
+		echo json_encode($row);	
 		}
-		//echo "score selected successfully";
+
+	} else {
+	    echo "Error: " . $sql . "<br>" . $conn->error;
+	}	
+}
+
+function readScores($data){
+	global $conn;
+	
+	$sql = "SELECT * FROM scores";
+	//echo $sql."<br>";
+	$result = $conn->query($sql);
+	if ($result->num_rows > 0) {
+		while($row = $result->fetch_assoc()) {
+		echo json_encode($row);	
+		}
+
 	} else {
 	    echo "Error: " . $sql . "<br>" . $conn->error;
 	}	
@@ -41,6 +63,22 @@ function readPersonne($data){
 	if ($result->num_rows > 0) {
 		$row = $result->fetch_assoc(); 
 		 echo json_encode($row);
+	} else {
+	    echo "Error: " . $sql . "<br>" . $conn->error;
+	}	
+}
+
+function readPersonnes($data){
+	global $conn;
+	
+	$sql = "SELECT * FROM personnes";
+	//echo $sql."<br>";
+	$result = $conn->query($sql);
+	if ($result && $result->num_rows > 0) {
+		while($row = $result->fetch_assoc()){
+		$tab1[] = $row; 
+}
+		 echo json_encode($tab1);
 	} else {
 	    echo "Error: " . $sql . "<br>" . $conn->error;
 	}	
