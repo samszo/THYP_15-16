@@ -26,15 +26,15 @@ var point;
 var compteur=5;
 var distance=0;
 function initMap() {
-  var haightAshbury = {lat: 37.775091, lng: -122.418922};
+  var haightAshbury = {lat: 24.886, lng: -70.269};
   document.getElementById("compteur").innerHTML="il vous reste "+ compteur + "chances";
   document.getElementById("dis").innerHTML="la distance entre votre choix et l'emplacement est de "+distance+ " km";
   map = new google.maps.Map(document.getElementById('map'), {
     zoom: 3,
-    center: haightAshbury,
+    center: {lat: 24.886, lng: -70.269},
     mapTypeId: google.maps.MapTypeId.TERRAIN
   });
-	point = new google.maps.LatLng({lat: 39.002673,lng:-122.596810});
+	point = new google.maps.LatLng({lat: 24.886, lng: -70.269});
   // This event listener will call addMarker() when the map is clicked.
   map.addListener('click', function(event) {
 	  deleteMarkers();
@@ -45,15 +45,12 @@ function initMap() {
     {lat: 37.427623, lng: -123.168233},
     {lat: 37.870482, lng: -121.575689}
   ];
-
   var bermudaTriangle = new google.maps.Polygon({paths: triangleCoords});
-
   google.maps.event.addListener(map, 'click', function(e) {
     var resultColor =
         google.maps.geometry.poly.containsLocation(e.latLng, bermudaTriangle) ?
         'green' :
         'red';
-
     new google.maps.Marker({
       position: e.latLng,
       map: map,
@@ -69,7 +66,6 @@ function initMap() {
   });
   
 }
-
 // Adds a marker to the map and push to the array.
 function addMarker(location) {
 setMapOnAll(null);
@@ -92,7 +88,6 @@ setMapOnAll(null);
 document.getElementById("compteur").innerHTML="il vous reste "+ compteur + "chances";
 document.getElementById("dis").innerHTML="la distance de votre point est "+distance+ " km";
 }
-
 // Sets the map on all markers in the array.
 function setMapOnAll(map) {
   for (var i = 0; i < markers.length; i++) {
@@ -100,17 +95,14 @@ function setMapOnAll(map) {
   }
   
 }
-
 // Removes the markers from the map, but keeps them in the array.
 function clearMarkers() {
   setMapOnAll(null);
 }
-
 // Shows any markers currently in the array.
 function showMarkers() {
   setMapOnAll(map);
 }
-
 // Deletes all markers in the array by removing references to them.
 function deleteMarkers() {
   clearMarkers();
