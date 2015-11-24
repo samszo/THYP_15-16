@@ -26,7 +26,7 @@ body {
  
 <body>
 <div class="login">
-<form action="api map.php" method="post">
+<form action="map_api.php" method="post">
 First name: <input type="text" name="Nom" value=""><br>
 <input type="submit" value="Submit">
 </form></div>
