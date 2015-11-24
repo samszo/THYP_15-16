@@ -1,0 +1,1 @@
+<?php $apiGMap = "AIzaSyBxDbeCmD14YlNm4FwdgFjLyHOckWxZhMc";?>
