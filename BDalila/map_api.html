@@ -1,25 +1,12 @@
+<?php 
+include "mykey.php";
+?>
 <!DOCTYPE html>
 <html>
   <head>
     <style type="text/css">
-      html, body { 
-	  
-	  
-	  height: 100%;
-	  margin: 0;
-	  padding: 0; 
-	  background-color: #e6d3e9;
-	  }
-	  
-	  
-	  
-      #map { 
-	  height: 80%;
-      width: 80%;
-	  margin-left: 20%;
-	  
-	  
-	  }
+      html, body { height: 100%; margin: 0; padding: 0; }
+      #map { height: 100%; }
     </style>
   </head>
   <body>
@@ -36,7 +23,7 @@ function initMap() {
 
     </script>
     <script async defer
-      src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBqgEu8Zs5vzayYxtCGH69YCXw-L4pG1Dw&callback=initMap">
+      src="https://maps.googleapis.com/maps/api/js?key=<?php echo $apiGMap;?>&callback=initMap">
     </script>
   </body>
 </html>
