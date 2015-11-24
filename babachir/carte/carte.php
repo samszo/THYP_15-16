@@ -67,7 +67,11 @@ if (!isset($_SESSION['nom'])) {
         {lat: 48.899, lng: 2.429},
         {lat: 48.897, lng: 2.265}
     ];*/
+<<<<<<< HEAD
 >>>>>>> a5114af7b9822ee46672a94dbb12f6720fda9ee3
+=======
+>>>>>>> origin/master
+>>>>>>> fdde1f3ad62767b3da5c68c751a77c38565dc6cd
 
 
     var i = 0;
