@@ -90,7 +90,7 @@ var distance=0;
 function initMap() {
   var haightAshbury = {lat: 37.775091, lng: -122.418922};
   document.getElementById("compteur").innerHTML="Vous avez "+ compteur + "chances";
-  document.getElementById("dis").innerHTML="Vous &#234;tes &#224; "+ distance + " km de Paris";
+  //document.getElementById("dis").innerHTML="Vous &#234;tes &#224; "+ distance + " km de Paris";
   map = new google.maps.Map(document.getElementById('map'), {
     zoom: 3,
     center: {lat: -34.397, lng: 150.644},
@@ -148,7 +148,7 @@ var marker = new google.maps.Marker({
   
   }
 document.getElementById("compteur").innerHTML="il vous reste "+ compteur + "chances";
-document.getElementById("dis").innerHTML="la distance de votre point est "+distance+ " km";
+//document.getElementById("dis").innerHTML="la distance de votre point est "+distance+ " km";
 }
 // Sets the map on all markers in the array.
 function setMapOnAll(map) {
