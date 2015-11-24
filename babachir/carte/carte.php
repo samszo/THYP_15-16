@@ -71,12 +71,12 @@
         {lat: 48.897, lng: 2.265}
     ];
 
-    var carreOran = [
+    /*var carreOran = [
         {lat: 48.827, lng: 2.24},
         {lat: 48.813, lng: 2.412},
         {lat: 48.899, lng: 2.429},
         {lat: 48.897, lng: 2.265}
-    ];
+    ];*/
 
 
     var places = ["Triangle des bermudes", "Paris", "Oran"];

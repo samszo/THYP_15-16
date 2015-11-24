@@ -2,7 +2,7 @@
 $servername = "localhost";
 $username = "root";
 $password = "";
-$dbname = "thyp_cartogamme";
+$dbname = "thyp_cartogramme";
 
 // Create connection
 $conn = new mysqli($servername, $username, $password, $dbname);
