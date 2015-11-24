@@ -75,7 +75,7 @@
 			}
 			
 			function loadDocuments(){
-				var data = {"table":"document"};
+				var data = {"table":"AllDocuments"};
 				$.ajax({
 					  url: 'bdd/r.php',
 					  data: data,
