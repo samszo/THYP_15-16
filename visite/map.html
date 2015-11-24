@@ -1,0 +1,87 @@
+
+<!DOCTYPE html>
+<html>
+  <head>
+    <style type="text/css">
+      html, body { height: 100%; margin: 0; padding: 0; }
+      #map { width:600px;height:500px ; margin: 30px auto;}
+      h1{
+background-color:blue;
+text-align: center;
+
+}
+#dis{
+  text-align: center;
+}
+    </style>
+  </head>
+  <body>
+    <h1>Où se trouve Paris?</h1>
+    <div id="map"></div>
+    <div id="dis"></div>
+
+
+    <script type="text/javascript">
+
+var map;
+var marker;
+
+var firstClick=true;
+function initMap() {
+  map = new google.maps.Map(document.getElementById('map'), {
+    center: {lat: 48.8588376, lng: 2.2773453},
+    zoom: 8
+  });
+
+
+  google.maps.event.addListener(map, 'click', function(event) {
+    placeMarker(event.latLng);
+  });
+
+  point = new google.maps.LatLng({lat: 48.8588376,lng:2.2773453});
+  poly = new google.maps.Polyline({
+    strokeColor: '#0000CC',
+    strokeOpacity: 1.0,
+    strokeWeight: 3,
+    map: map
+  });
+}
+
+
+
+
+function placeMarker(location) {
+ //setMapOnAll(null);
+ if(firstClick){
+   marker = new google.maps.Marker({
+    position: location,
+    map: map,
+  });
+   firstClick=false;
+
+ }
+ else
+        {
+               marker.setPosition(location);
+            }
+ 
+  var distance = parseInt( google.maps.geometry.spherical.computeDistanceBetween( point, marker.getPosition())/1000);
+  if (distance<10) {
+    alert("vous avez gagner")
+
+  }
+  else{
+
+
+
+document.getElementById("dis").innerHTML="la distance de votre point est "+distance+ " km";
+document.getElementById("dis").style.backgroundColor="blue";
+}
+}
+
+    </script>
+    <script async defer
+      src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCFIfJOdHDN-nyj3T9uEiU5w_otJ6ZE6Hg&callback=initMap">
+    </script>
+  </body>
+</html>

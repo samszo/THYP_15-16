@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title></title>
+</head>
+
+<style type="text/css">
+  body {
+    color: purple;
+    background-color: #80BFFF }
+  </style>
+<script type="text/javascript">
+	
+	function suppscore(){
+
+		var id = document.getElementById("sid").value;
+
+		supScore({"id":id});
+
+	}
+
+	function supScore(data){
+
+		data.table = "score";
+
+		$.get('../php/d.php',
+				data,
+	        		function(html){
+					alert('Score Bien supprimé.');
+	       		});	
+
+}
+
+//////////////////////////:
+function supppers(){
+
+		var id = document.getElementById("pid").value;
+
+		suppers({"id":id});
+
+	}
+
+	function suppers(data){
+
+		data.table = "personne";
+
+		$.get('../php/d.php',
+				data,
+	        		function(html){
+					alert('Personne Bien supprimée.');
+	       		});	
+
+}
+
+
+function suppdoc(){
+
+		var id = document.getElementById("did").value;
+
+		supdoc({"id":id});
+
+	}
+
+	function supdoc(data){
+
+		data.table = "document";
+
+		$.get('../php/d.php',
+				data,
+	        		function(html){
+					alert('Document Bien supprimée.');
+	       		});	
+
+}
+
+
+
+</script>
+
+
+<body>
+
+
+<div id="global">
+    
+    <div id="cadre1">
+	<h3 class="centre">Supprimer une Personne</h3>
+         	Supprimez par identifiant personne : <input type="number" id="pid"/><br><br>
+	       		 
+	       		 <button onclick="supppers()">Supprimer</button>
+	        
+    </div>
+    
+    <div id="cadre2">
+        <h3 class="centre">Supprimer un Document</h3>
+         		Supprimez par identifiant Document : <input type="number" id="did"/><br><br>
+	       		 
+	       		 <button onclick="suppdoc()">Supprimer</button>
+    </div>
+    
+    <div id="cadre3">
+	<h3 class="centre">Supprimer un Score</h3>
+	       		 Supprimez par identifiant score : <input type="number" id="sid"/><br><br>
+	       		 
+	       		 <button onclick="suppscore()">Supprimer</button>
+        
+    </div>
+</div>
+
+
+</body>
+</html>

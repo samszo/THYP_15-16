@@ -10,7 +10,11 @@
 =======
 		 padding-top: 0px;
 	background-color : #4BB5C1;		 
+<<<<<<< HEAD
 >>>>>>> origin/master
+=======
+>>>>>>> 367be944bbf6657860a65290a96960503adeff55
+>>>>>>> b3c125aa5193ea38cfd5aae8d8a73ff90be22d89
 	  }
 	  h1{
 		  padding-left:50px;
