@@ -23,9 +23,9 @@ function createScore($data){
 	VALUES (".$data["id_doc"].", ".$data["id_perso"].", ".$data["distance"].",NOW())";
 	//echo $sql;
 	if ($conn->query($sql) === TRUE) {
-	    echo "New record created successfully";
+	//    echo "New record created successfully";
 	} else {
-	    echo "Error: " . $sql . "<br>" . $conn->error;
+	 //   echo "Error: " . $sql . "<br>" . $conn->error;
 	}	
 }
 
