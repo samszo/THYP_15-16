@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title></title>
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+  <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
+</head>
+
+<style type="text/css">
+	#global
+{
+     width: 902px;
+  
+}
+ 
+#cadre1
+{
+	    margin-left: 11px;
+    height: 500px;
+    width: 300px;
+    float: left;
+    padding: 3px;
+    border: solid black 1px;
+}
+ 
+#cadre2
+{
+    height: 500px;
+    width: 300px;
+    padding: 3px;
+    margin-left: 325px;
+    border: solid black 1px;
+}
+#cadre3
+{
+    height: 500px;
+    width: 300px;
+    padding: 3px;
+        margin-left: 646px;
+    border: solid black 1px;
+    margin-top: -502px;
+}
+ 
+.centre
+{
+   
+    margin-left: 70px;
+}
+</style>
+<script type="text/javascript">
+	
+	function creerscore(){
+
+		var idpersonne = document.getElementById("sidpersonne").value;
+		var iddoc = document.getElementById("siddoc").value;
+		var pays = document.getElementById("spays").value;
+
+	
+		creaScore({"id_doc":iddoc,"id_perso":idpersonne,"pays":pays});
+
+	}
+
+	function creaScore(data){
+
+		data.table = "score";
+
+		$.get('../php/c.php',
+				data,
+	        		function(html){
+					alert('Score Bien ajouté.');
+	       		});	
+
+}
+
+//////////////////////////:
+
+function creerpersonne(){
+
+		var nompersonne = document.getElementById("pidpersonne").value;
+	
+
+		creaPers({"nom":nompersonne});
+
+	}
+
+	function creaPers(data){
+
+		data.table = "personne";
+
+		$.get('../php/c.php',
+				data,
+	        		function(html){
+	        		document.getElementById("h").innerHTML = "Personne Bien ajoutée.";
+					
+	       		});	
+
+}
+//////////////////////////:
+
+function creerdocument(){
+
+		var nom = document.getElementById("dnom").value;
+		var pays = document.getElementById("dpays").value;
+		var url = document.getElementById("durl").value;
+		
+
+		creadoc({"nom":nom,"pays":pays,"url":url});
+
+	}
+
+	function creadoc(data){
+
+		data.table = "document";
+
+		$.get('../php/c.php',
+				data,
+	        		function(html){
+	        		document.getElementById("h").innerHTML = "Document Bien ajouté.";
+					
+	       		});	
+
+}
+
+
+
+</script>
+
+
+<body>
+<div id="global">
+   
+    <!--SECOND CADRE-->
+    <div id="cadre2">
+        <h3 class="centre">Creer une Personne</h3>
+         	Nom de la personne : <input type="text" id="pidpersonne"/><br><br>
+	       		
+	       	<button onclick="creerpersonne()" type="button" class="btn btn-info btn-block">Creer</button>
+
+    </div>
+    <!--third CADRE-->
+    <div id="cadre3">
+        <h3 class="centre">Creer un Document</h3>
+         		Nom du document : <input type="text" id="dnom"/><br><br>
+	       		 Pays : <input type="text" id="dpays" /><br><br>
+	       	
+	       		  URL: <input type="text" id="durl" /><br><br>
+	       		 <button onclick="creerdocument()" type="button" class="btn btn-info btn-block">Creer</button>
+    </div>
+</div>
+
+<h1 style="text-align:center;" id="h"></h1>
+
+
+</body>
+</html>

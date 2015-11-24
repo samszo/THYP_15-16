@@ -12,7 +12,7 @@
         background-color: #d0d0d0;
         padding: 0;
       background-image:url(amazonie.jpg);
-  background-size: 100%;
+  background-size: 100% 120%;
          }
       #map { 
         height: 60%;
@@ -21,6 +21,7 @@ border: inset;
 margin-left: 10%;
 margin-right: 10%;
        }
+       #conn
       h1{
         margin-top: 20px;
         text-align: center;
@@ -43,23 +44,25 @@ color: green;
 
   
   </head>
-  <body>
-    <div>
+<body>
+  <div>
     <header>Les Sept Merveilles du monde, constituent l’ensemble des sept œuvres architecturales et artistiques les plus extraordinaires du monde antique</header>
-<h1>ou se trouve <b id="place"></b></h1>
+      <label>bienvenue <b id="conn"> </label>
+    <h1>ou se trouve <b id="place"></b></h1>
 
-    </div>
-    <label id="compteur"></label>
-     <center><label id="dis"></label></center>
+  </div>
+
+  <label id="compteur"></label>
+    <center><label id="dis"></label></center>
+    
     <div id="map"></div>
   
-    <script type="text/javascript">
-var person = prompt("Entrez votre nom");
+  <script type="text/javascript">
+      
 
-while (person == " " || person=="") {
-   var person = prompt("Entrez votre nom");
-}
-creaPersonne({"nom":person});
+
+//creaPersonne({"nom":person});
+var person;
 var map;
 var markers = [];
 var point ;
@@ -68,22 +71,31 @@ var place;
 var score=0;
 var a;
 var places;
- var lieu=0;
+var personne;
+var personne_id;
+var personnes;
+var lieu=0;
 
 
+
+
+reaPersonne();
+reaPersonnes();
 function initMap() {
   var haightAshbury = {lat: 24.2610100, lng: 0.5802};
 
   map = new google.maps.Map(document.getElementById('map'), {
-    zoom: 3,
-    center: haightAshbury,
-    mapTypeId: google.maps.MapTypeId.HYBRID 
+     zoom: 3,
+      center: haightAshbury,
+     mapTypeId: google.maps.MapTypeId.HYBRID 
   });
 
   // This event listener will call addMarker() when the map is clicked.
   map.addListener('click', function(event) {
     addMarker(event.latLng);
   });
+
+
 reaDocument();
 //var moai= new google.maps.LatLng({lat:  -27.104671,lng:-109.360481});
 //var tajmahal= new google.maps.LatLng({lat:  27.173891,lng:78.042068});
@@ -111,22 +123,26 @@ setMapOnAll(null);
   });
 
   markers.push(marker);
-  
+
   var distance = parseInt( google.maps.geometry.spherical.computeDistanceBetween( point, markers[markers.length-1].getPosition()));
 
   var invDistance=parseInt(100000000/distance);
-score+=invDistance;
-  if (distance < 100000){
+    score+=invDistance;
+ 
+  if (distance < 150000){
     alert ("VOUS AVEZ GAGNÉ");
     alert("votre score est : "+score);
-    compteur=5;
     changeDoc();
     score=0;
+
   }
-  if (compteur==0){
+  if (compteur==0)
+  { 
     alert("VOUS AVEZ PERDU! RECOMMENCEZ");
      alert("votre score est : "+score);
     compteur =5;
+ 
+    creaScore({ "id_doc": lieu+1,"id_perso":personne.id_perso, "distance":distance});
     changeDoc();
     score=0;
   
@@ -134,36 +150,14 @@ score+=invDistance;
   compteur--;
 
 
-
-/*
-musée de sydney
-
-
-
-
-
-
-
-
-*/
- 
- 
-
-
-
-
-  
-  
-
- 
-document.getElementById("compteur").innerHTML=person + " il vous reste "+ compteur + "chances";
+document.getElementById("compteur").innerHTML= " il vous reste "+ compteur + "chances";
 document.getElementById("compteur").style.backgroundColor="red";
 
 /* 
 var path = [marker.getPosition(), point];
   poly.setPath(path);
   */
-document.getElementById("dis").innerHTML="la distance de votre point est "+distance/1000+ " km";
+document.getElementById("dis").innerHTML="la distance de votre point est " +distance/1000+ " km";
 document.getElementById("dis").style.backgroundColor="green";
 }
 
@@ -171,9 +165,11 @@ function deleteMarkers() {
   clearMarkers();
   markers = [];
 }
+
 function clearMarkers() {
   setMapOnAll(null);
 }
+
 function setMapOnAll(map) {
   for (var i = 0; i < markers.length; i++) {
     markers[i].setMap(map);
@@ -181,43 +177,120 @@ function setMapOnAll(map) {
 }
 function creaScore(data){
   data.table = "score";
-  $.get('php/c.php',
-      data
-/*
-      ,
-function (html){
-$("#bis").html("");
-}*/
-      );
-           
+  $.ajax({url:'php/c.php',
+      data :data
+
+
+      });          
 }
-function creaPersonne(data){
+
+
+function reaPersonne(){
+  data = {"table":"personne"};
+  $.get('php/c.php',
+          data,
+             function(){
+  $.ajax({url:'php/r.php',data: data ,success : function (html){
+          personne = JSON.parse(html);
+
+
+        }
+        });
+});
+     }  
+
+     function reaPersonnes(){
+  data = {"table":"personnes"};
+  $.ajax({url:'php/r.php',data: data ,success : function (html){
+          personnes = JSON.parse(html); 
+        
+
+        person = prompt("Entrez votre nom");
+
+      while (person == " " || person=="") {
+             person = prompt("Entrez votre nom");
+      }
+          personnes.forEach(function(s){
+  if (s["nom"]==person){
+      document.getElementById("conn").innerHTML=  person ;
+   
+    }
+    else{
+      creaPersonne({"nom" : person });
+            document.getElementById("conn").innerHTML=  person ;
+
+    }
+ function creaPersonne(data){
   data.table = "personne";
-  $.get('php/c.php',
-      data);
+  $.ajax({url:'php/c.php',
+      data:data});
            
 }
-function reaDocument(){
-  data = {"table":"document"};
-  $.get('php/r.php', data , function (html){
+
+            });
+
+        }
+        });
+
+     }    
+    
+/*function creaPersonne(data){
+  data.table = "personne";
+  $.ajax({url:'php/c.php',
+      data:data});
+           
+}*/
+     function reaScore(){
+   data = {"table":"score"};
+  $.ajax({url:'php/r.php',data: data ,success : function (html){
           places = JSON.parse(html);
-        changeDoc();
+        }
+        });
+
+     }   
+     function reaScores(){
+   data = {"table":"scores"};
+  $.ajax({url:'php/r.php',data: data ,success : function (html){
+          places = JSON.parse(html);
+        }
         });
 
      }      
 
+   function reaDocument(){
+  data = {"table":"document"};
+  $.ajax({url:'php/r.php',
+      data: data ,
+      success: function (html){
+          places = JSON.parse(html);
+          changeDoc();
+          }
+      });
+
+     }
+
+
 function changeDoc(){
-  place = JSON.parse(places[lieu]);
-          var x = +place["lat"];
-          var y = +place["lng"];
-           
-          $("#place").html(place["nom"]); 
-          point = new google.maps.LatLng(x,y);
 
-          //alert(places.length);
-          document.body.style.backgroundImage = "url('"+place["url"]+"')";
-          lieu = (lieu === 0 ) ? 1 : 0;
+    place = places[lieu];
+    var x = +place["lat"];
+    var y = +place["lng"];
+     
+    $("#place").html(place["nom"]); 
+    point = new google.maps.LatLng(x,y);
 
+    //alert(places.length);
+    document.body.style.backgroundImage = "url('"+place["url"]+"')";
+
+    if (lieu < (places.length -1)) 
+    {
+
+    lieu++;
+    }
+    else{
+      lieu=0;
+    }
+ 
 }
 
 /*

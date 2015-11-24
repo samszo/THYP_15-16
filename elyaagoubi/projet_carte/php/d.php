@@ -18,7 +18,7 @@ switch ($_GET["table"]) {
 
 function deleteScore($data){
 	global $conn;
-	$sql = "DELETE FROM scores where  id_scores ='".$data["id_score"]."'";
+	$sql = "DELETE FROM scores WHERE  id_scores =".$data["id_score"];
 
 	//echo $sql;
 	if ($conn->query($sql) === TRUE) {
@@ -31,7 +31,7 @@ function deleteScore($data){
 function deletePersonne($data){
 	global $conn;
 	
-	$sql = "DELETE FROM personnes where ( id_perso =".$data["id_perso"].")";
+	$sql = "DELETE FROM personnes WHERE  nom =".$data["nom"];
 	//echo $sql;
 	if ($conn->query($sql) === TRUE) {
 	    echo "personne deleted successfully";
@@ -43,7 +43,7 @@ function deletePersonne($data){
 function deleteDocument($data){
 	global $conn;
 	
-	$sql = "DELETE FROM documents where ( id_doc =".$data["id_doc"].")";
+	$sql = "DELETE FROM documents where  id_doc =".$data["id_doc"];
 	//echo $sql;
 	if ($conn->query($sql) === TRUE) {
 	    echo "document deleted successfully";

@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>CRUD</title>
+    <link rel="stylesheet" type="text/css" href="http://w2ui.com/src/w2ui-1.4.2.min.css" />
+    <script src="http://ajax.googleapis.com/ajax/libs/jquery/2.1.0/jquery.min.js"></script>
+    <script type="text/javascript" src="http://w2ui.com/src/w2ui-1.4.2.min.js"></script>
+</head>
+<body>
+<center>
+<h2>Personnes</h2>
+<div id="grid1" style="width: 750px; height: 400px;"></div>
+</center>
+
+<center>
+<h2>Scores</h2>
+<div id="grid2" style="width: 750px; height: 400px;"></div>
+</center>
+
+<center>
+<h2>Documents</h2>
+<div id="grid3" style="width: 750px; height: 400px;"></div>
+</center>
+
+<script defer type="text/javascript">
+
+var tableau1=[];
+rPersonnes();
+
+
+
+
+
+
+ function rPersonnes(){
+  data = {"table":"personnes"};
+  $.ajax({url :'r.php',
+        data: data ,
+        success : function (html){
+          p = JSON.parse(html);
+        remplirGridPersonne(p);
+    }
+        });
+
+     }   
+function remplirGridPersonne(person){
+person.forEach(function(s){
+    tableau1.push({ recid: s["id_perso"], text: s["nom"], check: false });
+
+});
+}
+ 
+$(function () {
+    $('#grid1').w2grid({ 
+        name: 'grid1', 
+        show: { 
+            toolbar: true,
+            footer: true,
+            toolbarSave: true
+        },
+        columns: [                
+            { field: 'recid', caption: 'id_perso', size: '50px', sortable: true, resizable: true },
+
+            { field: 'text', caption: 'nom', size: '120px', sortable: true, resizable: true },
+		 ],
+        toolbar: {
+            items: [
+		{ id: 'add', type: 'button', caption: 'Ajouter une personne', icon: 'w2ui-icon-plus' },
+                { id: 'add', type: 'button', caption: 'Supprimer une personne', icon: 'w2ui-icon-cross' }
+            ],
+            onClick: function (event) {
+                if (event.target == 'add') {
+                    w2ui.grid.add({ recid: w2ui.grid.records.length + 1 });
+                }
+            }
+        },
+        records: tableau1
+    });    
+});
+
+
+
+</script>
+
+<script defer type="text/javascript">
+
+var tableau2=[];
+rScores();
+
+function rScores(){
+  data = {"table":"scores"};
+  $.ajax({url :'r.php',
+        data: data ,
+        success : function (html){
+          s1 = JSON.parse(html);
+        remplirGridScore(s1);
+    }
+        });
+}
+        
+function remplirGridScore(scor){
+scor.forEach(function(s){
+    tableau2.push({ recid: s["id_scores"], recid: s["id_perso"], recid: s["id_doc"], int: s["distance"], text: s["maj"], check: false });
+
+});
+}
+
+$(function () {
+    $('#grid2').w2grid({ 
+        name: 'grid2', 
+        show: { 
+            toolbar: true,
+            footer: true,
+            toolbarSave: true
+        },
+        columns: [    
+            { field: 'recid', caption: 'id_scores', size: '50px', sortable: true, resizable: true },
+            
+            { field: 'recid', caption: 'id_perso', size: '120px', sortable: true, resizable: true },
+
+            { field: 'recid', caption: 'id_doc', size: '120px', sortable: true, resizable: true },
+
+	    { field: 'int', caption: 'distance', size: '120px', sortable: true, resizable: true },
+
+            { field: 'text', caption: 'maj', size: '120px', sortable: true, resizable: true },
+		 ],
+        toolbar: {
+            items: [
+		{ id: 'add', type: 'button', caption: 'Ajouter une personne', icon: 'w2ui-icon-plus' },
+                { id: 'add', type: 'button', caption: 'Supprimer une personne', icon: 'w2ui-icon-cross' }
+            ],
+            onClick: function (event) {
+                if (event.target == 'add') {
+                    w2ui.grid.add({ recid: w2ui.grid.records.length + 1 });
+                }
+            }
+        },
+        records: tableau2
+    });    
+});
+
+</script>
+
+</body>
+</html>

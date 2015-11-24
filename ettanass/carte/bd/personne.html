@@ -1,0 +1,229 @@
+<!DOCTYPE html>
+<html>
+<style type="text/css">
+#titre {
+    margin-left: 15%;
+    margin-right: 10%;
+    margin-bottom: 5px;
+    padding-right: 10%;
+    padding-left: 10%;
+    border-style: double;
+    float: center;
+    text-align: center;
+    background-color: #C0C0C0;
+    border-color: red;
+    width: 600px;
+    vertical-align: middle;
+
+}
+</style>
+<head>
+    <title>Personnes</title>
+    <link rel="stylesheet" type="text/css" href="http://w2ui.com/src/w2ui-1.4.2.min.css" />
+    <script src="http://ajax.googleapis.com/ajax/libs/jquery/2.1.0/jquery.min.js"></script>
+    <script type="text/javascript" src="http://w2ui.com/src/w2ui-1.4.2.min.js"></script>
+</head>
+<body>
+    <div id="titre">CRUD Personnes</div>
+    <div id="grid" style="width: 80%; height: 250px;margin-left: 10%;margin-right: 10%"></div>
+    <br>
+
+
+<script defer type="text/javascript">
+
+ var tab=[];
+reaPersonnes();
+
+
+function showChanged() {
+    console.log(w2ui['grid'].getChanges()); 
+    w2alert('Changed records are displayed in the console');
+}
+
+
+ function reaPersonnes(){
+  data = {"table":"personnes"};
+  $.ajax({url :'../php/r.php',
+        data: data ,
+        success : function (html){
+          pers = JSON.parse(html);
+        remplirPersonnes(pers);
+    }
+        });
+
+     }   
+function remplirPersonnes(personnes){
+    personnes.forEach(function(s){
+        tab.push({ recid: s["id_perso"],int: s["id_perso"], text: s["nom"], check: false })
+
+            });
+$(function () {
+    $('#grid').w2grid({ 
+        name: 'grid', 
+        show: { 
+            toolbar: true,
+            footer: true,
+        },
+        columns: [                
+            { field: 'recid', caption: 'id', size: '150px', sortable: true, resizable: true },
+            { field: 'int', caption: 'id_perso', size: '150px', sortable: true, resizable: true },
+            { field: 'text', caption: 'Nom', size: '150px', sortable: true, resizable: true, 
+                editable: { type: 'text' }
+            },
+           
+            { field: 'check', caption: 'select', size: '60px', sortable: true, resizable: true, 
+                editable: { type: 'checkbox' } 
+            }
+        ],
+        toolbar: {
+            items: [
+                { id: 'add', type: 'button', caption: 'Ajouter personne', icon: 'w2ui-icon-plus' },
+                { id: 'add', type: 'button', caption: 'Supprimer personne', icon: 'w2ui-icon-cross' }
+            ],
+            onClick: function (event) {
+                if (event.target == 'add') {
+                    w2ui.grid.add({ 
+
+                        recid: w2ui.grid.records.length + 1 });
+                }
+            }
+        },
+        records: tab
+    });    
+});
+
+}
+
+
+</script>
+
+<div id="titre">CRUD scores</div>
+<div id="grid2" style="width: 80%; height: 250px;margin-left: 10%;margin-right: 10%"></div>
+<br>
+<script defer type="text/javascript">
+var tabscores = [];
+readallScores();
+
+function readallScores(){
+  data = {"table":"allscores"};
+  $.ajax({url :'../php/r.php',
+        data: data ,
+        success : function (html){
+          score = JSON.parse(html);
+        remplirscores(score);
+    }
+        });
+  
+}
+
+function remplirscores(scores){
+
+scores.forEach(function(s){
+        tabscores.push({ recid: s["id_scores"], recid: s["id_perso"], recid:s["id_doc"], int: s["distance"], text: s["maj"], check: false});
+    });
+
+$(function () {
+    $('#grid2').w2grid({ 
+        name: 'grid2', 
+        show: { 
+            toolbar: true,
+            footer: true,
+            toolbarSave: false
+        },
+        columns: [                
+            { field: 'recid', caption: 'ID scores', size: '50px', sortable: true, resizable: true },
+            { field: 'recid', caption: 'ID perso', size: '50px', sortable: true, resizable: true },
+            { field: 'recid', caption: 'ID doc', size: '50px', sortable: true, resizable: true },
+            { field: 'int', caption: 'distance', size: '80px', sortable: true, resizable: true
+            },
+            
+            { field: 'text', caption: 'date', size: '120px', sortable: true, resizable: true
+            },
+            
+           { field: 'check', caption: 'select', size: '60px', sortable: true, resizable: true, 
+                editable: { type: 'checkbox' } 
+            }
+        ],
+       
+        records: tabscores
+    });    
+});
+
+}
+/*
+function showChanged() {
+    console.log(w2ui['grid'].getChanges()); 
+    w2alert('Changed records are displayed in the console');
+}
+*/
+</script>
+<br>
+<div id="titre">CRUD Documents</div>
+<div id="grid3" style="width: 80%; height: 250px;margin-left: 10%;margin-right: 10%"></div>
+<br>
+<script defer type="text/javascript">
+var tabdocuments = [];
+readallDocuments();
+
+function readallDocuments(){
+  data = {"table":"document"};
+  $.ajax({url :'../php/r.php',
+        data: data ,
+        success : function (html){
+          doc = JSON.parse(html);
+        remplirdocuments(doc);
+    }
+        });
+    
+     
+
+}
+
+function remplirdocuments(documents){
+
+documents.forEach(function(s){
+        tabdocuments.push({ recid: s["id_doc"], text: s["nom"], text:s["X(latlng)"], text: s["url"], check: false});
+    });
+
+$(function () {
+    $('#grid3').w2grid({ 
+        name: 'grid3', 
+        show: { 
+            toolbar: true,
+            footer: true,
+            toolbarSave: false
+        },
+        columns: [                
+            { field: 'recid', caption: 'ID doc', size: '50px', sortable: true, resizable: true },
+            { field: 'text', caption: 'nom', size: '50px', sortable: true, resizable: true },
+            { field: 'text', caption: 'coordonnee', size: '50px', sortable: true, resizable: true },
+            { field: 'text', caption: 'lien', size: '80px', sortable: true, resizable: true
+            },
+            { field: 'check', caption: 'select', size: '60px', sortable: true, resizable: true, 
+                editable: { type: 'checkbox' } 
+            }
+        ],
+        toolbar: {
+            items: [
+                { id: 'add', type: 'button', caption: 'Add Record', icon: 'w2ui-icon-plus' }
+            ],
+            onClick: function (event) {
+                if (event.target == 'add') {
+                    w2ui.grid3.add({ recid: w2ui.grid3.records.length + 1 });
+                }
+            }
+        },
+        records: tabdocuments
+    });    
+});
+
+}
+/*
+function showChanged() {
+    console.log(w2ui['grid'].getChanges()); 
+    w2alert('Changed records are displayed in the console');
+}
+*/
+</script>
+</body>
+</html>
