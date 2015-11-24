@@ -20,7 +20,11 @@ html, body {
 	font-family: "Helvetica Neue", Helvetica, sans-serif;
 	color: #444;
 	-webkit-font-smoothing: antialiased;
+<<<<<<< HEAD
 	background: #fff;
+=======
+	background: #f0f0f0;
+>>>>>>> 9e153ffed5a0d48366ce91bef18953ff10186e46
 	
 }
 

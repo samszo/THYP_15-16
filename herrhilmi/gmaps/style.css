@@ -17,10 +17,16 @@ body {
 }
 #navbar{
 	background-color: #00695C;
-	padding:10px;
 	border-bottom: 1px #004D40 solid;
 }
-
+#navbar-container {
+	width: 960px;
+	height:20px;
+	padding:10px;
+	margin: 0 auto;
+	border-right: 1px #004D40 solid;
+	border-left: 1px #004D40 solid;
+}
 .title {
 	color: #FFFFFF;
 }
@@ -30,16 +36,85 @@ body {
 	margin: 30px auto;
 }
 
+#splash-content {
+	width: 960px;
+	margin: 0px auto;
+}
+
+#login-box {
+	width: 406px;
+	margin:auto;
+}
+
+#logged-user {
+	font-size: 1.2em;
+	padding-bottom: 2px;
+}
+#login-github {
+	padding:11px;
+	width:250px;
+}
+
 #left-menu {
 	position:relative;
 	float:left;
 	width:220px;
 	height:100%;
 }
+
+#sub-content {
+	width:960px;
+	margin: 30px auto;
+}
+
+.box-login {
+	padding:10px;
+	width:270px;
+	float:left;
+}
+
+.box-score {
+	padding:10px;
+	width:650px;
+	float:left;
+}
+
+#score-list {
+	width:650px;
+	text-align:left;
+}
+
+#score-list  > tbody > tr > td{
+	font-size:0.8em;
+	padding:10px;
+}
+
+#score-list  > thead > tr > th{
+	font-size:0.9em;
+	border-bottom:1px #cccaca solid;
+}
 .title-primary{
 	font-size: 1.2em;
 	color : #009688;
 	padding:10px;
+}
+
+.title-sub-menu{
+	font-size: 1em;
+	color : #009688;
+	padding-top:10px;
+	padding-left:10px;
+}
+
+hr {
+	background-color : #009688;
+	height:2px;
+}
+.title-error {
+	font-size: 0.9em;
+	color : #FF0000;
+	padding:10px;
+	
 }
 
 .list-item-holder {
@@ -65,6 +140,7 @@ body {
 	height:340px;
 	border: 2px #009688 groove;
 }
+
 .list-item {
 	font-size: 0.7em;
 	color: #757575;
@@ -76,6 +152,7 @@ body {
 	font-size: 1.4em;
 	text-align:center;
 }
+
 .btn {
 	margin:20px auto;
 	border: 0px;
@@ -95,3 +172,10 @@ body {
 	background-color: #004D40;
 	border-bottom: 2px #00695C solid;
 }
+
+#logout:hover  {
+	color: #004D40;
+	font-style: underline;
+}
+
+
