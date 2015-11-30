@@ -46,7 +46,7 @@ function selectScore($data){
 function selectAllScores($data){
 	global $conn;
 	$list= array();
-	$sql = "SELECT * FROM scores ";
+	$sql = "SELECT *, id_scores recid FROM scores ";
 	//echo $sql."<br>".$result->num_rows."<br>";
 	$result = $conn->query($sql);
 	if ($result && $result->num_rows) {

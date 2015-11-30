@@ -134,7 +134,7 @@ function selectDocuments(){
 function connect($data){
 	global $conn;
 	
-	$sql = "SELECT * FROM personnes where nom ='".$data["github"]."'";
+	$sql = "SELECT * FROM personnes where nom ='".$data["github"]."' LIMIT 1";
 	//echo $sql;
 	$result = $conn->query($sql);
 	
@@ -198,6 +198,7 @@ function selectDocumentsForW2UIGrid(){
 		}
 		
 		$list["records"] = $records;
+		//print_r($list);
 		echo json_encode($list);
 	}
 }
