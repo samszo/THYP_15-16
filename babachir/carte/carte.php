@@ -55,10 +55,19 @@ if (!isset($_SESSION['nom'])) {
     urlImage["Triangle des bermudes"] = "http://www.paranormal-info.fr/images/la-malediction-du-triangle-des-bermudes.jpg";
 
 
+<<<<<<< HEAD
     var distance;
     var resultColor = "red";
     var firstClick = true;
     var places = ["Triangle des bermudes"];
+=======
+    /*var carreOran = [
+        {lat: 48.827, lng: 2.24},
+        {lat: 48.813, lng: 2.412},
+        {lat: 48.899, lng: 2.429},
+        {lat: 48.897, lng: 2.265}
+    ];*/
+>>>>>>> origin/master
 
 
     var i = 0;

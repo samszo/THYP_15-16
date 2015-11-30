@@ -1,0 +1,107 @@
+
+<!DOCTYPE html>
+<!--[if lt IE 7 ]> <html lang="en" class="ie6 ielt8"> <![endif]-->
+<!--[if IE 7 ]>    <html lang="en" class="ie7 ielt8"> <![endif]-->
+<!--[if IE 8 ]>    <html lang="en" class="ie8"> <![endif]-->
+<!--[if (gte IE 9)|!(IE)]><!--> <html lang="en"> <!--<![endif]-->
+<head>
+<style type="text/css">
+	#global
+{
+     width: 902px;
+  
+}
+ body {
+  background-color: #FB7883;
+  color: #606468;
+  font: 400 0.875rem/1.5 "Open Sans", sans-serif;
+  margin: 0;
+  min-height: 100%;
+}
+</style>
+
+
+<meta charset="utf-8">
+<link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+  <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
+
+  <script type="text/javascript" src="js.js"></script>
+
+  <link rel="stylesheet" type="text/css" href="css/css.css">
+<title>Authentification </title>
+
+</head>
+<body >
+
+<div id="contact">
+	<h1><strong><u>Kalmouni NADA</u></Strong></h1>
+	<h2><u>Connexion</u></h2>
+	<form action="#" method="post">
+		<fieldset>
+			<center><label for="name" color="background-color: #3b4148">First Name:</label>
+			<input type="text" id="name" placeholder="Enter your first name" /></center>
+			<br><br>
+
+			<center>
+			<label for="email">Last Name:</label>
+			<input type="email" id="email" placeholder="Enter your last name" /></Center>
+			<br><br>
+			<center>
+			<label for="message">Email:</label>
+			<textarea id="message" placeholder="Enter your adresse mail"></textarea></center>
+			<br><br>
+			<center>
+			<div>
+			<button type="button" class="myButton" onclick="login()">Se connecter</button>
+			<button type="button" class="myButton" data-toggle="modal" data-target="#myModal">Creer un compte</button>
+			<br><br>
+			<h3 id="pass"></h3>
+
+			<br> 
+			</div>
+			</center>
+			</form><!-- form -->
+		
+	</section><!-- content -->
+</div><!-- container -->
+
+<br><br><br><center>
+<div class="btn-group btn-group-justified">
+  <a href="html/c.html" class="myButton">Creer</a>
+    <br> 
+   <br> 
+  <a href="html/r.html" class="myButton">Vusiluation des tables </a>
+    <br> 
+      <br> 
+  <a href="html/d.html" class="myButton">Supprimer</a>
+</div>
+</center>
+		</fieldset>
+	</form>
+</div>
+<!-- Modal -->
+<div id="myModal" class="modal fade" role="dialog">
+  <div class="modal-dialog">
+
+    <!-- Modal content-->
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal">&times;</button>
+        <h4 class="modal-title">Creer votre compte.</h4>
+      </div>
+      <div class="modal-body">
+        <input type="text" class="form-control" id="clogin" placeholder="Votre Login">
+      </div>
+      <div class="modal-footer">
+        <center>
+        <button type="button" class="myButton"  onclick="creerpersonne()">Creer</button>
+        </center>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+</body>
+</html>
