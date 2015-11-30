@@ -1,3 +1,12 @@
+<?php
+/*
+session_start();
+
+if (!isset($_SESSION['nom'])) {
+    header('Location: index.html');
+}
+*/
+?>
 <!DOCTYPE html>
 <html>
 
@@ -11,24 +20,24 @@
 </style>
 </head>
 <body>
-    <center>
-		<div id="titre">
+<center>
+	<div id="titre">
 			
-			<h1>Jeux carte</h1>
-		</div>
-		<div>
+		<h1>Jeux carte</h1>
+	</div>
+	<div>
 		   <h1 id="m" style="display:none">où se trouve PARIS </h1>
 		   <img name="myimage" id="id1" src="doc1.png" width="60" height="60" alt="word" style="display:none" />
-		 </div>
-    </center>
+	</div>
+</center>
     <div id="map" style="display:none"></div>
     <br>
-    <center>
-        <div>
-            <label id="resultat" style="display:none"></label>
-        </div>
-		
-  
+	<center>
+    <div id="resultat" style="display:none">
+            
+    </div>
+	</center>	
+	<center>
 	  <div id="lien" style="display:none">
 	    <button type="button"  onclick="window.location.href='html/c.html'">Creer</button><br><br>
 	    <button type="button"  onclick="window.location.href='html/r.html'">Afficher</button><br><br>
@@ -39,22 +48,56 @@
     </center>
     <br>
     <br>
-
+<center>
     <div id="container" style="display:block">
-    
-    
-			<label for="name">Entrer votre Login Github </label>
-			
-			<input type="name" id="logGithub">
-			
+		<center>
+		<p><strong>Ce connecter</strong></p>
+			<div id="img">
+				<img src="github.png" class="img-responsive" style="height: 137px;" />
+			</div>
+			<div id="form">
+				<input class="form-control" placeholder="Votre Login GitHub" id="logGithub" type="text">
+			</div>
+			<div id="btn">
 			<input type="submit" onClick="affichage()" value="Se connecter">
-    
+			<center>
+	<div id="creer">
+      <center>
+        
+        <h4 class="modal-title">Creer votre compte.</h4>
+      
+        <input type="text" class="form-control" id="pidpersonne" placeholder="Votre Login">
+      
+      <button type="button" class="btn btn-info btn-block"  onclick="creerpersonne()">Creer</button>
+        
+    </center>
+    </div>
+
+			</div>
+    </center>
   </div>
-
-
     <script type="text/javascript">
 	
+	function creerpersonne(){
+
+		var nom = document.getElementById("pidpersonne").value;
 	
+
+		creaPers({"nom":nom});
+
+	}
+
+	function creaPers(data){
+
+		data.table = "personnes";
+
+		$.get('php/c.php',
+				data,
+	        		function(html){
+					alert('Personne Bien ajoutée.');
+	       		});	
+
+}
         var name;
 
         var myStyle = [{
@@ -127,22 +170,10 @@
             map.addListener('click', function(event) {
                 addMarker(event.latLng);
             });
-
-            
-
-
-
-
         }
-
-
-
         function addMarker(location) {
-
-
             setMapOnAll(null);
             nbclic = parseInt(nbclic) + 1;
-
             var marker = new google.maps.Marker({
                 position: location,
                 map: map
@@ -151,7 +182,6 @@
                 lat: 48.855159,
                 lng: 2.361385
             });
-
             markers[0] = marker;
             var distance = parseInt(google.maps.geometry.spherical.computeDistanceBetween(point, markers[0].getPosition())) ;
             
@@ -160,17 +190,12 @@
                 "id_perso": 2,
                 "distance": distance
             });
-
-            
-
             poly = new google.maps.Polyline({
                 strokeColor: '#FF0000',
                 strokeOpacity: 1.0,
                 strokeWeight: 3,
                 map: map,
             });
-
-
             var path = [marker.getPosition(), point];
             if (nbclic > 4) {
                 poly.setPath(path);
@@ -183,15 +208,11 @@
                 deleteMarkers();
                 document.getElementById('resultat').innerHTML = "vous êtes à " + distance / 1000 + " km";
             }
-
-
             if (distance < 7000) {
                 document.getElementById('resultat').innerHTML = "VOUS AVEZ GAGNÉ";
                 nbclic = 0;
             }
-
         }
-
         function deleteMarkers() {
             clearMarkers();
             markers = [];
@@ -211,11 +232,9 @@
             }
         }
 
-
-
         function creaScore(data) {
             data.table = "score";
-            $.get('c.php',
+            $.get('php/c.php',
                 data);
         }
 
