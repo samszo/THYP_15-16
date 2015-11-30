@@ -109,47 +109,65 @@ function readallScores(){
   $.ajax({url :'../php/r.php',
         data: data ,
         success : function (html){
-          score = JSON.parse(html);
-        remplirscores(score);
+          tabscores = JSON.parse(html);
+        remplirscores();
     }
         });
   
 }
 
-function remplirscores(scores){
-
-scores.forEach(function(s){
-        tabscores.push({ recid: s["id_scores"], recid: s["id_perso"], recid:s["id_doc"], int: s["distance"], text: s["maj"], check: false});
-    });
-
-$(function () {
-    $('#grid2').w2grid({ 
-        name: 'grid2', 
+function remplirscores(){
+	gridScore.records = tabscores;
+    $('#grid2').w2grid(gridScore);    
+	w2ui.scoreGrid.on('*', function (target, eventData) {
+    console.log(target);
+    console.log(eventData);
+	});
+}
+var gridScore = { 
+        name: 'scoreGrid', 
         show: { 
             toolbar: true,
             footer: true,
-            toolbarSave: false
+            toolbarSave: true,
+			toolbarReload   : true,
         },
         columns: [                
             { field: 'recid', caption: 'ID scores', size: '50px', sortable: true, resizable: true },
-            { field: 'recid', caption: 'ID perso', size: '50px', sortable: true, resizable: true },
-            { field: 'recid', caption: 'ID doc', size: '50px', sortable: true, resizable: true },
-            { field: 'int', caption: 'distance', size: '80px', sortable: true, resizable: true
+            { field: 'id_perso', caption: 'ID perso', size: '50px', sortable: true, resizable: true },
+            { field: 'id_doc', caption: 'ID doc', size: '50px', sortable: true, resizable: true },
+            { field: 'distance', caption: 'distance', size: '80px', sortable: true, resizable: true
+			,editable: { type: 'int' }
             },
             
-            { field: 'text', caption: 'date', size: '120px', sortable: true, resizable: true
+            { field: 'maj', caption: 'date', size: '120px', sortable: true, resizable: true
             },
             
            { field: 'check', caption: 'select', size: '60px', sortable: true, resizable: true, 
                 editable: { type: 'checkbox' } 
             }
         ],
-       
-        records: tabscores
-    });    
-});
+		onSave: function(event) {
+			console.log(event);
+		},
+		 /*
+		onSave: function(event) {
+		 console.log(event);
+		
+		            var changes = w2ui['grid2'].getChanges();
+		            changes.forEach(function(c, i){
+			            c.table = 'score';
+						$.get('../php/u.php',
+							c,
+							function(html){
+								if(changes.length==i+1)w2alert(html);
+							});                        
+		            });
+					
+		        },       
+		*/
+    };
 
-}
 /*
 function showChanged() {
     console.log(w2ui['grid'].getChanges()); 
