@@ -90,7 +90,7 @@
 			});
 			function showChanged() {
 				console.log(w2ui['grid'].getChanges()); 
-				w2alert('Changed records are displayed in the console');
+				//w2alert('Changed records are displayed in the console');
 			}
 		</script>
 		
