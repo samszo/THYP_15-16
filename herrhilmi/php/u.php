@@ -1,7 +1,9 @@
 <?php
 include_once 'connect.php';
 
-switch ($_GET["table"] || $_POST["table"]) {
+$table = isset($_GET["table"]) ? $_GET["table"] : $_POST["table"];
+
+switch ($table) {
 	case "score":
 		updateScore($_GET);
 		break;
@@ -15,7 +17,6 @@ switch ($_GET["table"] || $_POST["table"]) {
 		updatePersonnesForW2UIGrid();
 		break;
 	default:
-		;
 	break;
 }
 
@@ -58,19 +59,22 @@ function updateDocument($data){
 function updatePersonnesForW2UIGrid()
 {
 	global $conn;
-	$list= array();
+	$list = array();
 	
-	$changes = $_POST["changed"];
+	$changes = $_POST["data"];
 	
 	foreach($changes as $row)
 	{
-		$sql = " update personnes set nom = '".$row["text"]."' where id_perso = ".$row["recid"];
+		
+		$sql = "update personnes set nom = '".$row["text"]."'  where id_perso = ".$row["recid"];
 		
 		$conn->query($sql);
+		$list[] = $row;
 	}
 	
-	$list["status"] = "success";
+	
 	echo json_encode($list);
+	
 	
 }
 
