@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<link rel="stylesheet" type="text/css" href="style.css">
+		<link rel="stylesheet" type="text/css" href="http://w2ui.com/src/w2ui-1.4.2.min.css" />
+		<script src="http://ajax.googleapis.com/ajax/libs/jquery/2.1.0/jquery.min.js"></script>
+		<script type="text/javascript" src="http://w2ui.com/src/w2ui-1.4.2.min.js"></script>
+		<script defer src="script.js"></script>
+		
+	</head>
+	
+	<body>
+		
+			
+		<div id="container-admin">
+		
+			<div id="insererDocument" class="block-div">
+				<div id="info-input">
+					
+					
+					<div class="insert-row">
+						<h4 id="log_document" class="title-error" align=center style="display:none"></h4>
+					</div>
+				</div>
+				<div id="map"></div>
+			</div>
+		
+			<div id="rudPersonne" class="block-div">
+				<h3 class="title-admin">CRUD Personnes</h3>
+				<div id="grid" style="width: 100%; height: 400px;"></div>	
+			</div>
+			<div id="rudDocument" class="block-div">
+				<h3 class="title-admin">CRUD Document</h3>
+				<div id="griddocument" style="width: 100%; height: 400px;"></div>
+			</div>
+			<div id="rudScore" class="block-div">
+				<h3 class="title-admin">CRUD Score</h3>
+				<div id="gridscores" style="width: 100%; height: 400px;"></div>
+			</div>
+		</div>
+		
+		<script async defer
+			src="https://maps.googleapis.com/maps/api/js?key=AIzaSyA2if9AAOczvJsdkquqIjhM6tSK50yWtXk&callback=initMap&libraries=geometry">
+		</script>
+	</body>
+</html>
