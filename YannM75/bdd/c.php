@@ -1,6 +1,7 @@
 <?php
-include_once 'connect.php';
-include_once './lib/toolKit.php';
+	include_once '../lib/toolKit.php';
+	include_once 'connect.php';
+
 
 switch ($_GET["table"]) {
 	case "score":
@@ -44,14 +45,14 @@ function createPersonne($data){
 
 function createDocument($data){
 	global $conn;
-	
-	$sql = "INSERT INTO documents (nom, latlng, url) VALUES (".$data["nom"].", ".$data["latlng"].", ".$data["url"].")";
+	debug_to_console('fct create doc c.php');
+	/*$sql = "INSERT INTO documents (nom, latlng, url) VALUES (".$data["nom"].", ".$data["latlng"].", ".$data["url"].")";
 	//echo $sql;
 	if ($conn->query($sql) === TRUE) {
 		debug_to_console('create document successfully');
 	} else {
 	    debug_to_console('Error create Document. SQL : '. $sql );
-	}	
+	}*/
 }
 $conn->close();
 ?>

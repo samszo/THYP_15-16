@@ -165,7 +165,6 @@ function selectPersonnesForW2UIGrid(){
 			$grid_row = array();
 			$grid_row["recid"] = $row["id_perso"];
 			$grid_row["text"]= $row["nom"];
-			$grid_row["check"] = false;
 			$records[] = $grid_row;
 		}
 		
@@ -193,7 +192,6 @@ function selectDocumentsForW2UIGrid(){
 			$grid_row["text"]= $row["nom"];
 			$grid_row["position"]=$row["lat"]." ".$row["lng"];
 			$grid_row["url"]=$row["url"];
-			$grid_row["check"] = false;
 			$records[] = $grid_row;
 		}
 		
@@ -223,7 +221,6 @@ function selectScoresForW2UIGrid(){
 			$grid_row["document"]= $row["nom_doc"];
 			$grid_row["distance"]= $row["distance"];
 			$grid_row["time"]= $row["maj"];
-			$grid_row["check"] = false;
 			$records[] = $grid_row;
 		}
 		

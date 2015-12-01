@@ -41,7 +41,6 @@
 					url: 'bdd/r.php',
 					data: data,
 					success: function(html){
-						console.log('fct to get all documents');
 						list_documents = JSON.parse(html);
 						prepareRecords();
 					}
@@ -90,12 +89,13 @@
 			});
 			function showChanged() {
 				console.log(w2ui['grid'].getChanges()); 
-				w2alert('Changed records are displayed in the console');
+				//w2alert('Changed records are displayed in the console');
+				
 				var changement = w2ui['grid'].getChanges();
 				for (i = 0; i < changement.length; i++){
 					var element = changement[i];
 					if(eltAlreadyExist(element)){
-						console.log('Succes');
+						//update
 					}else{
 						//Si pas de document existant avec cet ID alors on l'insert
 						createNewDoc(element);
@@ -103,17 +103,15 @@
 				}
 			}
 			function eltAlreadyExist(elt){
-				console.log(elt);
 				var data = {"table":"document"};
 				data = {"id":elt["recid"]};
-				console.log('id = ' + elt["recid"]);
+				
 				$.ajax({
 					url: 'bdd/r.php',
 					data: data,
 					success: function(html){
-						console.log('fct to get a document');
 						
-						 try {
+						try {
 							list_documents = JSON.parse(html);
 						}
 						catch(err) {
@@ -129,17 +127,16 @@
 				});
 			}
 			function createNewDoc(elt){
-				/*var data = {"table":"document"};
-				data = {"id":elt["recid"]};
-				$data["nom"]
-				console.log('id = ' + elt["recid"]);
+				
+				//var data = {"table":"addDocument", "id":elt["recid"], "nom":elt["Nom"], "url":elt["url_IMG"], "lng":elt["lng"], "lat":elt["lat"] };
+				//console.log(data);
+				var dataTest = {"table":"addDocument"};
 				$.ajax({
-					url: 'bdd/c.php',
-					data: data,
+					url: 'bdd/controler.php',
+					data: dataTest,
 					success: function(html){
-						console.log('fct to create a document');
 					}
-				});*/
+				});
 			}
 		</script>
 		
