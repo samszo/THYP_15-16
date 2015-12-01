@@ -4,42 +4,41 @@
 	border:2px outset; 
 	color:  white; 
 	background-color: rgba(22, 122, 198, 1); 
-	margin-top: 1px;
+	margin-top: 0.2%;
 	}
 	
-#map { width: 1000px; height: 500px; margin-top: 60px; padding: 0;  border:2px inset; float: right;margin-right:5%; display:none;}
+#map { width: 1000px; height: 500px; margin-top: 5%; padding: 0;  border:3px outset; float: right;margin-right:5%; display:none;}
 
 #question  {
 	color:  #3a5795; 
 	font-size: 20px;
 	width: 500px; 
 	height: 500px;
-	border:2px outset; 	
-	margin-top: 60px;
-	margin-left: 150px;
+	border:3px inset;	
+	margin-top: 5%;
+	margin-left: 10%;
 	float:left;
 	margin-right: 50px;
 	display: none;
 	}
 #connexion {
-		margin-left: 680px;
-		margin-top: 10px;
+		margin-left: 40%;
 		text-align: left; 
-		width: 1000px; 
-		height: 1000px;
+		width: 600px; 
+		height: 100px;
 
 }
 #titre-connexion {
 	
-	margin-top: 210px;
+	margin-top: 15%;
 	font-size: 25px; 
 	color:  rgba(22, 122, 198, 1); 
 	display:block;
-	margin-left:750px;
+	margin-left:40%;
 
 }
 #afficheNom{
-	margin-top: 20px;
+	margin-top: 2%;
 	font-size: 20px; 
 	text-align: left; 
 	color:  #3a5795; 

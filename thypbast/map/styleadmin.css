@@ -4,7 +4,7 @@ div#titre {
 	border:2px outset; 
 	color:  white; 
 	background-color: #3a5795; 
-	margin-top: 1px;
+	margin-top: 2%;
 	width: 717px; 
 	}
 	
@@ -14,8 +14,8 @@ div#bandeau {
 	border:2px outset; 
 	color:  white; 
 	background-color: #3a5795; 
-	margin-top: 1px;
-	width: 717px; 
+	margin-top: 1%;
+	width: 800px; 
 	}
 	
 div#map { width: 1000px; height: 500px; margin-top: 50px; margin-left: 350px; padding: 0;  border:2px inset;}

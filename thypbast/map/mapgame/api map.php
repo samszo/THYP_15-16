@@ -1,7 +1,6 @@
 <?php 
 include "mykey.php";
 ?>
-<!DOCTYPE html>
 <html>
   <head>
      
@@ -11,7 +10,7 @@ include "mykey.php";
   </head>
   <body>
      
-     <div id="titre" style="height: 50px ">Map Game</div>
+     <div id="titre" style="height: 6% ">Map Game</div>
 	 <div id="titre-connexion"> Connectez-vous !</div>
 	
 	 <div id="connexion"> 
