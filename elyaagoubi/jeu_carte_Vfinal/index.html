@@ -1,0 +1,64 @@
+<html>
+<head>
+<meta charset="utf-8">
+<link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+  <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
+  <script src="script.js" ></script>
+  
+<title>Bienvenue</title>
+
+</head>
+<body>
+<center><div class="container">
+	<section id="content">
+		<form action="">
+			<h1>Authentification avec compte Github</h1>
+			<img src="img/github.png" height="200px"> </img></br></br>
+			<div>
+				<input type="text" placeholder="login" required="Champs obligatoire" id="username" />
+			</div>
+			</br></br>
+			<div>
+			<button type="button" class="btn btn-success" onclick="login()">Se connecter</button>
+			<button type="button" class="btn btn-success"" data-toggle="modal" data-target="#myModal">Creer un compte</button>
+			<br><br>
+			<h3 id="pass"></h3>
+
+			<br> 
+			</div>
+		</form><!-- form -->
+		
+	</section><!-- content -->
+</div><!-- container --></center>
+
+            <!-- Modal -->
+<div id="myModal" class="modal fade" role="dialog">
+  <div class="modal-dialog">
+
+    <!-- Modal content-->
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal">&times;</button>
+        <h4 class="modal-title">Creer votre compte.</h4>
+      </div>
+      <div class="modal-body">
+        <input type="text" class="form-control" id="clogin" placeholder="Votre Login">
+      </div>
+      <div class="modal-footer">
+      <button type="button" class="btn btn-success"  onclick="creerpersonne()">Creer</button>
+        
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<div>
+
+ <a href="gestion_CRUD.html" class="btn btn-success">Lire les données </a>
+ </div>
+
+</body>
+
+</html>
