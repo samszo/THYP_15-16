@@ -53,20 +53,20 @@ if (!isset($_SESSION['nom'])) {
 		<center>
 		<p><strong>Ce connecter</strong></p>
 			<div id="img">
-				<img src="github.png" class="img-responsive" style="height: 137px;" />
+				<img src="github.png" class="img-responsive" style="height: 137px;" /><br>
 			</div>
 			<div id="form">
-				<input class="form-control" placeholder="Votre Login GitHub" id="logGithub" type="text">
+				<input class="form-control" placeholder="Votre Login GitHub" id="logGithub" type="text"><br>
 			</div>
-			<div id="btn">
+			<div id="btn"><br>
 			<input type="submit" onClick="affichage()" value="Se connecter">
 			<center>
 	<div id="creer">
       <center>
         
-        <h4 class="modal-title">Creer votre compte.</h4>
+        <p><h4 class="modal-title">Creer votre compte.</p></h4><br>
       
-        <input type="text" class="form-control" id="pidpersonne" placeholder="Votre Login">
+        <input type="text" class="form-control" id="pidpersonne" placeholder="Votre Login"><br><br>
       
       <button type="button" class="btn btn-info btn-block"  onclick="creerpersonne()">Creer</button>
         
