@@ -170,7 +170,7 @@ function rDocuments(){
 function remplirGridDocuments(documents){
 
 documents.forEach(function(s){
-        tableau3.push({ recid: s["id_doc"], text1: s["nom"], position:s["ST_AsText(latlng)"], text2: s["url"], check: false});
+        tableau3.push({ recid: s["id_doc"], text1: s["nom"], position:s["latlng"], text2: s["url"], check: false});
     });
 
 $(function () {
