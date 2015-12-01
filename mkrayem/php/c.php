@@ -30,9 +30,6 @@ function createScore($data){
 }
 function createPersonne($data){
 	global $conn;
-	
-	
-	
 	$sql = "INSERT INTO personnes (nom)
 	VALUES ('".$data["nom"]."')";
 	echo $sql;
@@ -44,13 +41,13 @@ function createPersonne($data){
 }
 function createDocument($data){
 	global $conn;
-$nom
+
 	$latIng = $data["latIng"];
 	$longIng = $data["longIng"];
 	$location = 'POINT(' . $latIng . " " . $longIng . ')';
 	
 
-	$sql = "INSERT INTO documents (nom, latlng,longIng, url)
+	$sql = "INSERT INTO documents (nom, latlng, url)
 
 	VALUES ('".$data["nom"]."', GeomFromText('$location') , '".$data["url"]."')";
 	//echo $sql;
@@ -64,6 +61,27 @@ $nom
 
 
 
+}
+function auth($data){
+	global $conn;
+	$sql = "SELECT * FROM personnes WHERE nom='".$data["nom"]."'";
+	//echo $sql;
+	$result = $conn->query($sql);
+	if ($result->num_rows!=null) {
+		while($row = $result->fetch_assoc()) {
+			
+			$_SESSION['id'] = $row["id_perso"];
+					
+		}
+		$_SESSION['nom'] = $data["nom"];
+		echo json_encode(true);
+		return;
+
+	} else {
+		echo json_encode(false);
+		return;
+
+	}	
 }
 
 

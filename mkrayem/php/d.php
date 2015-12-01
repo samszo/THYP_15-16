@@ -2,13 +2,13 @@
 include_once 'connect.php';
 
 switch ($_GET["table"]) {
-	case "score":
+	case "scores":
 		deleteScore($_GET);
 		break;
-	case "personne":
+	case "personnes":
 		deletePersonne($_GET);
 		break;
-	case "document":
+	case "documents":
 		deleteDocument($_GET);
 		break;		
 	default:
@@ -20,7 +20,7 @@ function deleteScore($data){
 	global $conn;
 	
 	// sql to delete a record
-	$sql = "DELETE FROM scores WHERE id_scores=".$data["id"]." ";
+	$sql = "DELETE FROM scores WHERE id_scores=".$data["id_scores"]." ";
 
 	if ($conn->query($sql) === TRUE) {
 	    echo "Score deleted successfully";
@@ -33,7 +33,7 @@ function deletePersonne($data){
 	global $conn;
 	
 	// sql to delete a record
-	$sql = "DELETE FROM personnes WHERE id_perso=".$data["id"]." ";
+	$sql = "DELETE FROM personnes WHERE id_perso=".$data["id_perso"]." ";
 
 	if ($conn->query($sql) === TRUE) {
 	    echo "Personne deleted successfully";

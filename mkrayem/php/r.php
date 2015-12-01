@@ -2,32 +2,34 @@
 include_once 'connect.php';
 
 switch ($_GET["table"]) {
-	case "score":
+	
+	case "scores":
 		readScore($_GET);
 		break;
-	case "personne":
+	case "personnes":
 		readPersonne($_GET);
 		break;
-	case "document":
+	case "documents":
 		readDocument($_GET);
 		break;		
 	default:
 		;
 	break;
 }
-
 function readScore($data){
 	global $conn;
 	
 	$sql = "SELECT * FROM scores";
 	$result = $conn->query($sql);
 	//echo $sql;
+	$lists= array();
 	if ($result->num_rows > 0) {
     // output data of each row
-		echo "<h1>Résultat Table score</h1>";
+		
 	    while($row = $result->fetch_assoc()) {
-	        echo "id: " . $row["id_scores"]. " - id perso: " . $row["id_perso"]. " - id doc " . $row["id_doc"]. " - distance " . $row["distance"]. " - maj " . $row["maj"]."<br>";
+	        $lists[] = $row;
 	    }
+	    echo json_encode($lists);
 	} else {
     	echo "0 results";
 	}	
@@ -39,12 +41,14 @@ function readPersonne($data){
 	$sql = "SELECT * FROM personnes";
 	$result = $conn->query($sql);
 	//echo $sql;
+	$lists= array();
 	if ($result->num_rows > 0) {
     // output data of each row
-		echo "<h1>Résultat Table personnes</h1>";
+		
 	    while($row = $result->fetch_assoc()) {
-	        echo "id: " . $row["id_perso"]. " - Nom : " . $row["nom"]. "<br>";
+	          $lists[] = $row;
 	    }
+	    echo json_encode($lists);
 	} else {
     	echo "0 results";
 	}	
@@ -53,20 +57,20 @@ function readPersonne($data){
 function readDocument($data){
 	global $conn;
 	
-	$sql = "SELECT id_doc,nom, AsText(`latlng`), url FROM documents";
+	$sql = "SELECT id_doc,nom, latIng, url FROM documents";
 	$result = $conn->query($sql);
 	//echo $sql;
+	$lists= array();
 	if ($result->num_rows > 0) {
     // output data of each row
-		echo "<h1>Résultat Table documents</h1>";
+		//echo "<h1>Résultat Table documents</h1>";
 	    while($row = $result->fetch_assoc()) {
-	        echo "id: " . $row["id_doc"]. " - Nom : " . $row["nom"]." - LatLng : " . $row["AsText(`latlng`)"]." - URL : " . $row["url"] . "<br>";
+	        $lists[] = $row;
 	    }
+	    echo json_encode($lists);
 	} else {
     	echo "0 results";
 	}	
 }
-
-
 
 $conn->close();

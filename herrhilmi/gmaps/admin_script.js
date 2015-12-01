@@ -5,6 +5,7 @@ var people= [];
 var scores= [];
 
 
+	
 /* init Maps and load all documents
 **/
 function initMap() {
@@ -78,6 +79,22 @@ function insertDocument()
 
 }
 
+
+function savePersonnes(changes)
+{
+	var data = {"data": changes, "table" : "personnesw2ui"};
+	
+	$.ajax({
+	  type: "POST",
+	  url: '../php/u.php',
+	  data: data,
+	  success: function(html){
+			w2ui.grid.reload();	
+		}
+	});
+
+}
+
 function populateGridPersonnes()
 {
 	$('#grid').w2grid({ 
@@ -85,7 +102,6 @@ function populateGridPersonnes()
 		url : {
 				get    : '../php/r.php?table=personnesw2ui',
 				remove : '../php/d.php?table=personnesw2ui',
-				save : '../php/u.php?table=personnesw2ui'
 			},
 		show: { 
 			toolbar: true,
@@ -94,17 +110,23 @@ function populateGridPersonnes()
 			toolbarSave: true
 		},
 		columns: [                
-			{ field: 'recid', caption: 'ID', size: '80px', sortable: true, resizable: true },
-			{ field: 'text', caption: 'Login Github', size: '740px', sortable: true, resizable: true, 
+			{ field: 'recid', caption: 'ID', size: '10%', sortable: true, resizable: true },
+			{ field: 'text', caption: 'Login Github', size: '90%', sortable: true, resizable: true, 
 				editable: { type: 'text' }
-			},
-			{ field: 'check', caption: 'cocher', size: '100px', sortable: true, resizable: true, 
-				editable: { type: 'checkbox' } 
 			}],
-		postData: {
-			table : 'personnesw2ui'
+		onSave: {
+		function(event){
+			
 		}
-	});    
+		}
+		});  
+	w2ui.grid.on('*', function (target, eventData) {
+	   if(target ==="w2ui-save"){
+		if(w2ui.grid.getChanges().length > 0){
+			savePersonnes(w2ui.grid.getChanges());
+		}
+	   }
+	});
 }
 
 function populateGridDocuments()
@@ -122,11 +144,10 @@ function populateGridDocuments()
 			toolbarSave: true
 		},
 		columns: [                
-			{ field: 'recid', caption: 'ID Document', size: '40px', sortable: true, resizable: true },
-			{ field: 'text', caption: 'nom', size: '220px', sortable: true, resizable: true},
-			{ field: 'position', caption: 'position', size: '240px', sortable: true, resizable: true},
-			{ field: 'url', caption: 'link', size: '280px', sortable: true, resizable: true},
-			{ field: 'check', caption: 'Cocher', size: '100px', sortable: false, resizable: true, editable: { type: 'checkbox' }} 
+			{ field: 'recid', caption: 'ID Document', size: '20%', sortable: true, resizable: true },
+			{ field: 'text', caption: 'nom', size: '30%', sortable: true, resizable: true},
+			{ field: 'position', caption: 'position', size: '30%', sortable: true, resizable: true},
+			{ field: 'url', caption: 'link', size: '20%', sortable: true, resizable: true}
 			]
 	});    
 	
@@ -146,12 +167,11 @@ function populateGridScores()
 			toolbarDelete: true
 		},
 		columns: [                
-			{ field: 'recid', caption: 'ID Score', size: '80px', sortable: true, resizable: true },
-			{ field: 'text', caption: 'Login Github', size: '120px', sortable: true, resizable: true, editable: false},
-			{ field: 'document', caption: 'Document', size: '240px', sortable: true, resizable: true, editable: false},
-			{ field: 'distance', caption: 'Distance', size: '160px', sortable: true, resizable: true, editable: false},
-			{ field: 'time', caption: 'Date', size: '140px', sortable: true, resizable: true, editable: false},
-			{ field: 'check', caption: 'Cocher', size: '140px', sortable: false, resizable: true, editable: { type: 'checkbox' }} 
+			{ field: 'recid', caption: 'ID Score', size: '20%', sortable: true, resizable: true },
+			{ field: 'text', caption: 'Login Github', size: '20%', sortable: true, resizable: true, editable: false},
+			{ field: 'document', caption: 'Document', size: '20%', sortable: true, resizable: true, editable: false},
+			{ field: 'distance', caption: 'Distance', size: '20%', sortable: true, resizable: true, editable: false},
+			{ field: 'time', caption: 'Date', size: '20%', sortable: true, resizable: true, editable: false}
 			]
 	});    
 }

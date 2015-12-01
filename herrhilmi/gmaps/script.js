@@ -32,7 +32,6 @@ function checkLogin(){
 	}
 }
 
-
 /* init Maps and load all documents
 **/
 function initMap() {
@@ -246,7 +245,6 @@ function loadDocuments()
 		});
 }
 
-
 /* documents successfuly loaded callback
 **/
 function onDocumentsLoaded()
@@ -332,8 +330,6 @@ function updateScoreTable(score , create_new_row)
 	}
 	
 }
-
-
 
 /* show an element given its Id
 **/

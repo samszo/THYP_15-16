@@ -89,35 +89,47 @@ function suppdoc(){
 
 
 <body>
-
+<center>
 
 
     <!--PREMIER CADRE-->
       <div id="c1">
-	        <h3 class="centre">Supprimer un Score</h3>
-	       		 Supprimez par id score : <input type="number" id="sid"/><br><br>
-	       		 
+	  <center>
+	        <h3>Supprimer un Score</h3>
+			</center>
+	       		 <p><label for="sid">Supprimez par id score : </label><input type="number" id="sid"/></p>
+	       		 <div id="btn">
+				 <center>
 	       		 <button onclick="suppscore()" type="button" >Supprimer</button>
+				 </center>
+				 </div>
  </div>
  <br><br>
     <!--SECOND CADRE-->
     <div id="c2">
-        <h3 class="centre">Supprimer une Personne</h3>
-         	Supprimez par id personne : <input type="number" id="pid"/><br><br>
-	       		 
-	       		 <button onclick="supppers()" type="button" >Supprimer</button>
-
+	<center>
+        <h3>Supprimer une Personne</h3>
+		</center>
+         	<p><label for="pid">Supprimez par id personne : </label><input type="number" id="pid"/><p>
+	       	 <div id="btn">
+			 <center>
+	       <button onclick="supppers()" type="button" >Supprimer</button>
+		   </center>
+			</div>
  </div>
   <br><br>
     <!--third CADRE-->
    <div id="c3">
-        <h3 class="centre">Supprimer un Document</h3>
-         		Supprimez par id Document : <input type="number" id="did"/><br><br>
-	       		 
+   <center>
+        <h3>Supprimer un Document</h3>
+		</center>
+         		<p><label for="did">Supprimez par id Document : </label><input type="number" id="did"/></p><br><br>
+	       		 <div id="btn">
 	       		 <button onclick="suppdoc()" type="button" >Supprimer</button>
+				 </div>
   </div>
 
  <br><br>
-
+</center>
 </body>
 </html>
