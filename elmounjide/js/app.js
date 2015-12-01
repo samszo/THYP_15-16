@@ -22,7 +22,7 @@
             latitude = pos.lat;
             longitude = pos.lng;
 
-            document.getElementById("util").value=localStorage.getItem('personneName');
+            document.getElementById("util").value=localStorage.getItem('login');
 
             infoWindow.setPosition(pos);
             infoWindow.setContent('Location found');
