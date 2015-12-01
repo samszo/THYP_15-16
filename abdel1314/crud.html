@@ -83,7 +83,7 @@ $(function () {
 var tableau2=[];
 rScores();
 function rScores(){
-  data = {"table":"scores"};
+  data = {"table":"score"};
   $.ajax({url :'r.php',
         data: data ,
         success : function (html){
@@ -170,7 +170,7 @@ function rDocuments(){
 function remplirGridDocuments(documents){
 
 documents.forEach(function(s){
-        tableau3.push({ recid: s["id_doc"], text1: s["nom"], position:s["ST_AsText(latlng)"], text2: s["url"], check: false});
+        tableau3.push({ recid: s["id_doc"], text1: s["nom"], position:s["X(latlng)"], text2: s["url"], check: false});
     });
 
 $(function () {
@@ -182,10 +182,10 @@ $(function () {
             toolbarSave: false
         },
         columns: [                
-            { field: 'recid', caption: 'id_doc', size: '50px', sortable: true, resizable: true },
+            { field: 'recid', caption: 'ID doc', size: '50px', sortable: true, resizable: true },
             { field: 'text1', caption: 'nom', size: '50px', sortable: true, resizable: true },
-            { field: 'position', caption: 'latlng', size: '50px', sortable: true, resizable: true },
-            { field: 'text2', caption: 'url', size: '80px', sortable: true, resizable: true
+            { field: 'position', caption: 'coordonnee', size: '50px', sortable: true, resizable: true },
+            { field: 'text2', caption: 'lien', size: '80px', sortable: true, resizable: true
             },
             { field: 'check', caption: 'select', size: '60px', sortable: true, resizable: true, 
                 editable: { type: 'checkbox' } 
