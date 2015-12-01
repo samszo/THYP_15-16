@@ -111,8 +111,11 @@ function populateGridPersonnes()
 		},
 		columns: [                
 			{ field: 'recid', caption: 'ID', size: '10%', sortable: true, resizable: true },
-			{ field: 'text', caption: 'Login Github', size: '90%', sortable: true, resizable: true, 
+			{ field: 'nom', caption: 'Login Github', size: '90%', sortable: true, resizable: true, 
 				editable: { type: 'text' }
+			},
+			{ field: 'formation', caption: 'Formation', size: '90%', sortable: true, resizable: true
+				
 			}],
 		onSave: {
 		function(event){

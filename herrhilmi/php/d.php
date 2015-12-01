@@ -48,7 +48,7 @@ function deleteScore($data){
 function deletePersonne($data){
 	global $conn;
 	
-	$sql = "DELETE FROM personnes where ( id_perso =".$data["id_perso"].")";
+	$sql = "DELETE FROM personnes where ( id_perso =".$data["recid"].")";
 	//echo $sql;
 	if ($conn->query($sql) === TRUE) {
 	    echo "personne deleted successfully";

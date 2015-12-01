@@ -66,7 +66,7 @@ function updatePersonnesForW2UIGrid()
 	foreach($changes as $row)
 	{
 		
-		$sql = "update personnes set nom = '".$row["text"]."'  where id_perso = ".$row["recid"];
+		$sql = "update personnes set nom = '".$row["nom"]."'  where id_perso = ".$row["recid"];
 		
 		$conn->query($sql);
 		$list[] = $row;
