@@ -1,8 +1,8 @@
-<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<!DOCTYPE html>
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<title>Trombinoscope El alami</title>
+<title>Trombinoscope</title>
 <script src="../js/jquery.min.js" ></script>
 <script src="../js/d3.v3.min.js" ></script>
 <script src="../js/d3pie.js"></script>
@@ -11,24 +11,31 @@
 
 <style>
 #contenue{
-float:center;
+
+
+text-align: center;
 }
-#h1{
-background-color:#jhhgi;
+body{
+
 }
 .items{
 	display:flex;	
 	padding: 3px;
-	border:2px solid black;
+	border:2px inset black;
+	padding-left: 10%;
 }
+p{
+	font-size: 25px;	
+}
+
+
+
+
 .data{
-	float:left;
-	margin: 3px;
-	color:#CC00FF;
+	float:center;
+	margin: 10px;
 	
-}
-.iTof{
-	float:left;
+	
 }
 
 </style>
@@ -50,7 +57,7 @@ var urlDiigo = "https://www.diigo.com/user/";
 		                         function()
 		                         {
 		                        	 	//console.log(this.attributes[1].nodeValue);
-		                            $('<div class="items" id="link_' + i + '"></div>').html('<img onclick="voirData(' + i + ')" src="' + this.attributes[1].nodeValue + '" />').appendTo('#contenue');
+		                            $('<div class="items" id="link_' + i + '"></div>').html('<img  width="400px" height="500px"  src="' + this.attributes[1].nodeValue + '" />').appendTo('#contenue');
 			                       i++;
 		                          });
 			           		   	d3.csv("../php/lecteurFlux.php?url=THYP1516data", function(data) {
@@ -72,30 +79,19 @@ var urlDiigo = "https://www.diigo.com/user/";
 		        });
 		  }
 		);
-	//chercher les data
-	function voirData(id){
-		
-		dataEtu.forEach(function(d){
-			if(d.idPhoto==id && d.idPhoto!=""){
-                
-				
-			}
-		})
-		
-	}
+
 	
 	
 	//afficher les infos 
 	function voirDataLogin(d){
-		var h = d.PrÈnom+" "+d.Nom
+		var h = "<p><b>Pr√©nom: </b>"+ d.Pr√©nom +"</br>"+"<b>Nom: </b>"+d.Nom
 		+"</br>"
-		+" "+d.mail
+		+"<b>Email : </b>"+ d.mail
 		+"</br>"
-		+" "+d["page linkedIn"]
-			+"<br/>"
-			+"<a href='"+urlDiigo+d["login Diigo"]+"'><img height='40px' src='../img/diigo.jpg' /></a>"
-			+"<a href='"+urlGit+d["login Github"]+"'><img height='40px' src='../img/github.png' /></a>"
-			+"<div id='graph"+d.idPhoto+"' />"
+			+"<center><a href='"+urlDiigo+d["login Diigo"]+"'><img hspace='20' height='50px' src='../img/diigo.jpg' /></a>"
+			+"<a href='"+urlGit+d["login Github"]+"'><img hspace='20' height='50px' src='../img/github.png' /></a>"
+			+"<a href='"+d["page linkedIn"]+"'><img hspace='20' height='50px' src='../img/Linkedin.png' /></a></center>"
+			+"<div id='graph"+d.idPhoto+"' /><p>"
               $('<div class="data" id="data_' + d.idPhoto + '"></div>').html(h).appendTo('#link_' + d.idPhoto);
 		creaGraphEtu(d);	
 		
@@ -103,19 +99,19 @@ var urlDiigo = "https://www.diigo.com/user/";
 </script>
 </head>
 <body  >
-<h1>Trombinoscope </h1>
-<h2>El alami Mouad</h2>
+<center><h1 color>Trombinoscope </h1></center>
+<div id="pieChart"></div>
 <div id="contenue"></div>
 
-<div id="pieChart"></div>
+
 
 <script>
-// merci ‡  http://d3pie.org/
+// merci √†  http://d3pie.org/
 var score = {"nul": 0 , "moins nul": 20, "bon":60, "trop bon":80, "expert":100};
 var cats = ["Javascript","CSS","HTML","PHP","SVG","OWL","JAVA","XML",".NET","JSON","Objective-C","Android"];
 //var fctColor = d3.scale.category20();
 //var fctColor = d3.scale.ordinal().domain(cats).range(colorbrewer.RdBu[14]);
-var fctColor = d3.scale.linear().domain([0, 100]).range(["#ff3400", "#3c9a2e"]);
+var fctColor = d3.scale.linear().domain([0, 100]).range(["#0000FF", "#FF0000"]);
 
 function creaGraphEtu(d){
 	
@@ -136,17 +132,18 @@ function creaGraphEtu(d){
 	var pie = new d3pie("graph"+d.idPhoto, {
 		"header": {
 			"title": {
-				"text": "CompÈtences",
+				"text": "Comp√©tences",
 				"fontSize": 24,
 				"font": "open sans"
 			},
 			"subtitle": {
-				"text": "Langages informatiques maitrisÈs ou non",
+				"text": "Langages informatiques maitris√©s ou non",
 				"color": "#999999",
 				"fontSize": 12,
 				"font": "open sans"
 			},
-			"titleSubtitlePadding": 9
+			"titleSubtitlePadding": 9,
+			"location": "pie-center"
 		},
 		"footer": {
 			"color": "#999999",
@@ -155,8 +152,8 @@ function creaGraphEtu(d){
 			"location": "bottom-left"
 		},
 		"size": {
-			"pieInnerRadius": "33%",
-			"pieOuterRadius": "83%"
+			"pieInnerRadius": "60%",
+			"pieOuterRadius": "80%"
 		},
 		"data": {
 			"sortOrder": "value-desc",
@@ -164,7 +161,7 @@ function creaGraphEtu(d){
 		},
 		"labels": {
 			"outer": {
-				"pieDistance": 32
+				"pieDistance": 10
 			},
 			"inner": {
 				"hideWhenLessThanPercentage": 3
@@ -178,7 +175,7 @@ function creaGraphEtu(d){
 			},
 			"value": {
 				"color": "#adadad",
-				"fontSize": 11
+				"fontSize": 12
 			},
 			"lines": {
 				"enabled": true
@@ -191,7 +188,7 @@ function creaGraphEtu(d){
 			"pullOutSegmentOnClick": {
 				"effect": "linear",
 				"speed": 400,
-				"size": 8
+				"size": 10
 			}
 		},
 		"misc": {
