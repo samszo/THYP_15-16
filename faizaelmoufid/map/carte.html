@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html>
+  <head>
+<script>
+var email = window.prompt("Veuillez entrez votre mail");
+if(email) 
+alert (email);
+var emailtest = email;
+var reg = new RegExp('^[a-z0-9]+([_|\.|-]{1}[a-z0-9]+)*@[a-z0-9]+([_|\.|-]{1}[a-z0-9]+)*[\.]{1}[a-z]{2,6}$', 'i');
+
+	if(reg.test(emailtest) == false){
+		alert("Email invalide");
+		email == window.prompt("Veuillez entrez a nouveau votre mail");
+	}
+
+{ 
+    document.write("<center>"+ " votre addresse :  "+ email +"</center>");
+}
+
+</script>
+	<script src="../js/jquery.min.js" ></script>
+      <style type="text/css">
+   
+   h1 {
+      color:#aaabbf;
+    font-size: 250%;
+    }
+    h2 {
+      color:#000000;
+    font-size: 200%;
+    }
+    p {
+    color:#aaaaaa;
+    font-size: 200%;
+    border-width:5px;
+    border-style:groove;
+    border-color:##8E3557;
+    margin-left:250px;
+    margin-right:250px;  
+}
+    html, body { 
+
+      height: 100%; margin: 0; 
+	  padding: 0;
+	  }
+     
+      #map { height: 50%; 
+	  border:3px ridge ##8E3557;
+      padding:10px ; 
+	  margin-left:90px; 
+	  margin-right:90px;;
+      }
+      body {
+
+      background-color: #4A1A2C;
+}
+  </style>
+  </head>
+  <body>
+    <h1>La carte du MAROC </h1>
+<center><p> Ou se trouve la ville de FES ?
+</br>
+  	<div id="result"></div>
+</br>
+</br>
+</p></center>
+  
+    <div id="map"></div>
+    <script type="text/javascript">
+
+var map;
+var markers = [];
+var source;
+function initMap() {
+  var haightAshbury = {lat: 26.65959, lng:-5.64809};
+  
+  map = new google.maps.Map(document.getElementById('map'), {
+    zoom: 6,
+    center: haightAshbury,
+    mapTypeId: google.maps.MapTypeId.HYBRID 
+  });
+  // This event listener will call addMarker() when the map is clicked.
+  map.addListener('click', function(event) {
+    addMarker(event.latLng);
+   
+  });
+source = new google.maps.LatLng({lat:34.00185,lng: -5.00724});
+}
+
+function addMarker(location) {
+    setMapOnAll(null);
+  var marker = new google.maps.Marker({
+    position: location,
+    map: map
+  });
+  markers.push(marker);
+
+  var distance = google.maps.geometry.spherical.computeDistanceBetween( source, marker.getPosition());
+  $("#result").html("La distance :" + (distance/1000) + "km");
+  creaScore({"id_doc":2,"id_perso":2,"distance":distance});
+
+}
+function deleteMarkers() {
+  clearMarkers();
+  markers = [];
+}
+function clearMarkers() {
+  setMapOnAll(null);
+}
+function setMapOnAll(map) {
+  for (var i = 0; i < markers.length; i++) {
+    markers[i].setMap(map);
+  }
+}
+
+function creaScore(data){
+	data.table = "score";
+	$.get('../c.php',
+			data,
+        		function(html){
+				$("#result").html(html);
+       		});	
+}
+
+    </script>
+    <script async defer
+     src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBINqGBPTzfvObEQOg_CSGL4mFvgw_b5wE&libraries=geometry&callback=initMap">
+    </script>
+    </body>
+</html>
+
+
+    
