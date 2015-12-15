@@ -1,0 +1,178 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title></title>
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+  <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
+  
+</head>
+
+<style type="text/css">
+	#global
+{
+     width: 500px;
+  
+}
+ 
+body {
+  background-color: #FB7883;
+  color: #606468;
+  font: 400 0.875rem/1.5 "Open Sans", sans-serif;
+  margin: 0;
+  min-height: 100%;
+}
+
+ 
+.centre
+{
+   
+    margin-left: 70px;
+}
+</style>
+<script type="text/javascript">
+	
+	function creerscore(){
+
+		var idpersonne = document.getElementById("sidpersonne").value;
+		var iddoc = document.getElementById("siddoc").value;
+		var pays = document.getElementById("spays").value;
+
+	
+		creaScore({"id_doc":iddoc,"id_perso":idpersonne,"pays":pays});
+
+	}
+
+	function creaScore(data){
+
+		data.table = "score";
+
+		$.get('../php/c.php',
+				data,
+	        		function(html){
+					alert('Score Bien ajouté.');
+	       		});	
+
+}
+
+//////////////////////////:
+
+function creerpersonne(){
+
+		var nompersonne = document.getElementById("pidpersonne").value;
+	
+
+		creaPers({"nom":nompersonne});
+
+	}
+
+	function creaPers(data){
+
+		data.table = "personne";
+
+		$.get('../php/c.php',
+				data,
+	        		function(html){
+	        		document.getElementById("h").innerHTML = "Personne Bien ajoutée.";
+					
+	       		});	
+
+}
+//////////////////////////:
+
+function creerdocument(){
+
+		var nom = document.getElementById("dnom").value;
+		var pays = document.getElementById("dpays").value;
+		var url = document.getElementById("durl").value;
+		
+
+		creadoc({"nom":nom,"pays":pays,"url":url});
+
+	}
+
+	function creadoc(data){
+
+		data.table = "document";
+
+		$.get('../php/c.php',
+				data,
+	        		function(html){
+	        		document.getElementById("h").innerHTML = "Document Bien ajouté.";
+					
+	       		});	
+
+}
+
+
+.myButton {
+	-moz-box-shadow:inset 0px 1px 0px 0px #fbafe3;
+	-webkit-box-shadow:inset 0px 1px 0px 0px #fbafe3;
+	box-shadow:inset 0px 1px 0px 0px #fbafe3;
+	background:-webkit-gradient(linear, left top, left bottom, color-stop(0.05, #11897F), color-stop(1, #ef027d));
+	background:-moz-linear-gradient(top, #11897F 5%, #ef027d 100%);
+	background:-webkit-linear-gradient(top, #11897F 5%, #ef027d 100%);
+	background:-o-linear-gradient(top, #11897F 5%, #ef027d 100%);
+	background:-ms-linear-gradient(top, #11897F 5%, #ef027d 100%);
+	background:linear-gradient(to bottom, #11897F 5%, #ef027d 100%);
+	filter:progid:DXImageTransform.Microsoft.gradient(startColorstr='#11897F', endColorstr='#ef027d',GradientType=0);
+	background-color:#11897F;
+	-moz-border-radius:6px;
+	-webkit-border-radius:6px;
+	border-radius:6px;
+	border:1px solid #ee1eb5;
+	display:inline-block;
+	cursor:pointer;
+	color:#ffffff;
+	font-family:Arial;
+	font-size:19px;
+	font-weight:bold;
+	padding:6px 24px;
+	text-decoration:none;
+	text-shadow:0px 1px 0px #c70067;
+}
+.myButton:hover {
+	background:-webkit-gradient(linear, left top, left bottom, color-stop(0.05, #ef027d), color-stop(1, #11897F));
+	background:-moz-linear-gradient(top, #ef027d 5%, #11897F 100%);
+	background:-webkit-linear-gradient(top, #ef027d 5%, #11897F 100%);
+	background:-o-linear-gradient(top, #ef027d 5%, #11897F 100%);
+	background:-ms-linear-gradient(top, #ef027d 5%, #11897F 100%);
+	background:linear-gradient(to bottom, #ef027d 5%, #11897F 100%);
+	filter:progid:DXImageTransform.Microsoft.gradient(startColorstr='#ef027d', endColorstr='#11897F',GradientType=0);
+	background-color:#ef027d;
+}
+.myButton:active {
+	position:relative;
+	top:1px;
+
+</script>
+
+
+<body>
+<div id="global">
+   
+    
+    <div><center>
+        <center><h3 class="centre">Creer une Personne</h3></center>
+         	<center>Nom de la personne : <input type="text" id="pidpersonne"/><br><br></center>
+	       		
+	       	<center><button onclick="creerpersonne()" type="button" class="myButton">Creer</button></center>
+
+    </center></div>
+   
+    <div><center>
+        <h3 class="centre">Creer un Document</h3>
+         		Nom du document : <input type="text" id="dnom"/><br><br>
+	       		 Pays : <input type="text" id="dpays" /><br><br>
+	       	
+	       		  URL: <input type="text" id="durl" /><br><br>
+	       		 <button onclick="creerdocument()" type="button" class="myButton">Creer</button>
+    </center></div>
+</div>
+
+<h1 style="text-align:center;" id="h"></h1>
+
+
+</body>
+</html>

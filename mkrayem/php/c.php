@@ -3,21 +3,20 @@ include_once 'connect.php';
 
 switch ($_GET["table"]) {
 	case "scores":
-		createScores($_GET);
+		createScore($_GET);
 		break;
 	case "personnes":
-		createPersonnes($_GET);
+		createPersonne($_GET);
 		break;
 	case "documents":
-		createDocuments($_GET);
+		createDocument($_GET);
 		break;		
 	default:
 		;
 	break;
 }
 
-//créer scores
-function createScores($data){
+function createScore($data){
 	global $conn;
 	
 	$sql = "INSERT INTO scores (id_doc, id_perso, distance, maj)
@@ -29,41 +28,61 @@ function createScores($data){
 	    echo "Error: " . $sql . "<br>" . $conn->error;
 	}	
 }
-
-
-
-// créer personnes 
-function createPersonnes($data){
+function createPersonne($data){
 	global $conn;
-	
-	$sql = "INSERT INTO personnes (id_perso, nom)
-	VALUES (".$data["id_perso"].", ".$data["nom"].")";
-	//echo $sql;
+	$sql = "INSERT INTO personnes (nom)
+	VALUES ('".$data["nom"]."')";
+	echo $sql;
 	if ($conn->query($sql) === TRUE) {
 	    echo "New record created successfully";
 	} else {
 	    echo "Error: " . $sql . "<br>" . $conn->error;
 	}	
 }
-
-
-
-
-//créer documents
-
-function createDocuments($data){
+function createDocument($data){
 	global $conn;
+
+	$latIng = $data["latIng"];
+	$longIng = $data["longIng"];
+	$location = 'POINT(' . $latIng . " " . $longIng . ')';
 	
-	$sql = "INSERT INTO documents (id_doc, nom,lating,url)
-	VALUES (".$data["id_doc"].", ".$data["nom"].", ".$data["lating"].", ".$data["url"].")";
+
+	$sql = "INSERT INTO documents (nom, latlng, url)
+
+	VALUES ('".$data["nom"]."', GeomFromText('$location') , '".$data["url"]."')";
 	//echo $sql;
 	if ($conn->query($sql) === TRUE) {
 	    echo "New record created successfully";
 	} else {
 	    echo "Error: " . $sql . "<br>" . $conn->error;
 	}	
+
+
+
+
+
 }
+function auth($data){
+	global $conn;
+	$sql = "SELECT * FROM personnes WHERE nom='".$data["nom"]."'";
+	//echo $sql;
+	$result = $conn->query($sql);
+	if ($result->num_rows!=null) {
+		while($row = $result->fetch_assoc()) {
+			
+			$_SESSION['id'] = $row["id_perso"];
+					
+		}
+		$_SESSION['nom'] = $data["nom"];
+		echo json_encode(true);
+		return;
+
+	} else {
+		echo json_encode(false);
+		return;
+
+	}	
+}
+
 
 $conn->close();
-
-?>

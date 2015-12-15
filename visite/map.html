@@ -4,7 +4,7 @@
   <head>
     <style type="text/css">
       html, body { height: 100%; margin: 0; padding: 0; }
-      #map { width:600px;height:500px ; margin: 30px auto;}
+      #map { width:900px;height:500px ; margin: 30px auto;}
       h1{
 background-color:blue;
 text-align: center;
@@ -12,19 +12,42 @@ text-align: center;
 }
 #dis{
   text-align: center;
+  background-color:blue;
+
+}
+#jeux{
+  text-align: center;
+
+
+
 }
     </style>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    
+        <meta name="viewport" content="initial-scale=1.0, user-scalable=no">
+      <script src="http://ajax.googleapis.com/ajax/libs/jquery/2.1.0/jquery.min.js"></script>
+
   </head>
   <body>
-    <h1>Où se trouve Paris?</h1>
+    <div id="jeux">
+    <div id="question"></div>
+    <img name="imgquestion" hspace=40 width=60 height=60 src="" />
+    </div>
+
     <div id="map"></div>
-    <div id="dis"></div>
+    <div id="dis" ></div>
 
 
     <script type="text/javascript">
 
 var map;
 var marker;
+var hiddenCoords;
+var list_documents;
+var chance = 3;
+
+
+
 
 var firstClick=true;
 function initMap() {
@@ -32,6 +55,8 @@ function initMap() {
     center: {lat: 48.8588376, lng: 2.2773453},
     zoom: 8
   });
+
+        loadDocuments();
 
 
   google.maps.event.addListener(map, 'click', function(event) {
@@ -45,6 +70,8 @@ function initMap() {
     strokeWeight: 3,
     map: map
   });
+
+  //Load Document
 }
 
 
@@ -52,6 +79,8 @@ function initMap() {
 
 function placeMarker(location) {
  //setMapOnAll(null);
+        console.log('hiddenCoords:' + hiddenCoords);
+
  if(firstClick){
    marker = new google.maps.Marker({
     position: location,
@@ -65,19 +94,63 @@ function placeMarker(location) {
                marker.setPosition(location);
             }
  
-  var distance = parseInt( google.maps.geometry.spherical.computeDistanceBetween( point, marker.getPosition())/1000);
+  var distance = parseInt( google.maps.geometry.spherical.computeDistanceBetween( hiddenCoords, marker.getPosition())/1000);
   if (distance<10) {
     alert("vous avez gagner")
 
   }
   else{
-
+ if (chance>1) {
 
 
 document.getElementById("dis").innerHTML="la distance de votre point est "+distance+ " km";
 document.getElementById("dis").style.backgroundColor="blue";
+chance--;
+}
+else{
+
+
+  alert("vous etes perdu");
+    loadDocuments();
+    chance=3;
+    marker.setMap(null);
 }
 }
+}
+
+function loadDocuments()
+{
+  var data = {"table":"document"};
+  //alert("test");
+  $.ajax({
+      url: 'php/r.php',
+      data: data,
+      success: function(html){
+       console.log(html);
+        list_documents = JSON.parse(html);
+        onDocumentsLoaded();
+          }
+          //添加JSON 参数 返回对象
+    });
+}
+
+
+function onDocumentsLoaded()
+{
+  var a = list_documents[getRandomIntInclusive(0,list_documents.length-1)];
+  document.getElementById("question").innerHTML = a.nom;
+  // load coords
+  hiddenCoords = new google.maps.LatLng(+a["lat"],+a["lng"]);
+      //    console.log('hiddenCoords:' + hiddenCoords);
+
+  
+  icon = new Image();
+  icon.src = a["url"];
+  document.imgquestion.src=eval("icon.src");
+}
+      function getRandomIntInclusive(min, max) {
+        return Math.floor(Math.random() * (max - min +1)) + min;
+      }
 
     </script>
     <script async defer

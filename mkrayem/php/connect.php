@@ -2,7 +2,7 @@
 $servername = "localhost";
 $username = "root";
 $password = "";
-$dbname = "thyp_kr";
+$dbname = "cartograme";
 
 // Create connection
 $conn = new mysqli($servername, $username, $password, $dbname);
@@ -12,6 +12,4 @@ if ($conn->connect_error) {
     die("Connection failed: " . $conn->connect_error);
 } 
 echo "Connected successfully";
-
 ?>
-

@@ -21,7 +21,7 @@
   </style>
   </head>
   <body>
- <h1>Ou se trouve Paris ?</h1>
+ <h1>Ou se trouve <label id="place"></label> ?</h1>
 </br>
   	<div id="result"></div>
 </br>
@@ -33,6 +33,10 @@
 var map;
 var markers = [];
 var source;
+var point ;
+var place;
+var places;
+var lieu=0;
 function initMap() {
   var haightAshbury = {lat: 40.313043, lng: -3.669434};
   map = new google.maps.Map(document.getElementById('map'), {
@@ -45,6 +49,8 @@ function initMap() {
     addMarker(event.latLng);
    
   });
+  reaDocument();
+ 
 source = new google.maps.LatLng({lat:  48.864716,lng:2.349014});
 
 }
@@ -59,7 +65,7 @@ function addMarker(location) {
 
   var distance = google.maps.geometry.spherical.computeDistanceBetween( source, marker.getPosition());
   $("#result").html("Vous etes pret de  :" + (distance/1000) + "  kilometres.");
-  
+  changeDoc();	
   
 }
 function deleteMarkers() {
@@ -77,13 +83,48 @@ function setMapOnAll(map) {
 
 function creaScore(data){
 	data.table = "score";
-	$.get('../c.php',
+	$.get('php/c.php',
 			data,
         		function(html){
 				$("#result").html(html);
        		});	
 }
+function reaDocument(){
+  data = {"table":"document"};
+  $.ajax({url:'php/r.php',
+      data: data ,
+      success: function (html){
+          places = JSON.parse(html);
+          changeDoc();
+          }
+      });
 
+     }
+
+
+function changeDoc(){
+
+    place = places[lieu];
+    var x = +place["lat"];
+    var y = +place["lng"];
+     
+    $("#place").html(place["nom"]); 
+    point = new google.maps.LatLng(x,y);
+
+    //alert(places.length);
+    document.body.style.backgroundImage = "url('"+place["url"]+"')";
+
+    if (lieu < (places.length -1)) 
+    {
+
+    lieu++;
+    }
+    else{
+      lieu=0;
+    }
+ 
+
+}
 
     </script>
     <script async defer

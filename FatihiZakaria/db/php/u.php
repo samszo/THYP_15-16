@@ -2,13 +2,13 @@
 include_once 'connect.php';
 
 switch ($_GET["table"]) {
-	case "score":
+	case "scores":
 		updateScore($_GET);
 		break;
-	case "personne":
+	case "personnes":
 		updatePersonne($_GET);
 		break;
-	case "document":
+	case "documents":
 		updateDocument($_GET);
 		break;		
 	default:
@@ -24,7 +24,7 @@ function updateScore($data){
 function updatePersonne($data){
 	global $conn;
 	
-	$sql = "UPDATE personnes SET nom='".$data["nom"]."' WHERE id_perso=".$data["id"]."";
+	$sql = "UPDATE personnes SET nom='".$data["nom"]."' WHERE id_perso=".$data["id_perso"]."";
 
 	if ($conn->query($sql) === TRUE) {
 	    echo "Personne updated successfully";
@@ -35,9 +35,9 @@ function updatePersonne($data){
 function updateDocument($data){
 	global $conn;
 
-	$lat = $data["lat"];
-	$lng = $data["lng"];
-	$location = 'POINT(' . $lat . " " . $lng . ')';
+	$lat = $data["latIng"];
+	$lng = $data["longIng"];
+	$location = 'POINT(' . $latIng . " " . $longIng . ')';
 		
 
 

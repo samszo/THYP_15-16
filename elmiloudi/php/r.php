@@ -8,6 +8,9 @@ switch ($_GET["table"]) {
 	case "personne":
 		selectPersonne($_GET);
 		break;
+	case "allPersonne":
+		selectAllPersonne();
+		break;
 	case "document":
 		selectDocument($_GET);
 		break;		
@@ -42,6 +45,21 @@ function selectPersonne($data){
 	} else {
 	    echo "Error: " . $sql . "<br>" . $conn->error;
 	}	
+}
+
+function selectAllPersonne(){
+	global $conn;
+	
+	$sql = "SELECT id_perso recid, formation, nom, compte_github FROM personnes";
+	$result = $conn->query($sql);
+	
+	//echo $sql."<br>".$result->num_rows."<br>";
+	if ($result && $result->num_rows) {
+		while($row = $result->fetch_assoc()) {
+			$list[] = $row;
+		}
+		echo json_encode($list);
+	}
 }
 
 function selectDocument($data){

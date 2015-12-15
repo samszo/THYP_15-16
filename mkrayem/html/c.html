@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Créer </title>
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+ <link rel="stylesheet" type="text/css" href="style.css"/>
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+  <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
+</head>
+	<script src="jquery.min.js" ></script>
+<style type="text/css">
+
+
+</style>
+
+<script type="text/javascript">
+	
+	function creerscore(){
+
+		var id_perso = document.getElementById("sidpersonne").value;
+		var id_doc = document.getElementById("siddoc").value;
+		var distance = document.getElementById("sdistance").value;
+		
+
+		creaScore({"id_perso":id_perso,"id_doc":id_doc,"distance":distance});
+
+	}
+
+	function creaScore(data){
+
+		data.table = "scores";
+
+		$.get('../php/c.php',
+				data,
+	        		function(html){
+					alert('Score Bien ajouté.');
+	       		});	
+
+}
+
+//////////////////////////:
+
+function creerpersonne(){
+
+		var nom = document.getElementById("pidpersonne").value;
+	
+
+		creaPers({"nom":nom});
+
+	}
+
+	function creaPers(data){
+
+		data.table = "personnes";
+
+		$.get('../php/c.php',
+				data,
+	        		function(html){
+					alert('Personne Bien ajoutée.');
+	       		});	
+
+}
+//////////////////////////:
+
+function creerdocument(){
+
+		var nom = document.getElementById("dnom").value;
+		var latIng = document.getElementById("dlat").value;
+		var longIng = document.getElementById("dlng").value;
+		var url = document.getElementById("durl").value;
+		
+
+		creadoc({"nom":nom,"latIng":latIng,"longIng":lngIng,"url":url});
+
+	}
+
+	function creadoc(data){
+
+		data.table = "documents";
+
+		$.get('../php/c.php',
+				data,
+	        		function(html){
+					alert('Document Bien ajouté.');
+	       		});	
+
+}
+
+
+</script>
+<body>
+<center>
+
+    
+   <br><br>
+  <div id="c2">
+    <center>
+	<form id="myform">
+        <h3>Creer une Personne</h3>
+		</center>
+			<p><label for="pidpersonne">Nom de la personne : </label><input type="text" id="pidpersonne"/></p><br><br>
+	       	<center>
+	       	<button onclick="creerpersonne()" type="button" class="btn btn-info btn-block">Creer</button>
+			</center>
+</form>
+
+</div>
+ <br> 
+    <div id="c3">
+	<center>
+	<form id="myform">
+		<h3 class="centre">Creer un Document</h3>
+	</center>
+         		<p><label for="dnom">Nom du document :</label> <input type="text" id="dnom"/></p>
+	       		<p><label for="dlat">latitude :</label> <input type="number" id="dlat" /></p>
+	       		<p><label for="dlng"> longtitude :</label> <input type="number" id="dlng" /></p>
+	       		<p><label for="durl">image URL: </label><input type="file" id="durl" /></p>
+				<center>
+					<button onclick="creerdocument()" type="button" class="btn btn-info btn-block">Creer</button>
+				</center>
+
+	</form>
+	</div>
+	</center>
+</body>
+</html>
