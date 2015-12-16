@@ -3,6 +3,65 @@ function load(){
 
     gridPersonne();
     
+    
+}
+function affichercolis(){
+
+
+        var id = document.getElementById("idp").value;
+
+        var data ={"table":"colis","idpersonne":id};
+       var colis;
+        $.ajax({
+          url: 'r.php',
+          data: data,
+          success: function(html){
+                    colis = JSON.parse(html);
+
+                   
+                    console.log(colis);
+                    w2ui['gridcolis'].clear();
+                
+                    for (var i = 0 ; i < colis.length; i++) {
+                        w2ui['gridcolis'].add({ 
+                            recid: colis[i]["id"], 
+                            desc: ''+colis[i]["descreptif"],
+                            idpersonne: ''+colis[i]["idpersonne"]
+                           
+                        });
+                    };
+                    
+                   
+                    
+            },
+          error: function(xhr, ajaxOptions, thrownError){
+                    
+                    alert("erreur chargement de la table personne");
+                    
+            }
+        });
+
+
+      $('#gridcolis').w2grid({ 
+        name: 'gridcolis', 
+        show: { 
+            toolbar: true,
+            footer: true,
+            toolbarSave: true
+        },
+        columns: [                
+            { field: 'recid', caption: 'ID', size: '50px', sortable: true, resizable: true },
+            { field: 'desc', caption: 'desc', size: '120px', sortable: true, resizable: true, 
+                editable: { type: 'text' }
+            },
+            { field: 'idpersonne', caption: 'idpersonne', size: '120px', sortable: true, resizable: true, 
+                editable: { type: 'text' }
+            },
+           
+   
+        ],
+     
+    });
 }
 
 function gridPersonne(){
@@ -16,7 +75,7 @@ function gridPersonne(){
                     personnes = JSON.parse(html);
 
                    
-                    console.log(personnes);
+                   // console.log(personnes);
                 
                     for (var i = 0 ; i < personnes.length; i++) {
                         w2ui['gridperso'].add({ 
