@@ -15,7 +15,6 @@
       margin-right: 10%;
       padding: 0;
     }
-
     #map {
       height: 100%;
     }
@@ -93,7 +92,6 @@
     var markers = [];
         // var poly;
         var nbclic = '0';
-
         function affichage() {
           name = document.getElementById("prenom").value;
           if (name.trim() != "") {
@@ -105,16 +103,12 @@
           document.getElementById("resultat").style.display = "block";
           document.getElementById("idperso").style.display = "block";
           document.getElementById("info").style.display = "block";
-
           rDocuments();
           initMap(); 
           }
           
         }
-
-
         function initMap() {
-
           map = new google.maps.Map(document.getElementById('map'), {
             mapTypeControlOptions: {
               mapTypeIds: ['mystyle', google.maps.MapTypeId.ROADMAP]
@@ -126,28 +120,17 @@
             zoom: 12,
             mapTypeId: 'mystyle'
           });
-
           map.mapTypes.set('mystyle', new google.maps.StyledMapType(myStyle, {
             name: 'Cacher les villes'
           }));
-
           map.addListener('click', function(event) {
             addMarker(event.latLng, docCharge.lat, docCharge.lng);
           });
-
-
-
-
         }
-
-
-
         function addMarker(location, lt, lg) {
-
           console.log(lt + ' ' + lg);
           setMapOnAll(null);
           nbclic = parseInt(nbclic) + 1;
-
           var marker = new google.maps.Marker({
             position: location,
             map: map
@@ -156,73 +139,54 @@
             lat: parseFloat(lt),
             lng: parseFloat(lg)
           });
-
           markers[0] = marker;
           var distance = parseInt(google.maps.geometry.spherical.computeDistanceBetween(point, markers[0].getPosition()));
-
           creaScore({
             "id_doc": docCharge.id_doc,
             "id_perso": listPerso.id_perso,
             "distance": distance
           });
-
-
-
             // poly = new google.maps.Polyline({
             //     strokeColor: '#FF0000',
             //     strokeOpacity: 1.0,
             //     strokeWeight: 3,
             //     map: map,
             // });
-
-
             //var path = [marker.getPosition(), point];
             if (nbclic > 4) {
                 // poly.setPath(path);
                 document.getElementById('resultat').innerHTML = "vous êtes à " + distance / 1000;
                 nbclic = 0;
-
                 chargerDocument();
                 initMap();                
               } else {
                 deleteMarkers();
                 document.getElementById('resultat').innerHTML = "vous êtes à " + distance / 1000 + " km";
               }
-
-
               if (distance < 70) {
                 document.getElementById('resultat').innerHTML = "VOUS AVEZ GAGNÉ";
                 nbclic = 0;
                 chargerDocument();
               }
-
             }
-
             function deleteMarkers() {
               clearMarkers();
               markers = [];
-
             }
-
             function clearMarkers() {
               setMapOnAll(null);
             }
-
             function setMapOnAll(map) {
               for (var i = 0; i < markers.length; i++) {
                 markers[i].setMap(map);
                 // poly.setMap(map);
-
-
               }
             }
-
             function creaScore(data) {
               data.table = "score";
               $.get('c.php',
                 data);
             }
-
             function creaPersonne(data) {
               data.table = "personne";
               $.get('c.php', data,function(){
@@ -232,12 +196,10 @@
                   success: function(html) {
                     listPerso = JSON.parse(html);
                     document.getElementById('idperso').innerHTML = "Bonjour " + listPerso.nom;
-
                   }
                 });
               });
             }
-
             function rDocuments() {
               var data = {
                 "table": "document"
@@ -251,8 +213,6 @@
                 }
               });
             }
-
-
             function chargerDocument() {
               if (list_documents.length != 0) {
                 docCharge = list_documents[0];
@@ -261,12 +221,8 @@
               }
               else{
                 finPartie();
-
               }
-
-
             }
-
             function finPartie () {
               document.getElementById('idScore').innerHTML = "Votre score est :";
               document.getElementById("map").style.display = "none";

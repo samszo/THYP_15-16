@@ -56,7 +56,9 @@ function selectScore($data){
 function selectScores($data){
 	global $conn;
 	$list= array();
-	$sql = "SELECT * FROM scores where id_perso=".$data["id_perso"];
+	
+	// selectionner les etudiants thyp
+	$sql = "SELECT * FROM scores where id_perso=".$data["id_perso"]." and formation='THYP'";
 	//echo $sql."<br>".$result->num_rows."<br>";
 	$result = $conn->query($sql);
 	if ($result && $result->num_rows) {
@@ -154,7 +156,7 @@ function selectPersonnesForW2UIGrid(){
 	$list= array();
 	$records= array();
 	
-	$sql = "SELECT * FROM personnes";
+	$sql = "SELECT id_perso recid,nom ,formation FROM personnes";
 	$result = $conn->query($sql);
 	
 	//echo $sql."<br>".$result->num_rows."<br>";
@@ -162,10 +164,8 @@ function selectPersonnesForW2UIGrid(){
 		$list["status"] = "success";
 		$list["total"] = $result->num_rows;
 		while($row = $result->fetch_assoc()) {
-			$grid_row = array();
-			$grid_row["recid"] = $row["id_perso"];
-			$grid_row["text"]= $row["nom"];
-			$records[] = $grid_row;
+			
+			$records[] = $row;
 		}
 		
 		$list["records"] = $records;

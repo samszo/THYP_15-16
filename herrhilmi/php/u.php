@@ -28,7 +28,7 @@ function updateScore($data){
 	if ($conn->query($sql) === TRUE) {
 	    echo "score updated successfully";
 	} else {
-	    echo "Error: " . $sql . "<br>" . $conn->error;
+		echo "Error: " . $sql . "<br>" . $conn->error;
 	}	
 }
 
@@ -61,19 +61,28 @@ function updatePersonnesForW2UIGrid()
 	global $conn;
 	$list = array();
 	
-	$changes = $_POST["data"];
+	$changes = $_GET["data"];
+	$sql = "update personnes set ";
 	
-	foreach($changes as $row)
+	foreach($changes as $k => $val)
 	{
+<<<<<<< HEAD
+		if($k!="recid")
+			$sql .= $k ." = '".$val."',";		
+=======
 		
-		$sql = "update personnes set nom = '".$row["text"]."'  where id_perso = ".$row["recid"];
+		$sql = "update personnes set nom = '".$row["nom"]."'  where id_perso = ".$row["recid"];
 		
 		$conn->query($sql);
 		$list[] = $row;
+>>>>>>> origin/master
 	}
+	$sql = substr($sql, 0, -1);
+	$sql .= " WHERE id_perso = ".$changes["recid"];
+	//echo $sql;
+	$conn->query($sql);
 	
-	
-	echo json_encode($list);
+	echo json_encode(array("message"=>"Modification effectuée"));
 	
 	
 }

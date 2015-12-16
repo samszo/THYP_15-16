@@ -2,10 +2,17 @@
 -- version 4.1.14
 -- http://www.phpmyadmin.net
 --
+<<<<<<< HEAD
+-- Client :  127.0.0.1
+-- Généré le :  Mar 24 Novembre 2015 à 09:53
+-- Version du serveur :  5.6.17
+-- Version de PHP :  5.5.12
+=======
 -- Host: 127.0.0.1
 -- Generation Time: Dec 01, 2015 at 10:05 AM
 -- Server version: 5.6.17
 -- PHP Version: 5.5.12
+>>>>>>> origin/master
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 SET time_zone = "+00:00";
@@ -17,13 +24,21 @@ SET time_zone = "+00:00";
 /*!40101 SET NAMES utf8 */;
 
 --
+<<<<<<< HEAD
+-- Base de données :  `thypbast`
+=======
 -- Database: `thyp_cartogame`
+>>>>>>> origin/master
 --
 
 -- --------------------------------------------------------
 
 --
+<<<<<<< HEAD
+-- Structure de la table `documents`
+=======
 -- Table structure for table `documents`
+>>>>>>> origin/master
 --
 
 CREATE TABLE IF NOT EXISTS `documents` (
@@ -35,7 +50,11 @@ CREATE TABLE IF NOT EXISTS `documents` (
 ) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=3 ;
 
 --
+<<<<<<< HEAD
+-- Contenu de la table `documents`
+=======
 -- Dumping data for table `documents`
+>>>>>>> origin/master
 --
 
 INSERT INTO `documents` (`id_doc`, `nom`, `latlng`, `url`) VALUES
@@ -45,17 +64,28 @@ INSERT INTO `documents` (`id_doc`, `nom`, `latlng`, `url`) VALUES
 -- --------------------------------------------------------
 
 --
+<<<<<<< HEAD
+-- Structure de la table `personnes`
+=======
 -- Table structure for table `personnes`
+>>>>>>> origin/master
 --
 
 CREATE TABLE IF NOT EXISTS `personnes` (
   `id_perso` int(11) NOT NULL AUTO_INCREMENT,
   `nom` varchar(45) DEFAULT NULL,
   PRIMARY KEY (`id_perso`)
+<<<<<<< HEAD
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=27 ;
+
+--
+-- Contenu de la table `personnes`
+=======
 ) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=31 ;
 
 --
 -- Dumping data for table `personnes`
+>>>>>>> origin/master
 --
 
 INSERT INTO `personnes` (`id_perso`, `nom`) VALUES
@@ -84,16 +114,24 @@ INSERT INTO `personnes` (`id_perso`, `nom`) VALUES
 (23, 'api'),
 (24, 'az'),
 (25, 'po'),
+<<<<<<< HEAD
+(26, 'a');
+=======
 (26, 'a'),
 (27, 'bast'),
 (28, 'v'),
 (29, 'saber'),
 (30, 'b');
+>>>>>>> origin/master
 
 -- --------------------------------------------------------
 
 --
+<<<<<<< HEAD
+-- Structure de la table `scores`
+=======
 -- Table structure for table `scores`
+>>>>>>> origin/master
 --
 
 CREATE TABLE IF NOT EXISTS `scores` (
@@ -108,7 +146,11 @@ CREATE TABLE IF NOT EXISTS `scores` (
 ) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=3 ;
 
 --
+<<<<<<< HEAD
+-- Contenu de la table `scores`
+=======
 -- Dumping data for table `scores`
+>>>>>>> origin/master
 --
 
 INSERT INTO `scores` (`id_scores`, `id_perso`, `id_doc`, `distance`, `maj`) VALUES
