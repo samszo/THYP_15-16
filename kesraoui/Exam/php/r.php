@@ -14,7 +14,8 @@ switch ($_GET["table"]) {
 }
 
 function selectpersonne($data){
-
+global $conn;
+	
 	$sql = "SELECT * FROM personne";
 	$result = $conn->query($sql);
 	//echo $sql;
