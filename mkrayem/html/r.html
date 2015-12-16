@@ -1,24 +1,22 @@
 <!DOCTYPE html>
 <html>
 <head>
+
+
     <title>W2UI Demo: grid-21</title>
     <link rel="stylesheet" type="text/css" href="http://w2ui.com/src/w2ui-1.4.2.min.css" />
     <script src="http://ajax.googleapis.com/ajax/libs/jquery/2.1.0/jquery.min.js"></script>
     <script type="text/javascript" src="http://w2ui.com/src/w2ui-1.4.2.min.js"></script>
 </head>
 <body onload="load()">
-<center>
-<h1>Table Personnes</h1>
-</center>
-<div id="gridpersonne" style="width: 100%; height: 400px;"></div>
+<h1>Personnes</h1>
+<div id="gridpersonne" style="width: 80%; height: 250px;margin-left: 10%;margin-right: 10%"></div>
 
-<center><h1>Table Documents</h1>
-</center>
-<div id="griddocument" style="width: 100%; height: 400px;"></div>
+<h1>Documents</h1>
+<div id="griddocument" style="width: 80%; height: 250px;margin-left: 10%;margin-right: 10%"></div>
 
-
-<center><h1>Table Scores</h1></center>
-<div id="gridscore" style="width: 100%; height: 400px;"></div>
+<h1>Scores</h1>
+<div id="gridscore" style="width: 80%; height: 250px;margin-left: 10%;margin-right: 10%"></div>
 <br>
 
 
@@ -40,7 +38,7 @@ function gridPersonne(){
        
         
         $.ajax({
-          url: '../php/rr.php',
+          url: '../php/r.php',
           data: data,
           success: function(html){
                     personnes = JSON.parse(html);
@@ -86,7 +84,7 @@ function gridDocuments(){
        
         
         $.ajax({
-          url: '../php/rr.php',
+          url: '../php/r.php',
           data: data,
           success: function(html){
                     documents = JSON.parse(html);
@@ -95,7 +93,7 @@ function gridDocuments(){
                         w2ui['griddocument'].add({ 
                                 recid: documents[i]["id_doc"], 
                                 nom: ''+documents[i]["nom"],
-                                latIng: ''+documents[i]["latIng"],
+                                pays: ''+documents[i]["pays"],
                                 url: ''+documents[i]["url"]
 
                         });
@@ -123,7 +121,7 @@ function gridDocuments(){
             { field: 'nom', caption: 'Nom', size: '120px', sortable: true, resizable: true, 
                 editable: { type: 'text' }
             },
-            { field: 'pays', caption: 'latIng', size: '120px', sortable: true, resizable: true, 
+            { field: 'pays', caption: 'Pays', size: '120px', sortable: true, resizable: true, 
                 editable: { type: 'text' }
             },
              { field: 'url', caption: 'Url', size: '120px', sortable: true, resizable: true, 
@@ -140,7 +138,7 @@ function gridScores(){
        
         
         $.ajax({
-          url: '../php/rr.php',
+          url: '../php/r.php',
           data: data,
           success: function(html){
                     scores = JSON.parse(html);
@@ -150,7 +148,7 @@ function gridScores(){
                                 recid: scores[i]["id_scores"],
                                 id_perso: scores[i]["id_perso"],
                                 id_doc: scores[i]["id_doc"],
-                                latIng: scores[i]["latIng"],
+                                pays: scores[i]["pays"],
                                 maj: scores[i]["maj"]    
                                 
 
@@ -182,7 +180,7 @@ function gridScores(){
             { field: 'id_doc', caption: 'ID Document', size: '120px', sortable: true, resizable: true, 
                 editable: { type: 'text' }
             },
-             { field: 'distance', caption: 'Pays', size: '120px', sortable: true, resizable: true, 
+             { field: 'pays', caption: 'Pays', size: '120px', sortable: true, resizable: true, 
                 editable: { type: 'text' }
             },
             { field: 'maj', caption: 'maj', size: '120px', sortable: true, resizable: true, 
@@ -198,3 +196,4 @@ function gridScores(){
 
 </body>
 </html>
+
