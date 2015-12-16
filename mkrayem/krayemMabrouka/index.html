@@ -1,11 +1,36 @@
+<!DOCTYPE html>
 <html>
 <head>
+    <link rel="stylesheet" type="text/css" href="http://w2ui.com/src/w2ui-1.4.min.css" />
+    <script src="http://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+    <script type="text/javascript" src="http://w2ui.com/src/w2ui-1.4.min.js"></script>
+	<title>examen</title>
+	
 </head>
 <body>
-
+<p>Listes des personnes </p><br><br>
+    <div id="myGrid" style="height: 450px"></div>
+	
+</body>
 
 <script>
+$('#myGrid').w2grid({ 
+    name   : 'myGrid', 
+    url    : 'r.php',
+    columns: [                
+        { field: 'id_perso', caption: 'id_perso', size: '30%' },
+        { field: 'nom', caption: 'Nom', size: '30%' },
+        { field: 'prenom', caption: 'Perenom', size: '40%' },
+        { field: 'adresse', caption: 'Adresse', size: '120px' },
+    ]
+});
 </script>
-</body>
+
+<div id="lien">
+<a href="c.html">Créer </a><br>
+
+<a href="d.html">Supprimer </a><br>
+<a href="c.html"> Modifier</a><br>
+</div>
 
 </html>

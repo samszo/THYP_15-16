@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title></title>
+		<meta name="viewport" content="width=device-width, initial-scale=1">
+		<link rel="stylesheet" type="text/css" href="style.css"/>
+  <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+  <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
+</head>
+
+	<script src="jquery.min.js" ></script>
+<style type="text/css">
+body{
+padding-left:20px;
+}
+</style>
+ 
+
+<script type="text/javascript">
+	
+	function suppperso(){
+
+		var id_perso = document.getElementById("id_perso").value;
+
+		supScore({"id_perso":id_perso});
+
+	}
+
+	function supScore(data){
+
+		data.table = "personnes";
+
+		$.get('d.php',
+				data,
+	        		function(html){
+					alert('personnes Bien supprimé.');
+	       		});	
+
+}
+
+//////////////////////////:
+function suppcolis(){
+
+		var num_colis = document.getElementById("num_colis").value;
+
+		suppers({"num_colis":num_colis});
+
+	}
+
+	function suppers(data){
+
+		data.table = "colis";
+
+		$.get('d.php',
+				data,
+	        		function(html){
+					alert('colis Bien supprimée.');
+	       		});	
+
+}
+
+//////////////////////////:
+
+
+
+</script>
+
+
+
+<body>
+<center>
+
+
+    <!--PREMIER CADRE-->
+     
+ <br><br>
+    <!--SECOND CADRE-->
+    <div id="c">
+	<center>
+        <h3>Supprimer une Personne</h3>
+		</center>
+         	<p><label for="pid">Supprimez par id personne : </label><input type="number" id="id_perso"/><p>
+	       	 <div id="btn">
+			 <center>
+	       <button onclick="supppers()" type="button" >Supprimer</button>
+		   </center>
+			</div>
+ </div>
+  <br><br>
+    <!--third CADRE-->
+   <div id="c">
+   <center>
+        <h3>Supprimer un Colis</h3>
+		<center>
+        
+		</center>
+         		<p><label for="num_colis">Supprimez par num  colis : </label><input type="number" id="num_colis"/></p><br><br>
+	       		 <div id="btn">
+	       		 <button onclick="suppdoc()" type="button" >Supprimer</button>
+				 </div>
+	</form>
+  </div>
+  <div id="re">
+  <a href="index.html">retour</a>
+</div>
+ <br><br>
+</center>
+</body>
+</html>

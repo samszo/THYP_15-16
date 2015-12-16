@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html>
+head>
+	<title>Créer </title>
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+ <link rel="stylesheet" type="text/css" href="style.css"/>
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+  <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
+</head>
+	<script src="jquery.min.js" ></script>
+<style type="text/css">
+
+
+</style>
+<body>
+
+   <form id="pers">
+        <h3>Creer une Personne</h3>
+		</center>
+			<p><label for="pidpersonne">Nom de la personne : </label><input type="text" id="pidpersonne"/></p><br><br>
+			<p>preNom de la personne : </label><input type="text" id="prenom"/></p><br><br>
+			<p>Adresse : </label><input type="text" id="adresse"/></p><br><br>
+			
+	       	<center>
+	       	<button onclick="creerpersonne()" type="button" class="btn btn-info btn-block">Creer</button>
+			</center>
+</form>
+
+
+  <h3>Creer colis</h3>
+<form id="clois">
+</center>
+			<p><label for="idcolis">Num Colis : </label><input type="text" id="num_colis"/></p><br><br>
+			<p>Adresse : </label><input type="text" id="adresse"/></p><br><br>
+			<p>Nombre de Colis </label><input type="text" id="nombre_colis"/></p><br><br>
+			
+	       	<center>
+	       	<button onclick="creercolis()" type="button" class="btn btn-info btn-block">Creer</button>
+			</center>
+</form>
+
+	<div id="ar">
+	<a href="index.html">retour</a>
+	
+	<script>
+	function creerpersonne(){
+		var nom = document.getElementById("pidpersonne").value;
+			creaPers({"nom":nom});
+		creaPers({"prenom":prenom});
+		creaPers({"adresse":nom});
+
+	}
+	function creaPers(data){
+		data.table = "personnes";
+		$.get('c.php',
+				data,
+	        		function(html){
+					alert('Personne Bien ajoutée.');
+	       		});	
+
+}
+
+//colis 
+function creercolis(){
+
+		var nom = document.getElementById("idcolis").value;
+	
+
+		creaPers({"num_colis":num_colis});
+		creaPers({"adresse":adresse});
+		creaPers({"nombre_colis":nombre_colis});
+		
+
+	}
+
+	function creaColis(data){
+
+		data.table = "colis";
+
+		$.get('c.php',
+				data,
+	        		function(html){
+					alert('colis Bien ajoutée.');
+	       		});	
+
+}
+</script>
+	
+</body>
+
+
+</html>
