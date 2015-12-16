@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title></title>
+	 
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+  <link rel="stylesheet" type="text/css" href="http://w2ui.com/src/w2ui-1.4.2.min.css" />
+    <script type="text/javascript" src="http://w2ui.com/src/w2ui-1.4.2.min.js"></script>
+    <script src="js.js" ></script>
+</head>
+<body onload="load()">
+<h1>La liste des personnes</h1>
+<div id="gridperso" style="width: 60%; height: 200px;"></div>
+
+
+<hr>
+<h1>ajouter une personne</h1>
+nom : <input type="text" id="nom" />
+prenom : <input type="text" id="prenom" />
+email : <input type="text" id="email" />
+adresse : <input type="text" id="adresse" />
+
+<button onclick="addperso()">Ajouter Personne</button>
+
+<hr>
+<h1>ajouter un colis</h1>
+descreptif : <input type="text" id="desc" />
+id personne : <input type="number" id="idpersonne" />
+
+
+<button onclick="addcolis()">Ajouter Colis</button>
+
+
+</body>
+</html>

@@ -2,20 +2,22 @@
 include_once 'connect.php';
 
 switch ($_GET["table"]) {
+
 	case "personne":
-		selectpersonne($_GET);
+		getAll();
 		break;
 	case "colis":
-		selectcolis($_GET);
-		break;	
+		getColis($_GET);
+		break;		
 	default:
 		;
 	break;
 }
 
-function selectpersonne($data){
-global $conn;
-	
+function getAll(){
+	global $conn;
+	$list= array();
+
 	$sql = "SELECT * FROM personne";
 	$result = $conn->query($sql);
 	//echo $sql;
@@ -23,17 +25,18 @@ global $conn;
     // output data of each row
 	
 	    while($row = $result->fetch_assoc()) {
-	        echo json_encode($row);
+	        $list[] = $row;
 	    }
+	    echo json_encode($list);
 	} else {
     	echo "0 results";
 	}	
 }
 
-function selectcolis($data){
+function getColis($data){
 	global $conn;
 	
-	$sql = "SELECT * FROM colis where id_personne =".$data["id_personne"];
+	$sql = "SELECT * FROM colis where idpersonne =".$data["idpersonne"];
 	
 	$result = $conn->query($sql);
 	if ($result->num_rows > 0) {
@@ -43,4 +46,9 @@ function selectcolis($data){
 		}
 	}
 }
+
+
+
+
+
 $conn->close();
