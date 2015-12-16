@@ -6,11 +6,11 @@
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
   <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
 <title>Trombinoscope</title>
-<script src="../js/jquery.min.js" ></script>
-<script src="../js/d3.v3.min.js" ></script>
-<script src="../js/d3pie.js"></script>
-<script src="../js/colorbrewer/colorbrewer.js"></script>
-<link href="../js/colorbrewer/colorbrewer.css" rel="stylesheet" />
+<script src="../../js/jquery.min.js" ></script>
+<script src="../../js/d3.v3.min.js" ></script>
+<script src="../../js/d3pie.js"></script>
+<script src="../../js/colorbrewer/colorbrewer.js"></script>
+<link href="../../js/colorbrewer/colorbrewer.css" rel="stylesheet" />
 <link type="text/css" rel="stylesheet" href="returnOnTop.css" media="all" />
         
 <script type="text/javascript" src="jquery.js"></script>
@@ -49,7 +49,7 @@ var urlDiigo = "https://www.diigo.com/user/";
 		 {
 		   $.ajax( {
 		            type: "GET",
-		            url: "../php/lecteurFlux.php?url=THYP1516photo",
+		            url: "../../php/lecteurFlux.php?url=THYP1516photo",
 		            dataType: "xml",
 		            success: function(xml) 
 		                     {
@@ -57,11 +57,11 @@ var urlDiigo = "https://www.diigo.com/user/";
 		                       $(xml).find('enclosure').each(   
 		                         function()
 		                         {
-		                        	 	//console.log(this.attributes[1].nodeValue);
+		                        	 	
 		                            $('<div class="items" id="link_' + i + '"></div>').html('<img onclick="voirData(' + i + ')" src="' + this.attributes[1].nodeValue + '" />').appendTo('#contenue');
 			                       i++;
 		                          });
-			           		   	d3.csv("../php/lecteurFlux.php?url=THYP1516data", function(data) {
+			           		   	d3.csv("../../php/lecteurFlux.php?url=THYP1516data", function(data) {
 			         			   dataEtu = data;
 			         			   data.forEach(function(d,i){
 			         				   //console.log(d.idPhoto+" "+d.Nom+" "+d.mail+" "+d.linkedIn);
@@ -104,8 +104,8 @@ var urlDiigo = "https://www.diigo.com/user/";
 		
 		+" "+d["page linkedIn"]
 			+"<br/>"
-			+"<a href='"+urlDiigo+d["login Diigo"]+"'><img height='40px' src='../img/diigo.jpg' /></a>"
-			+"<a href='"+urlGit+d["login Github"]+"'><img height='40px' src='../img/github.png' /></a>"
+			+"<a href='"+urlDiigo+d["login Diigo"]+"'><img height='40px' src='../../img/diigo.jpg' /></a>"
+			+"<a href='"+urlGit+d["login Github"]+"'><img height='40px' src='../../img/github.png' /></a>"
 			+"<div id='graph"+d.idPhoto+"' />"
               $('<div class="data" id="data_' + d.idPhoto + '"></div>').html(h).appendTo('#link_' + d.idPhoto);
               +"<br/>"
