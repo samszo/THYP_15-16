@@ -33,8 +33,6 @@ function affichercolis(){
             },
           error: function(xhr, ajaxOptions, thrownError){
                     
-                    alert("erreur chargement de la table personne");
-                    
             }
         });
 
@@ -89,8 +87,6 @@ function gridPersonne(){
                     
             },
           error: function(xhr, ajaxOptions, thrownError){
-                    
-                    alert("erreur chargement de la table personne");
                     
             }
         });
