@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title></title>
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+  <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
+</head>
+	<script src="jquery.min.js" ></script>
+<style type="text/css">
+	#global
+{
+     width: 902px;
+  
+}
+ 
+#cadre1
+{
+	    margin-left: 11px;
+    height: 500px;
+    width: 300px;
+    float: left;
+    padding: 3px;
+    border: solid black 1px;
+}
+ 
+#cadre2
+{
+    height: 500px;
+    width: 300px;
+    padding: 3px;
+    margin-left: 325px;
+    border: solid black 1px;
+}
+#cadre3
+{
+    height: 500px;
+    width: 300px;
+    padding: 3px;
+        margin-left: 646px;
+    border: solid black 1px;
+    margin-top: -502px;
+}
+ 
+.centre
+{
+   
+    margin-left: 70px;
+}
+</style>
+<script type="text/javascript">
+	
+
+
+//////////////////////////:
+
+function modpersonne(){
+
+
+		var id_perso = document.getElementById("pidpersonne").value;
+		var nom = document.getElementById("pnompersonne").value;
+
+	
+
+		modPers({"nom_personne":nom,"id_personne":id_perso});
+
+	}
+
+	function modPers(data){
+
+		
+		data.table = "personne";
+
+		$.get('modifier.php',
+				data,
+	        		function(html){
+					alert('Personne Bien modifiée.');
+	       		});	
+
+}
+//////////////////////////:
+
+function modcolis(){
+
+
+		var id_col = document.getElementById("pidcolis").value;
+		var nomc = document.getElementById("pnomcolis").value;
+
+	
+
+		modPers({"libelle_colis":nomc,"id_colis":id_col});
+
+	}
+
+	function modCol(data){
+
+		data.table = "colis";
+
+		$.get('modifier.php',
+				data,
+	        		function(html){
+					alert('colis Bien modifié.');
+	       		});	
+
+}
+
+
+
+</script>
+
+
+<body>
+
+<h1></h1>
+<div id="global">
+    
+   
+    <!--PREMIER CADRE-->
+    <div id="cadre1">
+        <h3 class="centre">Modifier une Personne</h3>
+        	Id la personne : <input type="text" id="pidpersonne"/><br><br>
+         	Nom personne : <input type="text" id="pnompersonne"/><br><br>
+	       		
+	       	<button onclick="modpersonne()" type="button" class="btn btn-success btn-block">Modifier</button>
+
+    </div>
+    <!--third CADRE-->
+    <div id="cadre2">
+        <h3 class="centre">Modifier un colis</h3>
+       			 Id colis : <input type="text" id="pidcolis"/><br><br>
+         		 Nom colis : <input type="text" id="pnomcolis"/><br><br>
+	       		 
+	       		 <button onclick="modcolis()" type="button" class="btn btn-success btn-block">Modifier</button>
+    </div>
+</div>
+
+
+</body>
+</html>

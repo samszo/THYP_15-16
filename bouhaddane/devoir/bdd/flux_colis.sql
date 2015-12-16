@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Client :  127.0.0.1
--- Généré le :  Mer 16 Décembre 2015 à 10:08
+-- Généré le :  Mer 16 Décembre 2015 à 11:15
 -- Version du serveur :  5.6.17
 -- Version de PHP :  5.5.12
 
@@ -27,11 +27,21 @@ SET time_zone = "+00:00";
 --
 
 CREATE TABLE IF NOT EXISTS `colis` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
-  `descriptif` varchar(255) NOT NULL,
-  `idpersonne` int(11) NOT NULL,
-  PRIMARY KEY (`id`)
+  `id_colis` int(11) NOT NULL AUTO_INCREMENT,
+  `libelle_colis` varchar(255) NOT NULL,
+  PRIMARY KEY (`id_colis`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
+
+-- --------------------------------------------------------
+
+--
+-- Structure de la table `envoi`
+--
+
+CREATE TABLE IF NOT EXISTS `envoi` (
+  `id_colis` int(11) NOT NULL,
+  `id_personne` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 -- --------------------------------------------------------
 
@@ -40,12 +50,9 @@ CREATE TABLE IF NOT EXISTS `colis` (
 --
 
 CREATE TABLE IF NOT EXISTS `personne` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
-  `nom` varchar(255) NOT NULL,
-  `prenom` varchar(255) NOT NULL,
-  `email` varchar(200) NOT NULL,
-  `adresse` varchar(200) NOT NULL,
-  PRIMARY KEY (`id`)
+  `id_personne` int(11) NOT NULL AUTO_INCREMENT,
+  `nom_personne` varchar(255) NOT NULL,
+  PRIMARY KEY (`id_personne`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
