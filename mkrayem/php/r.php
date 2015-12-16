@@ -2,7 +2,13 @@
 include_once 'connect.php';
 
 switch ($_GET["table"]) {
-	
+	case "loginById":
+		loginById($_GET);
+		break;
+
+	case "login":
+		login($_GET);
+		break;
 	case "scores":
 		readScore($_GET);
 		break;
@@ -16,6 +22,43 @@ switch ($_GET["table"]) {
 		;
 	break;
 }
+function loginById($data){
+	global $conn;
+	
+	$sql = "SELECT * FROM personnes where id_perso =".$data["id"]."";
+	//echo $sql;
+	$result = $conn->query($sql);
+	if ($result->num_rows > 0) {
+		while($row = $result->fetch_assoc()) {
+			echo json_encode($row);
+			return;
+		}
+		
+	} else {
+		return http_response_code(500);
+	}	
+	
+}
+
+function login($data){
+	global $conn;
+	
+	$sql = "SELECT * FROM personnes where nom ='".$data["nom"]."'";
+	//echo $sql;
+	$result = $conn->query($sql);
+	if ($result->num_rows > 0) {
+		while($row = $result->fetch_assoc()) {
+			echo json_encode($row);
+			return;
+		}
+		
+	} else {
+		return http_response_code(500);
+	}	
+	
+}
+
+
 function readScore($data){
 	global $conn;
 	
@@ -57,7 +100,7 @@ function readPersonne($data){
 function readDocument($data){
 	global $conn;
 	
-	$sql = "SELECT id_doc,nom, latIng, url FROM documents";
+	$sql = "SELECT id_doc,nom, pays, url FROM documents";
 	$result = $conn->query($sql);
 	//echo $sql;
 	$lists= array();
@@ -72,5 +115,7 @@ function readDocument($data){
     	echo "0 results";
 	}	
 }
+
+
 
 $conn->close();
