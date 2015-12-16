@@ -9,12 +9,16 @@
 <body>
 
 <div id="grid" style="width: 100%; height: 350px;"></div>
+<div id="grid2" style="width: 100%; height: 350px;"></div>
 
 <script type="text/javascript">
 
 var array = [];
 
+var arrayofcollis = [];
+
 getPersonnes();
+getAllColis();
 
    function getPersonnes() {
         var data = {'table': "personne"};
@@ -30,18 +34,18 @@ getPersonnes();
 
 
                 $(function () {
-    $('#grid').w2grid({ 
-        name: 'grid', 
+    		$('#grid').w2grid({ 
+        		name: 'grid', 
 
-        sortData: [ { field: 'lname', direction: 'asc' } ],
-        columns: [                
+        	sortData: [ { field: 'lname', direction: 'asc' } ],
+       		 columns: [                
             { field: 'fname', caption: 'Name', size: '30%', sortable: true },
             { field: 'adresse', caption: 'adresse', size: '30%', sortable: true },
 
-        ],
-        records: array
-    });    
-});
+			        ],
+			        records: array
+			    });    
+			});
 
 
 
@@ -51,8 +55,37 @@ getPersonnes();
 
 
 
+    	function getAllColis()
+    	{
 
-        function getColis(id) {
+        var data = {'table': "personne"};
+        data.table = "personne";
+        $.get('php/r.php',
+            data,
+            function (html) {
+                Sites = JSON.parse(html);
+                Sites.forEach(function (s) {
+
+                	getColis(s['id'],s['nom']);
+
+
+
+                    
+                })
+
+
+
+
+
+            });
+    }
+
+
+    	
+
+
+
+        function getColis(id,nom) {
         var data = {'table': "colis" , 'idPersonne': id };  
         $.get('php/r.php',
             data,
@@ -60,8 +93,23 @@ getPersonnes();
                 Sites = JSON.parse(html);
                 Sites.forEach(function (s) {
 
-                    console.log(s);
+                     arrayofcollis.push({recid: 1,fname: nom, colis: s['nom'],poids: s['poids'] });
                 })
+
+            $(function () {
+    		$('#grid2').w2grid({ 
+        		name: 'grid2', 
+
+        	sortData: [ { field: 'lname', direction: 'asc' } ],
+       		 columns: [                
+            { field: 'fname', caption: 'Name', size: '30%', sortable: true },
+            { field: 'colis', caption: 'Nom du colis', size: '30%', sortable: true },
+            { field: 'poids', caption: 'Poids', size: '30%', sortable: true },
+
+			        ],
+			        records: arrayofcollis
+			    });    
+			});
 
             });
     }
