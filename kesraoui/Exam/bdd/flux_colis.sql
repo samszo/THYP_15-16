@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Client :  127.0.0.1
--- Généré le :  Mer 16 Décembre 2015 à 09:48
+-- Généré le :  Mer 16 Décembre 2015 à 10:35
 -- Version du serveur :  5.6.15-log
 -- Version de PHP :  5.4.24
 
@@ -28,22 +28,24 @@ SET time_zone = "+00:00";
 
 CREATE TABLE IF NOT EXISTS `colis` (
   `id_colis` int(11) NOT NULL AUTO_INCREMENT,
-  `nom_de_colis` int(11) NOT NULL,
+  `descriptif` varchar(255) NOT NULL,
+  `id_personne` int(11) NOT NULL,
   PRIMARY KEY (`id_colis`)
-) ENGINE=MyISAM DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
+) ENGINE=InnoDB DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
 
 -- --------------------------------------------------------
 
 --
--- Structure de la table `personnes`
+-- Structure de la table `personne`
 --
 
-CREATE TABLE IF NOT EXISTS `personnes` (
+CREATE TABLE IF NOT EXISTS `personne` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
-  `nom` text NOT NULL,
-  `adresse` text NOT NULL,
+  `nom` varchar(255) NOT NULL,
+  `email` varchar(255) NOT NULL,
+  `adresse` varchar(255) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
+) ENGINE=InnoDB DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
