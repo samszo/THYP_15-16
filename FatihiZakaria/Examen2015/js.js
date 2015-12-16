@@ -20,6 +20,7 @@ function affichercolis(){
 
                    
                     console.log(colis);
+                    w2ui['gridcolis'].clear();
                 
                     for (var i = 0 ; i < colis.length; i++) {
                         w2ui['gridcolis'].add({ 
