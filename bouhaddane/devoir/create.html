@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title></title>
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+  <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
+</head>
+	<script src="jquery.min.js" ></script>
+<style type="text/css">
+	#global
+{
+     width: 902px;
+  
+}
+ 
+#cadre1
+{
+	    margin-left: 11px;
+    height: 500px;
+    width: 300px;
+    float: left;
+    padding: 3px;
+    border: solid black 1px;
+}
+ 
+#cadre2
+{
+    height: 500px;
+    width: 300px;
+    padding: 3px;
+    margin-left: 325px;
+    border: solid black 1px;
+}
+#cadre3
+{
+    height: 500px;
+    width: 300px;
+    padding: 3px;
+        margin-left: 646px;
+    border: solid black 1px;
+    margin-top: -502px;
+}
+ 
+.centre
+{
+   
+    margin-left: 70px;
+}
+</style>
+<script type="text/javascript">
+	
+	
+//////////////////////////:
+
+function creerpersonne(){
+
+		var nompersonne = document.getElementById("pidpersonne").value;
+	
+
+		creaPers({"nom_personne":nompersonne});
+
+	}
+
+	function creaPers(data){
+
+		data.table = "personne";
+
+		$.get('create.php',
+				data,
+	        		function(html){
+					alert('Personne Bien ajoutée.');
+	       		});	
+
+}
+//////////////////////////:
+
+function creercolis(){
+
+		var nomcolis = document.getElementById("pidcolis").value;
+	
+
+		creaCol({"libelle_colis":nomcolis});
+
+	}
+
+	function creaCol(data){
+
+		data.table = "colis";
+
+		$.get('create.php',
+				data,
+	        		function(html){
+					alert('colis Bien ajoutée.');
+	       		});	
+
+}
+
+
+
+</script>
+
+
+<body>
+<h1>Creer</h1>
+
+<div id="global">
+    <!--PREMIER CADRE-->
+    <div id="cadre1">
+     <h3 class="centre">Creer une Personne</h3>
+         	Nom de la personne : <input type="text" id="pidpersonne"/><br><br>
+	       		
+	       	<button onclick="creerpersonne()" type="button" class="btn btn-info btn-block">Creer</button>
+
+	       	
+    </div>
+    <!--SECOND CADRE-->
+    <div id="cadre2">
+        <h3 class="centre">Creer un colis</h3>
+         	Nom du colis : <input type="text" id="pidcolis"/><br><br>
+	       		
+	       	<button onclick="creercolis()" type="button" class="btn btn-info btn-block">Creer</button>
+
+    </div>
+    
+</div>
+
+
+</body>
+</html>
