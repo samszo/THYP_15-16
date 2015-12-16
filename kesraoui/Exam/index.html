@@ -1,3 +1,4 @@
+<!DOCTYPE html>
 <html>
 <head>
 	<title>Exam</title>
@@ -8,11 +9,34 @@
     <script src="js.js" ></script>
 </head>
 <body onload="load()">
-<center>
+	<center>
 <h1>La liste des personnes</h1>
 </center>
-<br>
 <div id="gridperso" style="width: 60%; height: 200px;"></div>
+
+
+<hr>
+<h1>ajouter une personne</h1>
+nom : <input type="text" id="nom" />
+<br>
+<br>
+email : <input type="text" id="email" />
+<br>
+<br>
+adresse : <input type="text" id="adresse" />
+
+<button onclick="addperso()">Ajouter Personne</button>
+
+<hr>
+<h1>ajouter un colis</h1>
+descreptif : <input type="text" id="desc" />
+<br>
+<br>
+id personne : <input type="number" id="id_personne" />
+
+
+<button onclick="addcolis()">Ajouter Colis</button>
+
 
 </body>
 </html>
