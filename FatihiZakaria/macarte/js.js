@@ -42,14 +42,14 @@ function login(){
 		  url: 'php/r.php',
 		  data: data,
 		  success: function(html){
+
+          // Si le resultat different de null
 					joueur = JSON.parse(html);
-					  
 					location.href="mapage.html?id="+joueur["id_perso"];
-            
-            
-            
-			
+
        		},
+
+       // Si le resultat est null
 		  error: function(xhr, ajaxOptions, thrownError){
 					
 					$("#pass").html("Login introuvable !");	
@@ -307,17 +307,7 @@ function creaScore(data){
 }
 function addrow(data){
 
-/*
-          var table = document.getElementById("mytable");
-          var row = table.insertRow(1);
 
-          var cell1 = row.insertCell(0);
-          var cell2 = row.insertCell(1);
-          var cell3 = row.insertCell(2);
-
-          cell1.innerHTML = ""+data["id_doc"];
-          cell2.innerHTML = ""+data["pays"];
-          cell3.innerHTML = ""+data["date"]; */
 
           w2ui['gridscore'].add({ 
                                 recid: ' ',
@@ -326,7 +316,6 @@ function addrow(data){
                                 pays: ""+data["pays"],
                                 maj: ""+data["date"]    
                                 
-
                         });
     }
  
