@@ -30,7 +30,7 @@ function createPersonne($data){
 }
 function createColis($data){
 	global $conn;
-	$sql = "INSERT INTO personnes (num_colis,adresse,nombre_colis)
+	$sql = "INSERT INTO colis (num_colis,adresse,nombre_colis)
 	VALUES ('".$data["num_colis"]."', '".$data["adresse"]." , '".$data["nombre_colis"]."')";
 	echo $sql;
 	if ($conn->query($sql) === TRUE) {

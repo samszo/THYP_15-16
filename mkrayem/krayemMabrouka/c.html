@@ -1,18 +1,23 @@
 <!DOCTYPE html>
 <html>
-<head>
-    <link rel="stylesheet" type="text/css" href="http://w2ui.com/src/w2ui-1.4.min.css" />
-    <script src="http://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
-    <script type="text/javascript" src="http://w2ui.com/src/w2ui-1.4.min.js"></script>
-	<title>examen</title>
-	
+head>
+	<title>Créer </title>
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+ <link rel="stylesheet" type="text/css" href="style.css"/>
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+  <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
 </head>
+	<script src="jquery.min.js" ></script>
+<style type="text/css">
+
+
+</style>
 <body>
-<p>ajouter  des personnes </p><br><br>
+
    <form id="pers">
         <h3>Creer une Personne</h3>
 		</center>
-			<p><label for="pidpersonne">Nom de la personne : </label><input type="text" id="nom"/></p><br><br>
+			<p><label for="pidpersonne">Nom de la personne : </label><input type="text" id="pidpersonne"/></p><br><br>
 			<p>preNom de la personne : </label><input type="text" id="prenom"/></p><br><br>
 			<p>Adresse : </label><input type="text" id="adresse"/></p><br><br>
 			
@@ -22,7 +27,7 @@
 </form>
 
 
-
+  <h3>Creer colis</h3>
 <form id="clois">
 </center>
 			<p><label for="idcolis">Num Colis : </label><input type="text" id="num_colis"/></p><br><br>
@@ -34,25 +39,19 @@
 			</center>
 </form>
 
-	
+	<div id="ar">
+	<a href="index.html">retour</a>
 	
 	<script>
 	function creerpersonne(){
-
-		var nom = document.getElementById("idpersonne").value;
-	
-
-		creaPers({"nom":nom});
+		var nom = document.getElementById("pidpersonne").value;
+			creaPers({"nom":nom});
 		creaPers({"prenom":prenom});
-		creaPers({"adresse":adresse});
-		
+		creaPers({"adresse":nom});
 
 	}
-
 	function creaPers(data){
-
 		data.table = "personnes";
-
 		$.get('c.php',
 				data,
 	        		function(html){
