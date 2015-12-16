@@ -4,11 +4,13 @@
     <link rel="stylesheet" type="text/css" href="http://w2ui.com/src/w2ui-1.4.min.css" />
     <script src="http://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
     <script type="text/javascript" src="http://w2ui.com/src/w2ui-1.4.min.js"></script>
+	<script src="http://d3js.org/d3.v3.min.js"></script>
+  <script src="http://dimplejs.org/dist/dimple.v2.1.6.min.js"></script>
 	<title>examen</title>
 	
 </head>
 <body>
-<p>Listes des personnes </p><br><br>
+<p><center><strong>Listes des personnes</center></strong> </p><br><br>
     <div id="myGrid" style="height: 450px"></div>
 	
 </body>
@@ -24,6 +26,18 @@ $('#myGrid').w2grid({
         { field: 'adresse', caption: 'Adresse', size: '120px' },
     ]
 });
+
+
+var svg = dimple.newSvg("body", 800, 600);
+    var data = [
+      { "Word":"colis1", "Awesomeness":200 },
+      { "Word":"colis2", "Awesomeness":300}
+    ];
+    var chart = new dimple.chart(svg, data);
+    chart.addCategoryAxis("x", "Word");
+    chart.addMeasureAxis("y", "Awesomeness");
+    chart.addSeries(null, dimple.plot.bar);
+    chart.draw();
 </script>
 
 <div id="lien">
@@ -33,4 +47,7 @@ $('#myGrid').w2grid({
 <a href="c.html"> Modifier</a><br>
 </div>
 
+
+
+</div>
 </html>
