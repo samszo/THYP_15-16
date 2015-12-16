@@ -44,9 +44,4 @@ function readColis($data){
 		}
 	}
 }
-
-
-
-
-
 $conn->close();

@@ -1,14 +1,73 @@
+<!DOCTYPE html>
 <html>
-
 <head>
-	    <meta charset="UTF-8" />
-
-        <title> Devoir </title>
+    <title>W2UI Demo: grid-1</title>
+    <link rel="stylesheet" type="text/css" href="http://w2ui.com/src/w2ui-1.4.2.min.css" />
+    <script src="http://ajax.googleapis.com/ajax/libs/jquery/2.1.0/jquery.min.js"></script>
+    <script type="text/javascript" src="http://w2ui.com/src/w2ui-1.4.2.min.js"></script>
 </head>
-
 <body>
-<p>
 
-</p>
+<div id="grid" style="width: 100%; height: 350px;"></div>
+
+<script type="text/javascript">
+
+var array = [];
+
+getPersonnes();
+
+   function getPersonnes() {
+        var data = {'table': "personne"};
+        data.table = "personne";
+        $.get('php/r.php',
+            data,
+            function (html) {
+                Sites = JSON.parse(html);
+                Sites.forEach(function (s) {
+
+                    array.push({recid: 1,fname: s['nom'], adresse: s['adresse']});
+                })
+
+
+                $(function () {
+    $('#grid').w2grid({ 
+        name: 'grid', 
+
+        sortData: [ { field: 'lname', direction: 'asc' } ],
+        columns: [                
+            { field: 'fname', caption: 'Name', size: '30%', sortable: true },
+            { field: 'adresse', caption: 'adresse', size: '30%', sortable: true },
+
+        ],
+        records: array
+    });    
+});
+
+
+
+
+            });
+    }
+
+
+
+
+        function getColis(id) {
+        var data = {'table': "colis" , 'idPersonne': id };  
+        $.get('php/r.php',
+            data,
+            function (html) {
+                Sites = JSON.parse(html);
+                Sites.forEach(function (s) {
+
+                    console.log(s);
+                })
+
+            });
+    }
+
+
+</script>
+
 </body>
 </html>
