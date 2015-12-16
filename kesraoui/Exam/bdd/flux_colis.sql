@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Client :  127.0.0.1
--- Généré le :  Mer 16 Décembre 2015 à 10:35
+-- Généré le :  Mer 16 Décembre 2015 à 11:30
 -- Version du serveur :  5.6.15-log
 -- Version de PHP :  5.4.24
 
@@ -31,7 +31,15 @@ CREATE TABLE IF NOT EXISTS `colis` (
   `descriptif` varchar(255) NOT NULL,
   `id_personne` int(11) NOT NULL,
   PRIMARY KEY (`id_colis`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=3 ;
+
+--
+-- Contenu de la table `colis`
+--
+
+INSERT INTO `colis` (`id_colis`, `descriptif`, `id_personne`) VALUES
+(1, 'produit 1', 1),
+(2, 'produit 2', 2);
 
 -- --------------------------------------------------------
 
@@ -45,7 +53,15 @@ CREATE TABLE IF NOT EXISTS `personne` (
   `email` varchar(255) NOT NULL,
   `adresse` varchar(255) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=4 ;
+
+--
+-- Contenu de la table `personne`
+--
+
+INSERT INTO `personne` (`id`, `nom`, `email`, `adresse`) VALUES
+(1, 'mehdi', 'mehdi.kesraoui09@gmail.com', '95 rue ****'),
+(2, 'bast', 'bast.zeroual@gmail.com', '2 rue *****');
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
