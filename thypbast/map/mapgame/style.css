@@ -12,12 +12,18 @@
 
 #question  {
 	color:  #3a5795; 
+<<<<<<< HEAD
 	font-size: 20px;
 	width: 500px; 
 	height: 500px;
 	border:3px inset;	
 	margin-top: 5%;
 	margin-left: 10%;
+=======
+	font-size: 20px; 
+	margin-top: 150px;
+	margin-left: 150px;
+>>>>>>> parent of f9cf502... majmap
 	float:left;
 	margin-right: 50px;
 	display: none;
@@ -33,13 +39,20 @@
 	
 	margin-top: 14%;
 	font-size: 25px; 
+	text-align: center; 
 	color:  rgba(22, 122, 198, 1); 
 	display:block;
+<<<<<<< HEAD
 	margin-left:40%;
 
 }
 #afficheNom{
 	margin-top: 2%;
+=======
+
+}
+#afficheNom{
+>>>>>>> parent of f9cf502... majmap
 	font-size: 20px; 
 	text-align: left; 
 	color:  #3a5795; 
