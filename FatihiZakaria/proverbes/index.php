@@ -20,13 +20,14 @@
 		<div align="center"><h2 class="title3"><?php echo 'Lettre : '. $letter ?></h2></div>
 <?php
 	    // Boucle for pages
-	    for($i=1;$i<10;$i++){	
+	    for($i=1;$i<100;$i++){	
 
 	        $lngProverbe = 'français';
 	        $lngProverbe = utf8_decode($lngProverbe);
 
 	        // Set Url Dynamicly
 	        $url = 'http://www.linternaute.com/proverbe/recherche/'. $letter.'/' . $i .'/';
+
 	        $page = file_get_html($url);
 
 	        if(!empty($page)){
@@ -38,7 +39,13 @@
 	        		           
 	        //Get List of Roverbs
 	        $proverbes = $page->find('tr td a strong');
-			
+
+	        // exist for and go to next letter
+			if(empty($proverbes)){
+				echo '<h3 class="title4">Fin du traitement pour la lettre : ' . $letter . '</h3>';
+				break;
+			}	
+
 	        $counterProverbe = 0;
 	        foreach($proverbes as $proverbe)
 	        {   
