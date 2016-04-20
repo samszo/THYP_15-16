@@ -15,12 +15,20 @@
 	    include('bdd/connect.php');
 	    global $conn;
 	    set_time_limit(0);
-	    foreach(range('a','z') as $letter) {
+	    if(isset($_GET("c")))
+	    		$debC = $_GET("c");
+		else	    
+		    $debC = 'a';
+	    if(isset($_GET("i")))
+	    		$debI = $_GET("i");
+		else	    
+		    $debI = 1;
+	    foreach(range($debC,'z') as $letter) {
 ?>
 		<div align="center"><h2 class="title3"><?php echo 'Lettre : '. $letter ?></h2></div>
 <?php
 	    // Boucle for pages
-	    for($i=1;$i<100;$i++){	
+	    for($i=$debI;$i<100;$i++){	
 
 	        $lngProverbe = 'français';
 	        $lngProverbe = utf8_decode($lngProverbe);
@@ -80,6 +88,7 @@
    			 	<h4 class="title2"><?php echo $counterProverbe . ' Proverbes trouv&eacute;s.'; ?></h4><hr>
  <?php
 			}
+			$debI = 1;
 		}
 	}
 ?>
