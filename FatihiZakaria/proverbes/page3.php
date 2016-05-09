@@ -18,58 +18,63 @@
 ?>
 		<div align="center"><h2 class="title3"></h2></div>
 <?php
+			//Langue du proverbe
 			$lngProverbe = 'Haïti';
 	        $lngProverbe = utf8_decode($lngProverbe);
 
-	        // Set Url Dynamicly
+	        // l'url de la page
 	        $url = 'http://haiti-reference.com/pages/plan/arts-et-culture/litterature/proverbes-et-dictons/';
 
+	        // extraire tout le contenu html de l'url
 	        $page = file_get_html($url);
 
+	        // Ajouter l'url à la base de données dans la table pages
 	        if(!empty($page)){
-	        	//Insert Url in Table Pages
 		        $sql = "INSERT INTO pages (urlPage) VALUES ('".$url."')";
 		        $conn->query($sql);
-
 	        }
 	        		           
-	        //Get List of Roverbs
+	        //Récupérer les proverbes 
 	        $proverbes = $page->find('div[class=entry-content] ul li');
 
-	        // exist for and go to next letter
+	        // Sortir si le tableau des proverbes est vide
 			if(empty($proverbes)){
 				echo '<h3 class="title4">Fin du traitement</h3>';
 				break;
 			}	
 
+			// Parcourir tout le tableau qui contient les proverbes
 	        $counterProverbe = 0;
 	        foreach($proverbes as $proverbe)
 	        {   
-	        	
 	        	$counterProverbe++;
-	            // get Last idPage insered
+	            
+	            // Récuperer l'id de l'url courante dans la table Pages
 	            $sql = "SELECT MAX(idPage) FROM pages";
 	            $row = $conn->query($sql);
 	            $maxId = $row->fetch_assoc();
 
-	            // 0 if traduction of proverbe does not exist
+	            // id de traduction du proverbe 0 par défaut
 	            $idProverbeTraduction = 0;
 
-	            // Delete Balise <strong></strong>
-	            preg_match_all("|<[^>]+>(.*)</[^>]+>|U",$proverbe, $out, PREG_PATTERN_ORDER);
-
+	            // supprimer les balises du proverbes
+				$proverbe = strip_tags($proverbe);
 				
-	            //Solve probleme UTF8
-	            $proverbe = utf8_decode(addslashes($out[1][0]));
+	            //l'encodage du texte du proverbe
+	            $proverbe = utf8_decode(addslashes($proverbe));
+	            $proverbe = stripslashes($proverbe);
+	            $proverbe = html_entity_decode($proverbe, ENT_QUOTES, 'cp1252');
+	            $proverbe = preg_replace(array('/[\'^£$%&*()}{@#~?><>;|=_."+¬-]/'), '',$proverbe);
 	            
-	            if(!empty($proverbe)){
-	            	// Insert proverb in Table Proverbes
+	            // Insérer le proverbe dans la base de données avec l'id de la page
+	            if(trim($proverbe) != ''){
 		            $sql = "INSERT INTO proverbes (proverbeContent, idPage, lngProverbe, idProverbeTraduction) 
 		                    VALUES ('".$proverbe."',".$maxId['MAX(idPage)'].",'".$lngProverbe."',".$idProverbeTraduction.")";
 
 		           $conn->query($sql);
 	            }
 	        }
+	        // Afficher le nombre de proverbes trouvés
 	        if($counterProverbe > 0){
  ?>	
  				<h3 class="title1"><?php echo 'Page : '.$url;  ?></h3>	

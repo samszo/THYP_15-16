@@ -18,61 +18,94 @@
 ?>
 		<div align="center"><h2 class="title3"></h2></div>
 <?php
+			$lngProverbeSource = 'haitian';
 			$lngProverbe = 'anglais';
-	        $lngProverbe = utf8_decode($lngProverbe);
 
-	        // Set Url Dynamicly
+	        // l'url de la page
 	        $url = 'https://en.wikiquote.org/wiki/Talk:Haitian_proverbs';
 
+	        // extraire tout le contenu html de l'url
 	        $page = file_get_html($url);
 
+	        // Ajouter l'url à la base de données
 	        if(!empty($page)){
 	        	//Insert Url in Table Pages
 		        $sql = "INSERT INTO pages (urlPage) VALUES ('".$url."')";
 		        $conn->query($sql);
 
 	        }
-	        		           
-	        //Get List of Roverbs
-	        $proverbes = $page->find('ul li ul li');
 
-	        // exist for and go to next letter
-			if(empty($proverbes)){
+	        //Récupérer les proverbes de la langue source
+	        $proverbesSource 	=  $page->find('ul li i');
+
+	        // Récupérer la traduction des premiers proverbes. 
+	        $proverbes 			=  $page->find('ul li ul li');
+
+	        // Sortir si le résultat des proverbes est vide
+			if(empty($proverbesSource) || empty($proverbes)){
 				echo '<h3 class="title4">Fin du traitement</h3>';
 				break;
 			}	
 
 	        $counterProverbe = 0;
-	        foreach($proverbes as $proverbe)
-	        {   
-	        	
-	        	$counterProverbe++;
-	            // get Last idPage insered
-	            $sql = "SELECT MAX(idPage) FROM pages";
-	            $row = $conn->query($sql);
-	            $maxId = $row->fetch_assoc();
 
-	            // 0 if traduction of proverbe does not exist
-	            $idProverbeTraduction = 0;
+            // Récuperer l'id de l'url courante dans la table Pages
+            $sql = "SELECT MAX(idPage) FROM pages";
+            $row = $conn->query($sql);
+            $maxIdPage = $row->fetch_assoc();
 
-	            // Delete Balise <strong></strong>
-	            preg_match_all("|<[^>]+>(.*)</[^>]+>|U",$proverbe, $out, PREG_PATTERN_ORDER);
+	        for($i=0;$i<=count($proverbesSource);$i++)
+			{
+				/******** Proverbes sources ***********/
+				$proverbeSource = $proverbesSource[$i];
+				// Supprimer les balises
+				$proverbeSource = strip_tags($proverbeSource);
+				
+	            //encodage du texte du proverbe
+	            $proverbeSource = utf8_decode(addslashes($proverbeSource));
+	            $proverbeSource = stripslashes($proverbeSource);
+	            $proverbeSource = html_entity_decode($proverbeSource, ENT_QUOTES, 'cp1252');
+	            $proverbeSource = preg_replace(array('/[\'^£$%&*()}{@#~?><>;|=_."+¬-]/'), '',$proverbeSource);
 
-	            //Solve probleme UTF8
-	            $proverbe = utf8_decode(addslashes($out[1][0]));
+	            /******** Proverbes traduits***********/
+				$proverbe = $proverbes[$i];
+				// Delete Balise
+				$proverbe = strip_tags($proverbe);
+				
+	            //encodage du texte du proverbe
+	            $proverbe = utf8_decode(addslashes($proverbe));
+	            $proverbe = stripslashes($proverbe);
+	            $proverbe = html_entity_decode($proverbe, ENT_QUOTES, 'cp1252');
+	            $proverbe = preg_replace(array('/[\'^£$%&*()}{@#~?><>;|=_."+¬-]/'), '',$proverbe);
 
-	            if(!empty($proverbe)){
-	            	// Insert proverb in Table Proverbes
+				if(trim($proverbeSource) != '' && trim($proverbe) != '' ){
+					// Retourner le plus grand id dans la table proverbes
+		            $sql = "SELECT MAX(idProverbe) FROM proverbes";
+		            $row = $conn->query($sql);
+		            $maxIdProverbe = $row->fetch_assoc();
+
+		            // +1 pour le nouveau id du proverbe source
+		            $idProverbeSource = $maxIdProverbe['MAX(idProverbe)'] + 1;
+		            // +2 pour le nouveau id du proverbe traduit
+		            $idProverbe = $maxIdProverbe['MAX(idProverbe)'] + 2;
+
+					// Insérer le proverbe source dans la table
 		            $sql = "INSERT INTO proverbes (proverbeContent, idPage, lngProverbe, idProverbeTraduction) 
-		                    VALUES ('".$proverbe."',".$maxId['MAX(idPage)'].",'".$lngProverbe."',".$idProverbeTraduction.")";
+		                    VALUES ('".$proverbeSource."',".$maxIdPage['MAX(idPage)'].",'".$lngProverbeSource."',".$idProverbe.")";
+		           	$conn->query($sql);
 
-		           $conn->query($sql);
-	            }
-	        }
-	        if($counterProverbe > 0){
+		           	// Insérer le proverbe traduit dans la table
+		            $sql = "INSERT INTO proverbes (proverbeContent, idPage, lngProverbe, idProverbeTraduction) 
+		                    VALUES ('".$proverbe."',".$maxIdPage['MAX(idPage)'].",'".$lngProverbe."',".$idProverbeSource.")";
+		           	$conn->query($sql);		
+				}
+				$i++;					
+			}
+			// Afficher le nombre de proverbes trouvés
+	        if($i > 0){
  ?>	
  				<h3 class="title1"><?php echo 'Page : '.$url;  ?></h3>	
-   			 	<h4 class="title2"><?php echo $counterProverbe . ' Proverbes trouv&eacute;s.'; ?></h4><hr>
+   			 	<h4 class="title2"><?php echo $i + 1 . ' Proverbes trouv&eacute;s.'; ?></h4><hr>
  <?php
 			}
 ?>
